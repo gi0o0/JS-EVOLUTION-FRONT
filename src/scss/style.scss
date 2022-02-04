@@ -1,0 +1,42 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+.btn-primary {
+    color: #fff;
+    background-color: #244e92;
+    border-color: #4368a5;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #244e92;
+    border-color: #4368a5;
+}
+
+.btn-warning {
+    color: #fff;
+    background-color: #244e92;
+    border-color: #4368a5;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #244e92;
+    border-color: #4368a5;
+}
+
+.btn-link {
+    font-weight: 400;
+    color: #244e92;
+    text-decoration: none;
+}
+
+.bg-primary {
+    background-color: #244e92 !important;
+}

@@ -1,0 +1,78 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form autocomplete="off" [formGroup]="forma" (ngSubmit)="login()">
+                  <h1>Acceso</h1>
+                  <p class="text-muted">Iniciar sesi&oacute;n en su cuenta</p>
+
+                  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="n&uacute;mero de documento" autocomplete="username" required formControlName="numeroDocumento" [ngClass]="{
+                      'is-invalid': campoNoValido('numeroDocumento')
+                    }" />
+                    <div class="invalid-feedback" *ngIf="campoNoValido('numeroDocumento')">
+                      Ingresa tu n&uacute;mero de documento
+                  </div>
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Clave" autocomplete="current-password" required passwordToggle name="clave_virtual" formControlName="claveVirtual" [ngClass]="{
+                      'is-invalid': campoNoValido('claveVirtual')
+                    }" />
+                            <div class="invalid-feedback" *ngIf="campoNoValido('claveVirtual')">
+                              Ingresa tu clave
+                          </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                 
+                      <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
+                        <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+                        <span>Ingresar</span>
+                      </button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0" (click)="sendRegister()">Olvid&eacute; mi clave</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div *ngIf="mensajeErrorServicio()" class="row mt-2 p-0 no-gutters align-items-center justify-content-center w-100">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        <p *ngFor="let mensajeError of mensajesErrores">
+                            {{ mensajeError }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            
+
+
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>Inscribirse</h2>
+                  <p>JarzSoft Evolution es una solución orientada a fintech, compañías de financiamiento y entidades o asociaciones solidarias como cooperativas, fondos de empleados y asociaciones, ya sean multiactivas, financieras o de ahorro y crédito.</p>
+                  <button type="button" class="btn btn-primary active mt-3" (click)="sendRegister()">Reg&iacute;strate ahora!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

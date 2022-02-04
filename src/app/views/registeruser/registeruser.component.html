@@ -1,0 +1,75 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <form autocomplete="off" [formGroup]="forma" (ngSubmit)="registerByToken()">
+                <h1>Generar Clave de Ingreso</h1>
+                <p class="text-muted"></p>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Clave" autocomplete="current-password" required passwordToggle name="clave_virtual" formControlName="claveVirtual" [ngClass]="{
+                    'is-invalid': campoNoValido('claveVirtual')
+                  }" />
+                          <div class="invalid-feedback" *ngIf="campoNoValido('claveVirtual')">
+                            Ingresa tu clave
+                        </div>
+                </div>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Ingresa nuevamente tu clave" autocomplete="current-password" required passwordToggle name="clave_virtualR" formControlName="claveVirtualR" [ngClass]="{
+                    'is-invalid': campoNoValido('claveVirtualR')
+                  }" />
+                          <div class="invalid-feedback" *ngIf="campoNoValidoRepeatPass('claveVirtualR')">
+                            Ingresa nuevamente tu clave
+                        </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <button type="button" class="btn btn-block btn-warning" (click)="sendLogin()">Cancelar</button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
+                      <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+                      <span>Aceptar</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="mensajeErrorServicio()"
+                  class="row mt-2 p-0 no-gutters align-items-center justify-content-center w-100">
+                  <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                      <p *ngFor="let mensajeError of mensajesErrores">
+                        {{ mensajeError }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="okServicio"
+                  class="row mt-2 p-0 no-gutters align-items-center justify-content-center w-100">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">
+                      <p *ngFor="let mensaje of mensajes">
+                        {{ mensaje }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
