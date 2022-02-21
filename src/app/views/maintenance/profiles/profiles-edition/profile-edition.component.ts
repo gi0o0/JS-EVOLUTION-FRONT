@@ -13,6 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ProfileEditionComponent implements OnInit {
 
   profile: DTOProfile;
+  loading: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<ProfileEditionComponent>, @Inject(MAT_DIALOG_DATA) private data: DTOProfile, private profileService: ProfileService) { }
 
@@ -28,22 +29,35 @@ export class ProfileEditionComponent implements OnInit {
   }
 
   operar() {
+    this.loading = true;
     if (this.profile != null && this.profile.id > 0) {
       this.profileService.update(this.profile).subscribe(data => {
         this.profileService.listAll().subscribe(profiles => {
           this.profileService.profileCambio.next(profiles);
+          this.loading = false;
           this.profileService.mensajeCambio.next("Se modifico");
+          this.dialogRef.close();
         });
+      }, error => {
+        this.loading = false;
+        this.profileService.mensajeCambio.next(error.error.mensaje);
+        this.dialogRef.close();
       });
     } else {
       this.profileService.create(this.profile).subscribe(data => {
         this.profileService.listAll().subscribe(profiles => {
           this.profileService.profileCambio.next(profiles);
+          this.loading = false;
           this.profileService.mensajeCambio.next("Se registro");
+          this.dialogRef.close();
         });
+      }, error => {
+       this.loading = false;
+        this.profileService.mensajeCambio.next(error.error.mensaje);
+        this.dialogRef.close();
       });
     }
-    this.dialogRef.close();
+
   }
 
 }

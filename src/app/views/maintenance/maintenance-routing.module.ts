@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ProfilesComponent } from './profiles/profiles.component';
+import { ParameterComponent } from './parameter/parameter.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,14 @@ const routes: Routes = [
         data: {
           title: 'Profiles'
         }
-      }
+      },
+      {
+        path: 'parameter',
+        component: ParameterComponent,
+        data: {
+          title: 'Parameters'
+        }
+      },
     ]
   }
 ];

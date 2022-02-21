@@ -1,7 +1,11 @@
+<div  *ngIf="loading">
+  <app-progress-spinner ></app-progress-spinner>
+</div>
+
 <div >
   <mat-form-field>
     <input matInput placeholder="Nombres" [(ngModel)]="profile.name">
   </mat-form-field>
 </div>
 <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
-<button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>

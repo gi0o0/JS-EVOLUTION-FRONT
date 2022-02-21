@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-import { ProfilesComponent } from './profiles/profiles.component';
+
 
 
 // Components Routing
@@ -42,9 +42,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { ParameterComponent } from './parameter/parameter.component';
+import { ParameterEditionComponent } from './parameter/parameter-edition/parameter-edition.component';
+
+import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfileEditionComponent } from './profiles/profiles-edition/profile-edition.component';
-
-
+import { ProfileOptionComponent } from './profiles/profiles-option/profile-option.component';
+import { ProfileUserComponent } from './profiles/profiles-user/profile-user.component';
+import { DialogConfirmationComponent } from "../../_components/dialog-confirmation/dialog-confirmation.component"
+import { DialogMessageComponent } from "../../_components/dialog-message/dialog-message.component";
+import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
 
 
 @NgModule({
@@ -84,8 +92,15 @@ import { ProfileEditionComponent } from './profiles/profiles-edition/profile-edi
     MatTooltipModule,
   ],
   declarations: [
+    ParameterComponent,
+    ParameterEditionComponent,
     ProfilesComponent,
-    ProfileEditionComponent
+    ProfileEditionComponent,
+    ProfileOptionComponent,
+    ProfileUserComponent,
+    DialogConfirmationComponent,
+    DialogMessageComponent,
+    ProgressSpinnerComponent,
   ]
 })
 export class BaseModule { }

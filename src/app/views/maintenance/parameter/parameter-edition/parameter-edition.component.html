@@ -1,0 +1,17 @@
+<div  *ngIf="loading">
+  <app-progress-spinner ></app-progress-spinner>
+</div>
+
+<div >
+  <mat-form-field>
+    <input matInput placeholder="ID" [(ngModel)]="param.id" [readonly]="disableInput">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="TEXTO" [(ngModel)]="param.text" [readonly]="disableInput" >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="VALOR" [(ngModel)]="param.value">
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
