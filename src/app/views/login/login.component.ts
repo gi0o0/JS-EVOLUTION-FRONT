@@ -10,7 +10,6 @@ import { ResponseToken } from '../../_interfaces/ResponseToken';
 import { UtilService } from '../../_services/util/util.service';
 import {
   FALLA_RESPUESTA_MALA, ERROR_NO_CONTROLADO,
-  ID_URL_OLVIDO_CONTRASENA, ID_URL_SOLICITUD_CLAVE, ID_URL_TERMINOS_CONDICIONES,
   EXP_REGULAR_NUMERO_CAMPO,FALLA_NO_ENCONTRADO,FUNCIONALIDADES
 } from '../../_shared/constantes';
 
@@ -83,17 +82,6 @@ export class LoginComponent implements OnInit{
       });
       errorCampos = true;
     }
-
-  /*  if (this.forma.get('aceptaTerminos').errors) {
-      this.mensajesErrores.push('Debes activar el boton de aceptar los Términos y Condiciones');
-      this.submitted = true;
-      errorCampos = true;
-    }
-    if (!this.captchaValidation) {
-      this.mensajesErrores.push('El captcha no fue ingresado, haz clic en él para poder continuar!');
-      this.submitted = true;
-      errorCampos = true;
-    }*/
     return errorCampos;
   }
 
@@ -106,9 +94,10 @@ export class LoginComponent implements OnInit{
       this.cargando = true;
       this.credendiales = this.forma.value;
       this.credendiales.ip = this.ipEquipo;
-      this.securityService.login(this.credendiales).subscribe((response: any) => {
-        this.cargando = false;
-        if (response.body.token) {
+      this.securityService.login(this.credendiales).subscribe((response: any) => {    
+        console.log(response);
+      this.cargando = false;
+        if (response.id) {
           this.mapearCredenciales(response);
           this.submitted = false;
           this.router.navigateByUrl('dashboard');
@@ -137,13 +126,13 @@ export class LoginComponent implements OnInit{
 
  mapearCredenciales = (response: any) => {
     const responseToken: ResponseToken = { tokenAcceso: '', numeroDocumento: '', nombre: '', funcionalidades: '' };
-    responseToken.tokenAcceso = response.body.token;
-    responseToken.numeroDocumento = this.credendiales.numeroDocumento;
-    responseToken.nombre = response.body.username;
-    responseToken.funcionalidades = response.body.funcionalidades;
+    responseToken.tokenAcceso = response.token;
+    responseToken.numeroDocumento = response.id;
+    responseToken.nombre = response.firstName;
+    responseToken.funcionalidades = response.funcionalidades;
 
     this.securityService.guardarCredenciales(responseToken);
-    sessionStorage.setItem(FUNCIONALIDADES, JSON.stringify(response.body.funcionalidades));
+    sessionStorage.setItem(FUNCIONALIDADES, JSON.stringify(response.funcionalidades));
   }
 
 

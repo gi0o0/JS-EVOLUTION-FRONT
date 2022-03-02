@@ -19,24 +19,24 @@ export class ProfileService {
   }
 
   listAll = () => {
-    return this.http.get<DTOProfile[]>(`${this.url}`);
+    return this.http.get<DTOProfile[]>(`${this.url}`,{ withCredentials: true });
   }
 
 
   listById(id: number) {
-    return this.http.get<DTOProfile>(`${this.url}/${id}`);
+    return this.http.get<DTOProfile>(`${this.url}/${id}`,{ withCredentials: true });
   }
 
   create(profile: DTOProfile) {
-    return this.http.post(this.url, profile);
+    return this.http.post(this.url, profile,{ withCredentials: true });
   }
 
   update(profile: DTOProfile) {
-    return this.http.put(this.url, profile);
+    return this.http.put(this.url, profile,{ withCredentials: true });
   }
 
   delete(id: number) {
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{ withCredentials: true });
   }
 
 

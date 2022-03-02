@@ -1,11 +1,23 @@
 <div  *ngIf="loading">
   <app-progress-spinner ></app-progress-spinner>
 </div>
-
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()">
 <div >
+
   <mat-form-field>
-    <input matInput placeholder="Nombres" [(ngModel)]="profile.name">
+  <input matInput placeholder="Nombres" formControlName="name"  [(ngModel)]="profile.name"   [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+  <mat-hint align="end">Not more then 15 characters long.</mat-hint>
+  <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+  <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 15 characters</mat-error>
   </mat-form-field>
+
+  
 </div>
-<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<br>
+<button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
+  <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+  <span>Aceptar</span>
+</button>
 <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+
+</form>

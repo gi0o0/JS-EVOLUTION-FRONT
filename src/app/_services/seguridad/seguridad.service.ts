@@ -8,10 +8,9 @@ import { RegisterByToken } from '../../_interfaces/RegisterByToken';
 import { environment } from '../../../environments/environment';
 import { ResponseToken } from '../../_interfaces/ResponseToken';
 import { UtilService } from '../util/util.service';
+import { CookieService } from 'ngx-cookie-service';
 import {
-  ACCESO_TOKEN_NOMBRE, MATRICULA_SELECCIONADA,
-  NUM_CLIENTE_SELECCIONADA, NUM_CLIENTE_ESTABLECIMIENTO_SELECCIONADA,
-  ACCION_ELIMINAR_TMP
+  ACCESO_TOKEN_NOMBRE
 } from '../../_shared/constantes';
 
 @Injectable({
@@ -23,19 +22,23 @@ export class SeguridadService {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private utilService: UtilService) { }
+    private utilService: UtilService, private cookieService: CookieService) { }
 
   login(login: Login) {
     const requestToken = {
-      usuario: login.numeroDocumento,
+      login: login.numeroDocumento,
       password: login.claveVirtual
     };
-    console.log(requestToken);
-    return this.http.post(`${this.baseUrl}/auth/signin`, requestToken);
+
+    return this.http.post(`${this.baseUrl}/auth/signin`, requestToken, { withCredentials: true });
+  }
+
+  logOut() {
+    return this.http.post(`${this.baseUrl}/auth/signout`, '', { withCredentials: true });
   }
 
   register(register: Register) {
-    
+
     const requestToken = {
       usuario: register.usuario,
       email: register.email
@@ -44,12 +47,11 @@ export class SeguridadService {
   }
 
   registerByToken(register: RegisterByToken) {
-    
+
     const requestToken = {
       token: register.token,
       password: register.password
     };
-    console.log(requestToken);
     return this.http.post(`${this.baseUrl}/auth/signup/token`, requestToken);
   }
 
@@ -65,6 +67,7 @@ export class SeguridadService {
 
 
   obtenerCredenciales() {
+
     const credenciales = sessionStorage.getItem(ACCESO_TOKEN_NOMBRE);
     if (credenciales) {
       return JSON.parse(
@@ -76,14 +79,20 @@ export class SeguridadService {
 
 
   cerrarSesion() {
+
+    this.logOut().subscribe((response: any) => {
+      
+
+    }, error => {
+      console.log(error);
+
+    });
+
+    alert("Cerrando Sesión");
     this.router.navigateByUrl('/login');
-    sessionStorage.clear();
+      sessionStorage.clear();
   }
 
-
-
-
-
-
+ 
 
 }

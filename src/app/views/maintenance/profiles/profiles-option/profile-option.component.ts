@@ -8,6 +8,7 @@ import { DTOOption } from '../../../../_model/DTOOption';
 import { DTOOptionRole } from '../../../../_model/DTOOptionRole';
 
 
+
 @Component({
   selector: 'app-dialogo',
   templateUrl: './profile-option.component.html',
@@ -24,6 +25,7 @@ export class ProfileOptionComponent implements OnInit {
   loading: boolean = false;
 
 
+
   constructor(private dialogRef: MatDialogRef<ProfileOptionComponent>, @Inject(MAT_DIALOG_DATA) private data: DTOProfile,
   private systemService: SystemService) { }
 
@@ -37,6 +39,8 @@ export class ProfileOptionComponent implements OnInit {
     this.getSystems();
 
   }
+
+ 
 
 
   getSystems() {
@@ -59,6 +63,7 @@ export class ProfileOptionComponent implements OnInit {
     this.loading = true;
     this.idSystem = event.value.id
     this.systemService.listOptionByRoleAndSystem(this.profile.id + "", this.idSystem).subscribe(async (res: DTOOption[]) => {
+     
       this.listOption = new Array<DTOOption>();
       res.forEach(r => {
         r.checked = (r.enabled == "true")
@@ -66,6 +71,7 @@ export class ProfileOptionComponent implements OnInit {
       });
       this.loading = false;
     }, error => {
+      console.log(error);
       this.loading = false;
     });
 

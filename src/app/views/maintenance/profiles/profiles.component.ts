@@ -59,11 +59,13 @@ export class ProfilesComponent implements OnInit {
   }
 
 
+
+
   getProfiles() {
-    this.profileService.listAll().subscribe(async (responseMatriculas: DTOProfile[]) => {
+    this.profileService.listAll().subscribe(async (response: DTOProfile[]) => {
       this.listaProfiles = new Array<DTOProfile>();
-      responseMatriculas.forEach(matricula => {
-        this.listaProfiles.push(matricula);
+      response.forEach(obj => {
+        this.listaProfiles.push(obj);
       });
 
       this.dataSource = new MatTableDataSource(this.listaProfiles);
@@ -71,6 +73,7 @@ export class ProfilesComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.loading = false;
     },error => {
+      console.log(error);
          this.loading = false;
           this.profileService.mensajeCambio.next(error.error.mensaje);
         });;

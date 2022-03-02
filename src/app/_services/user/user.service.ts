@@ -15,15 +15,15 @@ export class UserService {
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.url_host + '/user';
+    this.url = environment.url_host + '/user',{ withCredentials: true };
   }
 
   listAll = () => {
-    return this.http.get<DTOUser[]>(`${this.url}`);
+    return this.http.get<DTOUser[]>(`${this.url}`,{ withCredentials: true });
   }
 
   updateProfile(profile: DTOUser) {
-    return this.http.put(`${this.url}/profile`, profile);
+    return this.http.put(`${this.url}/profile`, profile,{ withCredentials: true });
   }
 
 }

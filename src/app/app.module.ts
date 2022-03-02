@@ -45,6 +45,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -64,6 +65,7 @@ import { ChartsModule } from 'ng2-charts';
     TabsModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
+
   
   ],
   declarations: [
@@ -81,6 +83,8 @@ import { ChartsModule } from 'ng2-charts';
       provide: HTTP_INTERCEPTORS, useClass: BasicaAutenticacionInterceptor, multi: true 
     },
     IconSetService,
+    CookieService,
+
   ],
   bootstrap: [ AppComponent ]
 })
