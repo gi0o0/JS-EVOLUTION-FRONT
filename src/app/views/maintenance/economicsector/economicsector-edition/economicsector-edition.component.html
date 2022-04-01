@@ -1,0 +1,52 @@
+<!--
+<div  *ngIf="loading">
+  <app-progress-spinner ></app-progress-spinner>
+</div>
+
+<div >
+  <mat-form-field>
+    <input matInput placeholder="Código" [(ngModel)]="param.codSec" [readonly]="disableInput">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="param.nomSec">
+  </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+-->
+
+
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()">
+  <div>
+
+    <h3 mat-dialog-title>Sector Económico</h3>
+
+    <mat-form-field>
+      <input matInput placeholder="Código" formControlName="codigo" [(ngModel)]="param.codSec"
+        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <mat-hint align="end">Longitud máxima 5 caracteres.</mat-hint>
+      <mat-error *ngIf="hasError('codigo', 'required')">Código Sector es requerido.</mat-error>
+      <mat-error *ngIf="hasError('codigo', 'maxlength')">Longitud máxima 5 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Nombre" formControlName="nombre" [(ngModel)]="param.nomSec"
+        [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+      <mat-hint align="end">Longitud máxima 100 caracteres.</mat-hint>
+      <mat-error *ngIf="hasError('nombre', 'required')">Nombre Sector es requerido.</mat-error>
+      <mat-error *ngIf="hasError('nombre', 'maxlength')">Longitud máxima 100 caracteres.</mat-error>
+    </mat-form-field>
+
+  </div>
+  <br>
+  <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
+    <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+    <span>Aceptar</span>
+  </button>
+  <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+
+</form>

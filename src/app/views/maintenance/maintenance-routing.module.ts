@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ParameterComponent } from './parameter/parameter.component';
-
+import { EconomicsectorComponent } from './economicsector/economicsector.component';
 
 const routes: Routes = [
   {
@@ -30,6 +30,14 @@ const routes: Routes = [
           title: 'Parameters'
         }
       },
+      {
+        path: 'economicsector',
+        component: EconomicsectorComponent,
+        data: {
+          title: 'Economicsector'
+        }
+      },
+
     ]
   }
 ];

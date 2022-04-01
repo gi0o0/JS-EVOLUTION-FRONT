@@ -53,6 +53,8 @@ import { ProfileUserComponent } from './profiles/profiles-user/profile-user.comp
 import { DialogConfirmationComponent } from "../../_components/dialog-confirmation/dialog-confirmation.component"
 import { DialogMessageComponent } from "../../_components/dialog-message/dialog-message.component";
 import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
+import { EconomicsectorComponent } from './economicsector/economicsector.component';
+import { EconomicsectorEditionComponent } from './economicsector/economicsector-edition/economicsector-edition.component';
 
 
 @NgModule({
@@ -102,6 +104,8 @@ import { ProgressSpinnerComponent } from '../../_components/progress-spinner/pro
     DialogConfirmationComponent,
     DialogMessageComponent,
     ProgressSpinnerComponent,
+    EconomicsectorComponent,
+    EconomicsectorEditionComponent
   ]
 })
 export class BaseModule { }
