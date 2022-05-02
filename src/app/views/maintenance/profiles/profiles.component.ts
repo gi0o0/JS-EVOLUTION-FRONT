@@ -111,6 +111,8 @@ export class ProfilesComponent implements OnInit {
     });
   }
 
+  
+
   mostrarDialogo(profile: DTOProfile): void {
     this.dialog
       .open(DialogConfirmationComponent, {

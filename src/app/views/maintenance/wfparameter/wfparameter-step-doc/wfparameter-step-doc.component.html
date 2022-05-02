@@ -1,0 +1,24 @@
+<div  *ngIf="loading">
+  <app-progress-spinner ></app-progress-spinner>
+</div>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()">
+<div >
+
+  <mat-form-field>
+  <input matInput placeholder="Nombre Documento" formControlName="nomDocumento"  [(ngModel)]="o.nomDocumento"   [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+  <mat-hint align="end">Not more then 100 characters long.</mat-hint>
+  <mat-error *ngIf="hasError('nomDocumento', 'required')">Name is required</mat-error>
+  <mat-error *ngIf="hasError('nomDocumento', 'maxlength')">You have more than 100 characters</mat-error>
+  </mat-form-field>
+
+  <mat-checkbox class="example-margin" [(ngModel)]="o.envRec" formControlName="envRec">Envía Recordatorio</mat-checkbox>
+           
+</div>
+<br>
+<button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
+  <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+  <span>Aceptar</span>
+</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+
+</form>

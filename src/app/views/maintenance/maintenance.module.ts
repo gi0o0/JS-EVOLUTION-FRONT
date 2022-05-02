@@ -46,6 +46,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ParameterComponent } from './parameter/parameter.component';
 import { ParameterEditionComponent } from './parameter/parameter-edition/parameter-edition.component';
 
+import { WfParameterComponent } from './wfparameter/wfparameter.component';
+import { WfParameterStepComponent } from './wfparameter/wfparameter-step/wfparameter-step.component';
+import { WfParameterStateComponent } from './wfparameter/wfparameter-state/wfparameter-state.component';
+import { WfParameterStepDocComponent } from './wfparameter/wfparameter-step-doc/wfparameter-step-doc.component';
+import { WfParameterStepUserComponent } from './wfparameter/wfparameter-step-user/wfparameter-step-user.component';
+
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfileEditionComponent } from './profiles/profiles-edition/profile-edition.component';
 import { ProfileOptionComponent } from './profiles/profiles-option/profile-option.component';
@@ -55,6 +61,7 @@ import { DialogMessageComponent } from "../../_components/dialog-message/dialog-
 import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
 import { EconomicsectorComponent } from './economicsector/economicsector.component';
 import { EconomicsectorEditionComponent } from './economicsector/economicsector-edition/economicsector-edition.component';
+
 
 
 @NgModule({
@@ -70,6 +77,7 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
+    MatFormFieldModule,
     MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
@@ -105,7 +113,12 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     DialogMessageComponent,
     ProgressSpinnerComponent,
     EconomicsectorComponent,
-    EconomicsectorEditionComponent
+    EconomicsectorEditionComponent,
+    WfParameterComponent,
+    WfParameterStepComponent,
+    WfParameterStateComponent,
+    WfParameterStepDocComponent,
+    WfParameterStepUserComponent
   ]
 })
 export class BaseModule { }

@@ -1,0 +1,39 @@
+<div>
+  <div *ngIf="loading">
+    <app-progress-spinner></app-progress-spinner>
+  </div>
+
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" >
+
+    <ng-container matColumnDef="user">
+      <mat-header-cell *matHeaderCellDef > User </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.usuario}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef > Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nomUsuario}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef > Select </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-checkbox [(ngModel)]="element.state" (click)="changeChkState(element.usuario)" color="primary"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+</div>

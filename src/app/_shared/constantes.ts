@@ -38,6 +38,7 @@ export const CORREO_COMERCIAL = 6;
 export const ID_URL_FORMATO = '25';
 export const ID_URL_SERVICIO = '26';
 export const EXP_REGULAR_CORREO = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+export const EXP_REGULAR_NUMERO_MAX = /^\d{1}$/;
 export const EXP_REGULAR_NUMERO = /[^0-9]*/g;
 export const EXP_REGULAR_NUMERO_CAMPO = /^([0-9])*$/;
 export const EXP_ESPACIOS = /\s+/g;

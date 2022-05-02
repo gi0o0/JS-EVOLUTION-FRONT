@@ -4,6 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ParameterComponent } from './parameter/parameter.component';
 import { EconomicsectorComponent } from './economicsector/economicsector.component';
+import { WfParameterComponent } from './wfparameter/wfparameter.component';
+import { WfParameterStepComponent } from './wfparameter/wfparameter-step/wfparameter-step.component';
+import { WfParameterStateComponent } from './wfparameter/wfparameter-state/wfparameter-state.component';
+
 
 const routes: Routes = [
   {
@@ -37,7 +41,28 @@ const routes: Routes = [
           title: 'Economicsector'
         }
       },
-
+      {
+        path: 'wfparameter',
+        component: WfParameterComponent,
+        data: {
+          title: 'WFParameter'
+        }
+      },
+      {
+        path: 'wfparameterstep',
+        component: WfParameterStepComponent,
+        data: {
+          title: 'WFParameterstep'
+        }
+      },
+      {
+        path: 'wfparameterstate',
+        component: WfParameterStateComponent,
+        data: {
+          title: 'WFParameterstate'
+        }
+      },
+      
     ]
   }
 ];
