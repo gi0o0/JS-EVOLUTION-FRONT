@@ -11,7 +11,7 @@
 
 <div class="example-container mat-elevation-z8">
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table  [dataSource]="dataSource" matSort matTableExporter  #exporter="matTableExporter" [hiddenColumns]="[3]">
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -46,4 +46,10 @@
   </mat-table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  <button mat-raised-button color="primary" (click)="exporter.exportTable('xlsx', {fileName:'wfparameter'})">Export to xlsx</button>
+  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('csv', {fileName:'wfparameter'})">Export To csv</button>
+  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('json', {fileName:'wfparameter'})">Export To json</button>
+  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('txt', {fileName:'wfparameter'})">Export To txt</button>
+
 </div>

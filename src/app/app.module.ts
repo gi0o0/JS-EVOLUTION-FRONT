@@ -26,6 +26,9 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { RegisterUserComponent } from './views/registeruser/registeruser.component';
 
+
+
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -50,6 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -66,7 +70,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     HttpClientModule,
 
-  
+
   ],
   declarations: [
     AppComponent,

@@ -12,7 +12,7 @@
 
 <div class="example-container mat-elevation-z8">
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table [dataSource]="dataSource" matSort matTableExporter  #exporter="matTableExporter" [hiddenColumns]="[3]">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -44,4 +44,12 @@
   </mat-table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button mat-raised-button color="primary" (click)="exporter.exportTable('xlsx', {fileName:'parametros'})">Export to xlsx</button>
+    <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('csv', {fileName:'parametros'})">Export To csv</button>
+    <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('json', {fileName:'parametros'})">Export To json</button>
+    <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('txt', {fileName:'parametros'})">Export To txt</button>
+    </div>
+
 </div>

@@ -42,6 +42,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 import { ParameterComponent } from './parameter/parameter.component';
 import { ParameterEditionComponent } from './parameter/parameter-edition/parameter-edition.component';
@@ -101,6 +102,7 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTableExporterModule,
   ],
   declarations: [
     ParameterComponent,

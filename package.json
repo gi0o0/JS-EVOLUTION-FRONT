@@ -50,7 +50,9 @@
     "core-js": "^3.9.1",
     "flag-icon-css": "^3.5.0",
     "font-awesome": "^4.7.0",
+    "mat-table-exporter": "^10.2.4",
     "ng2-charts": "^2.4.2",
+    "ng2-pdf-viewer": "5.2.2",
     "ngx-bootstrap": "^6.2.0",
     "ngx-cookie-service": "^2.3.0",
     "ngx-perfect-scrollbar": "^10.1.0",
@@ -59,8 +61,7 @@
     "ts-helpers": "^1.1.2",
     "tslib": "^2.0.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.10.3",
-    "ng2-pdf-viewer": "5.2.2"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1102.4",
