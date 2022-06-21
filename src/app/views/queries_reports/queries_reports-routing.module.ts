@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DocsComponent } from './docs/docs.component';
+import { AddressComponent } from './address/address.component';
+
 
 
 const routes: Routes = [
@@ -20,6 +22,13 @@ const routes: Routes = [
         component: DocsComponent,
         data: {
           title: 'Docs'
+        }
+      },
+      {
+        path: 'address',
+        component: AddressComponent,
+        data: {
+          title: 'Address'
         }
       },
       

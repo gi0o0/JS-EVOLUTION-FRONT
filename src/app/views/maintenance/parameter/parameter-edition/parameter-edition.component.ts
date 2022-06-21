@@ -25,8 +25,10 @@ export class ParameterEditionComponent implements OnInit {
     this.param.text = this.data.text;
     this.param.value = this.data.value;
 
-    if (this.param != null && this.param.id.length > 0) {
-      this.disableInput = true;
+    if (this.param != null && this.param != undefined && this.param.id != undefined){
+      if(this.param.id.length > 0) {
+        this.disableInput = true;
+      }
     }
   }
 

@@ -37,6 +37,10 @@ export class SeguridadService {
     return this.http.post(`${this.baseUrl}/auth/signout`, '', { withCredentials: true });
   }
 
+  refresh() {
+    return this.http.post(`${this.baseUrl}/security/signalrefresh`, '', { withCredentials: true });
+  }
+
   register(register: Register) {
 
     const requestToken = {
@@ -91,6 +95,15 @@ export class SeguridadService {
     alert("Cerrando Sesión");
     this.router.navigateByUrl('/login');
       sessionStorage.clear();
+  }
+
+  
+  refreshSesion() {
+
+    this.refresh().subscribe((response: any) => {}, error => {
+      console.log(error);
+    });
+
   }
 
  

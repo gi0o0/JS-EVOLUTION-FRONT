@@ -1,0 +1,169 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <mat-form-field style="display: block;">
+            <input matInput placeholder="Direcciòn Resultado" [(ngModel)]="address" disabled style="font-size: 30px; font-weight: bold;" maxlength="100">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Nomenclatura</mat-label>
+            <mat-select name="country" (selectionChange)="onParameterChange($event)">
+              <mat-option *ngFor="let s of listaParameter" [value]="s">{{ s.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <br>
+
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('1')"><span>1</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('2')"><span>2</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('3')"><span>3</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('4')"><span>4</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('5')"><span>5</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('6')"><span>6</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('7')"><span>7</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('8')"><span>8</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('9')"><span>9</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-secondary mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('0')"><span>0</span></button>
+          <br>
+          <br>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('A')"><span>A</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('B')"><span>B</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('C')"><span>C</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('D')"><span>D</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('E')"><span>E</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('F')"><span>F</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('G')"><span>G</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('H')"><span>H</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('I')"><span>I</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('J')"><span>J</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('K')"><span>K</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('L')"><span>L</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('M')"><span>M</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('N')"><span>N</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('O')"><span>O</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('P')"><span>P</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('Q')"><span>Q</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('R')"><span>R</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('S')"><span>S</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('T')"><span>T</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('U')"><span>U</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('V')"><span>V</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('W')"><span>W</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('Y')"><span>Y</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('X')"><span>X</span></button>
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('Z')"><span>Z</span></button>
+          <br><br>
+
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('BIS')"><span>BIS</span></button>
+
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('-')"><span>-</span></button>
+
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter('#')"><span>#</span></button>
+
+          <button type="button" name="ingresar"
+            class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
+            (click)="setCaracter(' ')"><span>ESPACIO</span></button>
+
+          <br><br>
+          <div class="form-actions">
+
+            <button type="submit" name="ingresar" class="btn btn-secondary" (click)="setClear('')">
+              <span><mat-icon>delete_sweep</mat-icon>Limpiar</span>
+            </button>
+
+            <button type="submit" name="ingresar" class="btn btn btn-success px-4" [disabled]="cargando">
+              <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+              <span><mat-icon> business</mat-icon>Aceptar</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

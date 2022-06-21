@@ -32,4 +32,8 @@ export class ParameterService {
   delete(o: DTOParameter) {
     return this.http.request('delete', this.url, { body: o , withCredentials: true });
   }
+
+  listParametersByParamId = (id: string) => {
+    return this.http.get<DTOParameter[]>(`${this.url}/${id}`,{ withCredentials: true });
+  }
 }

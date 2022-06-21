@@ -67,11 +67,11 @@ CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
 
 ## CoreUI Pro
 
-* ðŸ’ª  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
-* ðŸ’ª  [CoreUI Pro Bootstrap Admin Template (Ajax)](https://coreui.io/pro/)
-* ðŸ’ª  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
-* ðŸ’ª  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
-* ðŸ’ª  [CoreUI Pro Vue Admin Template](https://coreui.io/pro/vue)
+* í ½í²ª  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
+* í ½í²ª  [CoreUI Pro Bootstrap Admin Template (Ajax)](https://coreui.io/pro/)
+* í ½í²ª  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
+* í ½í²ª  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
+* í ½í²ª  [CoreUI Pro Vue Admin Template](https://coreui.io/pro/vue)
 
 ## Admin Templates built on top of CoreUI Pro
 
