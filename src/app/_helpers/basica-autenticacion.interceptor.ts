@@ -22,6 +22,7 @@ export class BasicaAutenticacionInterceptor implements HttpInterceptor {
         this.URL_API_GATEWARE = [
             `${this.URI_BASE}/auth/signin`,
             `${this.URI_BASE}/auth/signup`,
+            `${this.URI_BASE}/auth/token`,
             `${this.URI_BASE}/auth/signou`,
             `${this.URI_BASE}/parametro`
 
@@ -59,8 +60,6 @@ export class BasicaAutenticacionInterceptor implements HttpInterceptor {
 
                 tap(event => {
                     if (event instanceof HttpResponse) {
-                        console.log(event.status);
-                        console.log(req.method);
                         if(event.status==OK && req.method=='POST'){
                            this.seguridadService.refreshSesion();
                         }                      

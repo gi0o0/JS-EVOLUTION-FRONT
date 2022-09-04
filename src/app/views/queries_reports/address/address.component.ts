@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { DTOParameter } from '../../../_model/DTOParameter';
 import { ParameterService } from '../../../_services/parameter/parameter.service';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { DTOAddressMessage } from '../../../_model/DTOAddressMessage';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +16,11 @@ export class AddressComponent implements OnInit {
   public listaParameter: DTOParameter[];
   loading: boolean = false;
   public address: string = "";
+  addressDto: DTOAddressMessage;
 
-  constructor(private service: ParameterService, public dialog: MatDialog) { }
+  constructor(private dialogRef: MatDialogRef<AddressComponent>, @Inject(MAT_DIALOG_DATA) public id: string, private service: ParameterService, public dialog: MatDialog) {
+    this.id = id;
+  }
 
   ngOnInit() {
     this.getDireccionDian();
@@ -39,10 +43,19 @@ export class AddressComponent implements OnInit {
     this.address = "";
   }
 
-  
-
   onParameterChange(event) {
     this.address = this.address + event.value.text;
+  }
+
+  operar() {
+
+    this.addressDto = new DTOAddressMessage();
+    this.addressDto.id = this.id;
+    this.addressDto.value = this.address;
+
+    this.service.objetoCambioAdrressDian.next(this.addressDto);
+    this.loading = false;
+    this.dialogRef.close();
   }
 
 }

@@ -19,7 +19,7 @@ export class CoreUIIconsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("sds");
+
     const path = this.route.routeConfig.path;
     let prefix = 'cil';
     if (path === 'coreui-icons') {

@@ -1,0 +1,35 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body" [ngStyle]="{'background-color': color}">
+                <form autocomplete="off" [formGroup]="forma" (ngSubmit)="login()">
+                  <h1>Verificación Email</h1>
+                  <h3>{{check}}</h3>
+
+                  <div class="row">
+                    <div class="col-6">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>JarzSoft Evolution</h2>
+                  <p>Software l&iacute;der para fintech, compañías de financiamiento y entidades o asociaciones
+                    solidarias como cooperativas, fondos de empleados y asociaciones, ya sean multiactivas, financieras
+                    o de ahorro y crédito.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

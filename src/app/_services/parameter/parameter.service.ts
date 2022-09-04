@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DTOParameter } from '../../_model/DTOParameter';
 import { environment } from '../../../environments/environment';
 import { Subject } from 'rxjs';
+import { DTOAddressMessage } from '../../_model/DTOAddressMessage';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class ParameterService {
   private url: string;
   profileCambio = new Subject<DTOParameter[]>();
   mensajeCambio = new Subject<string>();
+
+  objetoCambioAdrressDian = new Subject<DTOAddressMessage>();
 
   constructor(private http: HttpClient) {
     this.url = environment.url_host + '/parameter';

@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {
   ACCESO_TOKEN_NOMBRE
 } from '../../_shared/constantes';
+import { DTOWfSteps } from '../../_model/DTOWfSteps';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,10 @@ export class SeguridadService {
       password: register.password
     };
     return this.http.post(`${this.baseUrl}/auth/signup/token`, requestToken);
+  }
+
+  registerByTokenTer(step: DTOWfSteps) {
+    return this.http.post(`${this.baseUrl}/auth/token/check`, step);
   }
 
   validarExpiracionToken(token: string): boolean {

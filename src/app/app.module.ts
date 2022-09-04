@@ -25,7 +25,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { RegisterUserComponent } from './views/registeruser/registeruser.component';
-
+import { CheckUserComponent } from './views/checkuser/checkuser.component';
 
 
 
@@ -79,7 +79,8 @@ import { CookieService } from 'ngx-cookie-service';
     P500Component,
     LoginComponent,
     RegisterComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    CheckUserComponent
   ],
   providers: [
     {

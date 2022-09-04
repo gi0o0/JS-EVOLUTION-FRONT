@@ -9,6 +9,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { RegisterUserComponent } from './views/registeruser/registeruser.component';
+import { CheckUserComponent } from './views/checkuser/checkuser.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,13 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'check-user',
+    component: CheckUserComponent,
+    data: {
+      title: 'check-user'
+    }
+  },
+  {
     path: '',
     component: DefaultLayoutComponent,
     data: {
@@ -66,6 +74,10 @@ export const routes: Routes = [
       {
         path: 'maintenance',
         loadChildren: () => import('./views/maintenance/maintenance.module').then(m => m.BaseModule)
+      },
+      {
+        path: 'request',
+        loadChildren: () => import('./views/request/request.module').then(m => m.BaseModule)
       },
       {
         path: 'base',
