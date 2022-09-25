@@ -1,0 +1,9 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<h1>Paso 3</h1>
+
+<button type="button" name="ingresar" class="btn btn-primary px-4"  (click)="callLoadFile()" mat-button>
+  <mat-icon>file_copy</mat-icon>Cargar Archivos
+</button>

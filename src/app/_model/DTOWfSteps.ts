@@ -1,8 +1,10 @@
 
 import { DTOWfStepsCodeudor } from './DTOWfStepsCodeudor';
+import { DTOWfStepsFinancialInfo } from './DTOWfStepsFinancialInfo';
 export class DTOWfSteps {
 
     idWf: string;
+    isUpdate: boolean;
     numeroRadicacion: number
     idStep: string;
     nextStep: string;
@@ -60,7 +62,7 @@ export class DTOWfSteps {
     refNombre3: string;
     refParen3: string;
     refMail3: string;
-    refCel13: number;
+    refCel3: number;
     bienNombre: string;
     bienValor: number;
     bienAfecta: string;
@@ -76,6 +78,9 @@ export class DTOWfSteps {
     codeu: DTOWfStepsCodeudor;
     comments: string;
     token: string;
+    files: string[];
+    filesNames: string[];
+    financial : DTOWfStepsFinancialInfo;
 
     constructor() { }
 

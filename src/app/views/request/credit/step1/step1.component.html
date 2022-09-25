@@ -1,3 +1,9 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+
+
 <h1>Paso 1</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep1()" class="form-horizontal" #regForm="ngForm">
 
@@ -19,8 +25,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Monto Solicitado" [(ngModel)]="step.valorPress" formControlName="valorPress"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Monto Solicitado" [(ngModel)]="step.valorPress" formControlName="valorPress">
     <span matSuffix>Monto Solicitado</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('valorPress', 'required')">Monto Solicitado es requerido.</mat-error>
@@ -32,8 +37,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Plazo" [(ngModel)]="step.nroCuotas" formControlName="nroCuotas"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="1" max="4">
+    <input matInput placeholder="Plazo" [(ngModel)]="step.nroCuotas" formControlName="nroCuotas" min="1" max="4">
     <span matSuffix>Plazo</span>
     <mat-hint align="end">Longitud máxima 4 número.</mat-hint>
     <mat-error *ngIf="hasError('nroCuotas', 'required')">Plazo es requerido.</mat-error>
@@ -53,7 +57,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Periodicidad</mat-label>
     <mat-select name="typeRequest" [(ngModel)]="step.perCuota" formControlName="perCuota">
-      <mat-option *ngFor="let s of listTypePeriodicidad" [value]="s.id">{{ s.value }}</mat-option>
+      <mat-option *ngFor="let s of listTypePeriodicidad" [value]="s.text">{{ s.value }}</mat-option>
     </mat-select>
     <mat-error *ngIf="hasError('perCuota', 'required')">Periodicidad es requerido.</mat-error>
   </mat-form-field>
@@ -67,8 +71,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Documento de Identidad" [(ngModel)]="step.nitter" formControlName="nitter"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Documento de Identidad" [(ngModel)]="step.nitter" formControlName="nitter" min="5"
+      max="11">
     <span matSuffix>Documento de Identidad</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('nitter', 'required')">Documento de Identidad es requerido.</mat-error>
@@ -79,40 +83,35 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="Nombre" [(ngModel)]="step.nomTer" formControlName="nomTer"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre" [(ngModel)]="step.nomTer" formControlName="nomTer">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('nomTer', 'required')">Nombre es requerido.</mat-error>
     <mat-error *ngIf="hasError('nomTer', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Primer Apellido" [(ngModel)]="step.priApellido" formControlName="priApellido"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Primer Apellido" [(ngModel)]="step.priApellido" formControlName="priApellido">
     <mat-hint align="end">Longitud máxima 50 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('priApellido', 'required')">Primer Apellido es requerido.</mat-error>
     <mat-error *ngIf="hasError('priApellido', 'maxlength')">Longitud máxima 50 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Segundo Apellido" [(ngModel)]="step.segApellido" formControlName="segApellido"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Segundo Apellido" [(ngModel)]="step.segApellido" formControlName="segApellido">
     <mat-hint align="end">Longitud máxima 50 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('segApellido', 'required')">Segundo Apellido es requerido.</mat-error>
     <mat-error *ngIf="hasError('segApellido', 'maxlength')">Longitud máxima 50 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Lugar de expedición" [(ngModel)]="step.lugarDoc" formControlName="lugarDoc"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Lugar de expedición" [(ngModel)]="step.lugarDoc" formControlName="lugarDoc">
     <mat-hint align="end">Longitud máxima 20 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('lugarDoc', 'required')">Lugar de expedición es requerido.</mat-error>
     <mat-error *ngIf="hasError('lugarDoc', 'maxlength')">Longitud máxima 20 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="email" placeholder="Email" [(ngModel)]="step.mailTer" formControlName="mailTer"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput type="email" placeholder="Email" [(ngModel)]="step.mailTer" formControlName="mailTer">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('mailTer', 'required')">Email es requerido.</mat-error>
     <mat-error *ngIf="hasError('mailTer', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -121,7 +120,7 @@
 
   <mat-form-field>
     <input matInput type="text" placeholder="Dirección" [(ngModel)]="step.dirTerpal" readonly
-      formControlName="dirTerpal" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      formControlName="dirTerpal">
     <mat-error *ngIf="hasError('dirTerpal', 'required')">Dirección es requerido.</mat-error>
     <br><br>
     <button mat-button (click)="showWindowAddAddress('dirTerpal')" type='button' mat-flat-button class="btn btn-info">
@@ -131,8 +130,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Teléfono" [(ngModel)]="step.telTer" formControlName="telTer"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Teléfono" [(ngModel)]="step.telTer" formControlName="telTer" min="5" max="11">
     <span matSuffix>Teléfono</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('telTer', 'required')">Teléfono es requerido.</mat-error>
@@ -142,8 +140,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Celular" [(ngModel)]="step.telTer1" formControlName="telTer1"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Celular" [(ngModel)]="step.telTer1" formControlName="telTer1" min="5" max="11">
     <span matSuffix>Celular</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('telTer1', 'required')">Celular es requerido.</mat-error>
@@ -153,8 +150,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Celular2" [(ngModel)]="step.telTer2" formControlName="telTer2"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Celular2" [(ngModel)]="step.telTer2" formControlName="telTer2" min="5" max="11">
     <span matSuffix>Celular2</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('telTer2', 'required')">Celular2 es requerido.</mat-error>
@@ -191,8 +187,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Barrio" [(ngModel)]="step.barrio" formControlName="barrio"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Barrio" [(ngModel)]="step.barrio" formControlName="barrio">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('barrio', 'required')">Barrio es requerido.</mat-error>
     <mat-error *ngIf="hasError('barrio', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -208,8 +203,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Antigüedad" [(ngModel)]="step.antiEmpresa" formControlName="antiEmpresa"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="1" max="2">
+    <input matInput placeholder="Antigüedad" [(ngModel)]="step.antiEmpresa" formControlName="antiEmpresa" min="1"
+      max="2">
     <span matSuffix>Antigüedad</span>
     <mat-hint align="end">Longitud máxima 2 número.</mat-hint>
     <mat-error *ngIf="hasError('antiEmpresa', 'required')">Antigüedad es requerido.</mat-error>
@@ -232,14 +227,14 @@
 
   <mat-label>Tipo de vivienda</mat-label>
   <mat-radio-group aria-label="Tipo de vivienda" [(ngModel)]="step.tipVivienda" formControlName="tipVivienda">
-    <mat-radio-button value="0" [checked]="true">Propia</mat-radio-button>
+    <mat-radio-button value="0">Propia</mat-radio-button>
     <mat-radio-button value="1">Familar</mat-radio-button>
     <mat-radio-button value="2">Arriendo</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field>
     <input matInput type="text" placeholder="Dirección de Trabajo:" [(ngModel)]="step.dirTeralt" readonly
-      formControlName="dirTeralt" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      formControlName="dirTeralt">
     <mat-error *ngIf="hasError('dirTeralt', 'required')">Dirección de Trabajo es requerido.</mat-error>
     <br><br>
     <button mat-button (click)="showWindowAddAddress('dirTeralt')" type='button' mat-flat-button class="btn btn-info">
@@ -249,8 +244,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Barrio Trabajo" [(ngModel)]="step.barrioTra" formControlName="barrioTra"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Barrio Trabajo" [(ngModel)]="step.barrioTra" formControlName="barrioTra">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('barrioTra', 'required')">Barrio Trabajo es requerido.</mat-error>
     <mat-error *ngIf="hasError('barrioTra', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -277,16 +271,15 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Ciudad Dirección Trabajo</mat-label>
-    <mat-select name="typeRequest" [(ngModel)]="step.codiciuDirTrabajoCiud" formControlName="codiciuDirTrabajoCiud">
+    <mat-select name="typeRequest" [(ngModel)]="step.ciuDirTrabajo" formControlName="ciuDirTrabajo">
       <mat-option *ngFor="let s of listCitiesJob" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="hasError('codiciuDirTrabajoCiud', 'required')">Ciudad Dirección Trabajo es requerido.
+    <mat-error *ngIf="hasError('ciuDirTrabajo', 'required')">Ciudad Dirección Trabajo es requerido.
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Teléfono Empresa" [(ngModel)]="step.faxTer" formControlName="faxTer"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Teléfono Empresa" [(ngModel)]="step.faxTer" formControlName="faxTer" min="5" max="11">
     <span matSuffix>Teléfono Empresa</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('faxTer', 'required')">Teléfono Empresa es requerido.</mat-error>
@@ -337,8 +330,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Número de Cuenta" [(ngModel)]="step.numCta" formControlName="numCta"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="6" max="20">
+    <input matInput placeholder="Número de Cuenta" [(ngModel)]="step.numCta" formControlName="numCta" min="6" max="20">
     <span matSuffix>Número de Cuenta</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('numCta', 'required')">Número de Cuenta es requerido.</mat-error>
@@ -349,7 +341,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Identificación Conyuge" [(ngModel)]="step.idConyuge" formControlName="idConyuge"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+      min="5" max="11">
     <span matSuffix>Identificación Conyuge</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('idConyuge', 'required')">Identificación Conyuge es requerido.</mat-error>
@@ -359,8 +351,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Nombre y Apellidos del Conyugue" [(ngModel)]="step.nomCony" formControlName="nomCony"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre y Apellidos del Conyugue" [(ngModel)]="step.nomCony" formControlName="nomCony">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('nomCony', 'required')">Nombre y Apellidos del Conyugue es requerido.
     </mat-error>
@@ -369,7 +360,7 @@
 
   <mat-form-field>
     <input matInput type="email" placeholder="Email Conyugue" [(ngModel)]="step.emailConyuge"
-      formControlName="emailConyuge" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      formControlName="emailConyuge">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('emailConyuge', 'required')">Email Conyugue es requerido.</mat-error>
     <mat-error *ngIf="hasError('emailConyuge', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -379,7 +370,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Celular del conyugue" [(ngModel)]="step.celConyuge" formControlName="celConyuge"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+      min="5" max="11">
     <span matSuffix>Celular del conyugue</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('celConyuge', 'pattern')">Error Formato Celular del conyugue</mat-error>
@@ -391,24 +382,22 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="Nombre Referencia 1" [(ngModel)]="step.refNombre1" formControlName="refNombre1"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre Referencia 1" [(ngModel)]="step.refNombre1" formControlName="refNombre1">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refNombre1', 'required')">Nombre Referencia 1 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refNombre1', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Parentesco Referencia 1" [(ngModel)]="step.refParen1" formControlName="refParen1"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Parentesco Referencia 1" [(ngModel)]="step.refParen1" formControlName="refParen1">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refParen1', 'required')">Parentesco Referencia 1 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refParen1', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="email" placeholder="Email Referencia 1" [(ngModel)]="step.refMail1" formControlName="refMail1"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput type="email" placeholder="Email Referencia 1" [(ngModel)]="step.refMail1"
+      formControlName="refMail1">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refMail1', 'required')">Email Referencia 1 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refMail1', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -416,8 +405,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Celular Referencia 1" [(ngModel)]="step.refCel1" formControlName="refCel1"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Celular Referencia 1" [(ngModel)]="step.refCel1" formControlName="refCel1" min="5"
+      max="11">
     <span matSuffix>Celular Referencia 1</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('refCel1', 'required')">Celular Referencia 1 es requerido.</mat-error>
@@ -427,24 +416,22 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Nombre Referencia 2" [(ngModel)]="step.refNombre2" formControlName="refNombre2"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre Referencia 2" [(ngModel)]="step.refNombre2" formControlName="refNombre2">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refNombre2', 'required')">Nombre Referencia 2 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refNombre2', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Parentesco Referencia 2" [(ngModel)]="step.refParen2" formControlName="refParen2"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Parentesco Referencia 2" [(ngModel)]="step.refParen2" formControlName="refParen2">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refParen2', 'required')">Parentesco Referencia 2 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refParen2', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="email" placeholder="Email Referencia 2" [(ngModel)]="step.refMail2" formControlName="refMail2"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput type="email" placeholder="Email Referencia 2" [(ngModel)]="step.refMail2"
+      formControlName="refMail2">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refMail2', 'required')">Email Referencia 2 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refMail2', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -452,8 +439,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Celular Referencia 2" [(ngModel)]="step.refCel2" formControlName="refCel2"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Celular Referencia 2" [(ngModel)]="step.refCel2" formControlName="refCel2" min="5"
+      max="11">
     <span matSuffix>Celular Referencia 2</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('refCel2', 'required')">Celular Referencia 2 es requerido.</mat-error>
@@ -463,24 +450,22 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Nombre Referencia 3" [(ngModel)]="step.refNombre3" formControlName="refNombre3"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre Referencia 3" [(ngModel)]="step.refNombre3" formControlName="refNombre3">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refNombre3', 'required')">Nombre Referencia 3 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refNombre3', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Parentesco Referencia 3" [(ngModel)]="step.refParen3" formControlName="refParen3"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Parentesco Referencia 3" [(ngModel)]="step.refParen3" formControlName="refParen3">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refParen3', 'required')">Parentesco Referencia 3 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refParen3', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="email" placeholder="Email Referencia 3" [(ngModel)]="step.refMail3" formControlName="refMail3"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput type="email" placeholder="Email Referencia 3" [(ngModel)]="step.refMail3"
+      formControlName="refMail3">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('refMail3', 'required')">Email Referencia 3 es requerido.</mat-error>
     <mat-error *ngIf="hasError('refMail3', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -488,8 +473,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Celular Referencia 3" [(ngModel)]="step.refCel3" formControlName="refCel3"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+    <input matInput placeholder="Celular Referencia 3" [(ngModel)]="step.refCel3" formControlName="refCel3" min="5"
+      max="11">
     <span matSuffix>Celular Referencia 3</span>
     <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
     <mat-error *ngIf="hasError('refCel3', 'required')">Celular Referencia 3 es requerido.</mat-error>
@@ -501,16 +486,14 @@
   <h1>Bienes Raíces </h1>
 
   <mat-form-field>
-    <input matInput placeholder="Nombre del bien" [(ngModel)]="step.bienNombre" formControlName="bienNombre"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Nombre del bien" [(ngModel)]="step.bienNombre" formControlName="bienNombre">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('bienNombre', 'required')">Nombre del bien es requerido.</mat-error>
     <mat-error *ngIf="hasError('bienNombre', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Valor Comercial" [(ngModel)]="step.bienValor" formControlName="bienValor"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Valor Comercial" [(ngModel)]="step.bienValor" formControlName="bienValor">
     <span matSuffix>Valor Comercial</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('bienValor', 'required')">Valor Comercial es requerido.</mat-error>
@@ -525,7 +508,7 @@
 
   <mat-label>Afectación familiar</mat-label>
   <mat-radio-group aria-label="Afectación familiar" [(ngModel)]="step.bienAfecta" formControlName="bienAfecta">
-    <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+    <mat-radio-button value="0">Si</mat-radio-button>
     <mat-radio-button value="1">No</mat-radio-button>
   </mat-radio-group>
   <br>
@@ -534,14 +517,13 @@
 
   <mat-label>Hipoteca</mat-label>
   <mat-radio-group aria-label="Hipoteca" [(ngModel)]="step.bienHipoteca" formControlName="bienHipoteca">
-    <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+    <mat-radio-button value="0">Si</mat-radio-button>
     <mat-radio-button value="1">No</mat-radio-button>
   </mat-radio-group>
   <br>
 
   <mat-form-field>
-    <input matInput placeholder="A favor de" [(ngModel)]="step.bienHipAFavor" formControlName="bienHipAFavor"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="A favor de" [(ngModel)]="step.bienHipAFavor" formControlName="bienHipAFavor">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('bienHipAFavor', 'required')">A favor de es requerido.</mat-error>
     <mat-error *ngIf="hasError('bienHipAFavor', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -550,32 +532,28 @@
   <h1>Vehículo</h1>
 
   <mat-form-field>
-    <input matInput placeholder="Marca" [(ngModel)]="step.vehMarca" formControlName="vehMarca"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Marca" [(ngModel)]="step.vehMarca" formControlName="vehMarca">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('vehMarca', 'required')">Marca de es requerido.</mat-error>
     <mat-error *ngIf="hasError('vehMarca', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Clase" [(ngModel)]="step.vehClase" formControlName="vehClase"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Clase" [(ngModel)]="step.vehClase" formControlName="vehClase">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('vehClase', 'required')">Clase es requerido.</mat-error>
     <mat-error *ngIf="hasError('vehClase', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Modelo" [(ngModel)]="step.vehModelo" formControlName="vehModelo"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Modelo" [(ngModel)]="step.vehModelo" formControlName="vehModelo">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('vehModelo', 'required')">Modelo de es requerido.</mat-error>
     <mat-error *ngIf="hasError('vehModelo', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Placa" [(ngModel)]="step.vehPlaca" formControlName="vehPlaca"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Placa" [(ngModel)]="step.vehPlaca" formControlName="vehPlaca">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('vehPlaca', 'required')">Placa es requerido.</mat-error>
     <mat-error *ngIf="hasError('vehPlaca', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -585,22 +563,20 @@
 
   <mat-label>Pignorado</mat-label>
   <mat-radio-group aria-label="Pignorado" [(ngModel)]="step.vehPignorado" formControlName="vehPignorado">
-    <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+    <mat-radio-button value="0">Si</mat-radio-button>
     <mat-radio-button value="1">No</mat-radio-button>
   </mat-radio-group>
   <br>
 
   <mat-form-field>
-    <input matInput placeholder="A favor de" [(ngModel)]="step.vehPigAFavor" formControlName="vehPigAFavor"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="A favor de" [(ngModel)]="step.vehPigAFavor" formControlName="vehPigAFavor">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('vehPigAFavor', 'required')">A favor de es requerido.</mat-error>
     <mat-error *ngIf="hasError('vehPigAFavor', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Valor Comercial" [(ngModel)]="step.vehValVomercial" formControlName="vehValVomercial"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Valor Comercial" [(ngModel)]="step.vehValVomercial" formControlName="vehValVomercial">
     <span matSuffix>Valor Comercial</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('vehValVomercial', 'required')">Valor Comercial es requerido.</mat-error>
@@ -626,7 +602,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Documento de Identidad" [(ngModel)]="step.codeu.nitter"
-        formControlName="nitter_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="nitter_codeu" min="5" max="11">
       <span matSuffix>Documento de Identidad</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('nitter_codeu', 'required')">Documento de Identidad es requerido.</mat-error>
@@ -636,8 +612,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Nombre" [(ngModel)]="step.codeu.nomTer" formControlName="nomTer_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Nombre" [(ngModel)]="step.codeu.nomTer" formControlName="nomTer_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('nomTer_codeu', 'required')">Nombre es requerido.</mat-error>
       <mat-error *ngIf="hasError('nomTer_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -645,7 +620,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Primer Apellido" [(ngModel)]="step.codeu.priApellido"
-        formControlName="priApellido_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="priApellido_codeu">
       <mat-hint align="end">Longitud máxima 50 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('priApellido_codeu', 'required')">Primer Apellido es requerido.</mat-error>
       <mat-error *ngIf="hasError('priApellido_codeu', 'maxlength')">Longitud máxima 50 caracteres.</mat-error>
@@ -653,7 +628,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Segundo Apellido" [(ngModel)]="step.codeu.segApellido"
-        formControlName="segApellido_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="segApellido_codeu">
       <mat-hint align="end">Longitud máxima 50 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('segApellido_codeu', 'required')">Segundo Apellido es requerido.</mat-error>
       <mat-error *ngIf="hasError('segApellido_codeu', 'maxlength')">Longitud máxima 50 caracteres.</mat-error>
@@ -661,15 +636,14 @@
 
     <mat-form-field>
       <input matInput placeholder="Lugar de expedición" [(ngModel)]="step.codeu.lugarDoc"
-        formControlName="lugarDoc_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="lugarDoc_codeu">
       <mat-hint align="end">Longitud máxima 20 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('lugarDoc_codeu', 'required')">Lugar de expedición es requerido.</mat-error>
       <mat-error *ngIf="hasError('lugarDoc_codeu', 'maxlength')">Longitud máxima 20 caracteres.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="email" placeholder="Email" [(ngModel)]="step.codeu.mailTer" formControlName="mailTer_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput type="email" placeholder="Email" [(ngModel)]="step.codeu.mailTer" formControlName="mailTer_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('mailTer_codeu', 'required')">Email es requerido.</mat-error>
       <mat-error *ngIf="hasError('mailTer_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -678,7 +652,7 @@
 
     <mat-form-field>
       <input matInput type="text" placeholder="Dirección" [(ngModel)]="step.codeu.dirTerpal" readonly
-        formControlName="dirTerpal_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="dirTerpal_codeu">
       <mat-error *ngIf="hasError('dirTerpal_codeu', 'required')">Dirección es requerido.</mat-error>
       <br><br>
       <button mat-button (click)="showWindowAddAddress('dirTerpal_codeu')" type='button' mat-flat-button
@@ -689,8 +663,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Teléfono" [(ngModel)]="step.codeu.telTer" formControlName="telTer_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+      <input matInput placeholder="Teléfono" [(ngModel)]="step.codeu.telTer" formControlName="telTer_codeu" min="5"
+        max="11">
       <span matSuffix>Teléfono</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('telTer_codeu', 'required')">Teléfono es requerido.</mat-error>
@@ -736,8 +710,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Barrio" [(ngModel)]="step.codeu.barrio" formControlName="barrio_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Barrio" [(ngModel)]="step.codeu.barrio" formControlName="barrio_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('barrio_codeu', 'required')">Barrio es requerido.</mat-error>
       <mat-error *ngIf="hasError('barrio_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -745,7 +718,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Antigüedad" [(ngModel)]="step.codeu.antiEmpresa" formControlName="antiEmpresa_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="1" max="2">
+        min="1" max="2">
       <span matSuffix>Antigüedad</span>
       <mat-hint align="end">Longitud máxima 2 número.</mat-hint>
       <mat-error *ngIf="hasError('antiEmpresa_codeu', 'required')">Antigüedad es requerido.</mat-error>
@@ -757,7 +730,7 @@
     <mat-label>Tipo de vivienda</mat-label>
     <mat-radio-group aria-label="Tipo de vivienda" [(ngModel)]="step.codeu.tipVivienda"
       formControlName="tipVivienda_codeu">
-      <mat-radio-button value="0" [checked]="true">Propia</mat-radio-button>
+      <mat-radio-button value="0">Propia</mat-radio-button>
       <mat-radio-button value="1">Familar</mat-radio-button>
       <mat-radio-button value="2">Arriendo</mat-radio-button>
     </mat-radio-group>
@@ -765,7 +738,7 @@
 
     <mat-form-field>
       <input matInput type="text" placeholder="Dirección de Trabajo:" [(ngModel)]="step.codeu.dirTeralt" readonly
-        formControlName="dirTeralt_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="dirTeralt_codeu">
       <mat-error *ngIf="hasError('dirTeralt_codeu', 'required')">Dirección de Trabajo es requerido.</mat-error>
       <br><br>
       <button mat-button (click)="showWindowAddAddress('dirTeralt_codeu')" type='button' mat-flat-button
@@ -775,8 +748,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Barrio Trabajo" [(ngModel)]="step.codeu.barrioTra" formControlName="barrioTra_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Barrio Trabajo" [(ngModel)]="step.codeu.barrioTra" formControlName="barrioTra_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('barrioTra_codeu', 'required')">Barrio Trabajo es requerido.</mat-error>
       <mat-error *ngIf="hasError('barrioTra_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -803,17 +775,16 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Ciudad Dirección Trabajo</mat-label>
-      <mat-select name="typeRequest" [(ngModel)]="step.codeu.codiciuDirTrabajoCiud"
-        formControlName="codiciuDirTrabajoCiud_codeu">
+      <mat-select name="typeRequest" [(ngModel)]="step.codeu.ciuDirTrabajo" formControlName="ciuDirTrabajo_codeu">
         <mat-option *ngFor="let s of listCitiesDeuJob" [value]="s.id">{{ s.name }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="hasError('codiciuDirTrabajoCiud_codeu', 'required')">Ciudad Dirección Trabajo es requerido.
+      <mat-error *ngIf="hasError('ciuDirTrabajo_codeu', 'required')">Ciudad Dirección Trabajo es requerido.
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput placeholder="Teléfono Empresa" [(ngModel)]="step.codeu.faxTer" formControlName="faxTer_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        min="5" max="11">
       <span matSuffix>Teléfono Empresa</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('faxTer_codeu', 'required')">Teléfono Empresa es requerido.</mat-error>
@@ -850,7 +821,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Identificación Conyuge" [(ngModel)]="step.codeu.idConyuge"
-        formControlName="idConyuge_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="idConyuge_codeu" min="5" max="11">
       <span matSuffix>Identificación Conyuge</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('idConyuge_codeu', 'required')">Identificación Conyuge es requerido.</mat-error>
@@ -861,7 +832,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre y Apellidos del Conyugue" [(ngModel)]="step.codeu.nomCony"
-        formControlName="nomCony_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="nomCony_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('nomCony_codeu', 'required')">Nombre y Apellidos del Conyugue es requerido.
       </mat-error>
@@ -870,7 +841,7 @@
 
     <mat-form-field>
       <input matInput type="email" placeholder="Email Conyugue" [(ngModel)]="step.codeu.emailConyuge"
-        formControlName="emailConyuge_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="emailConyuge_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('emailConyuge_codeu', 'required')">Email Conyugue es requerido.</mat-error>
       <mat-error *ngIf="hasError('emailConyuge_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -880,7 +851,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Celular del conyugue" [(ngModel)]="step.codeu.celConyuge"
-        formControlName="celConyuge_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="celConyuge_codeu" min="5" max="11">
       <span matSuffix>Celular del conyugue</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('celConyuge_codeu', 'pattern')">Error Formato Celular del conyugue</mat-error>
@@ -893,7 +864,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre Referencia 1" [(ngModel)]="step.codeu.refNombre1"
-        formControlName="refNombre1_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refNombre1_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refNombre1_codeu', 'required')">Nombre Referencia 1 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refNombre1_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -901,7 +872,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Parentesco Referencia 1" [(ngModel)]="step.codeu.refParen1"
-        formControlName="refParen1_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refParen1_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refParen1_codeu', 'required')">Parentesco Referencia 1 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refParen1_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -909,7 +880,7 @@
 
     <mat-form-field>
       <input matInput type="email" placeholder="Email Referencia 1" [(ngModel)]="step.codeu.refMail1"
-        formControlName="refMail1_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refMail1_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refMail1_codeu', 'required')">Email Referencia 1 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refMail1_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -918,7 +889,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Celular Referencia 1" [(ngModel)]="step.codeu.refCel1"
-        formControlName="refCel1_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="refCel1_codeu" min="5" max="11">
       <span matSuffix>Celular Referencia 1</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('refCel1_codeu', 'required')">Celular Referencia 1 es requerido.</mat-error>
@@ -929,7 +900,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre Referencia 2" [(ngModel)]="step.codeu.refNombre2"
-        formControlName="refNombre2_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refNombre2_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refNombre2_codeu', 'required')">Nombre Referencia 2 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refNombre2_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -937,7 +908,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Parentesco Referencia 2" [(ngModel)]="step.codeu.refParen2"
-        formControlName="refParen2_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refParen2_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refParen2_codeu', 'required')">Parentesco Referencia 2 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refParen2_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -945,7 +916,7 @@
 
     <mat-form-field>
       <input matInput type="email" placeholder="Email Referencia 2" [(ngModel)]="step.codeu.refMail2"
-        formControlName="refMail2_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refMail2_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refMail2_codeu', 'required')">Email Referencia 2 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refMail2_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -954,7 +925,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Celular Referencia 2" [(ngModel)]="step.codeu.refCel2"
-        formControlName="refCel2_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="refCel2_codeu" min="5" max="11">
       <span matSuffix>Celular Referencia 2</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('refCel2_codeu', 'required')">Celular Referencia 2 es requerido.</mat-error>
@@ -965,7 +936,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre Referencia 3" [(ngModel)]="step.codeu.refNombre3"
-        formControlName="refNombre3_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refNombre3_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refNombre3_codeu', 'required')">Nombre Referencia 3 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refNombre3_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -973,7 +944,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Parentesco Referencia 3" [(ngModel)]="step.codeu.refParen3"
-        formControlName="refParen3_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refParen3_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refParen3_codeu', 'required')">Parentesco Referencia 3 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refParen3_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -981,7 +952,7 @@
 
     <mat-form-field>
       <input matInput type="email" placeholder="Email Referencia 3" [(ngModel)]="step.codeu.refMail3"
-        formControlName="refMail3_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="refMail3_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('refMail3_codeu', 'required')">Email Referencia 3 es requerido.</mat-error>
       <mat-error *ngIf="hasError('refMail3_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -990,7 +961,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Celular Referencia 3" [(ngModel)]="step.codeu.refCel3"
-        formControlName="refCel3_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" min="5" max="11">
+        formControlName="refCel3_codeu" min="5" max="11">
       <span matSuffix>Celular Referencia 3</span>
       <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
       <mat-error *ngIf="hasError('refCel3_codeu', 'required')">Celular Referencia 3 es requerido.</mat-error>
@@ -1005,15 +976,15 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre del bien" [(ngModel)]="step.codeu.bienNombre"
-        formControlName="bienNombre_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="bienNombre_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('bienNombre_codeu', 'required')">Nombre del bien es requerido.</mat-error>
       <mat-error *ngIf="hasError('bienNombre_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Valor Comercial" [(ngModel)]="step.codeu.bienValor" formControlName="bienValor_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Valor Comercial" [(ngModel)]="step.codeu.bienValor"
+        formControlName="bienValor_codeu">
       <span matSuffix>Valor Comercial</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('bienValor_codeu', 'required')">Valor Comercial es requerido.</mat-error>
@@ -1029,7 +1000,7 @@
     <mat-label>Afectación familiar</mat-label>
     <mat-radio-group aria-label="Afectación familiar" [(ngModel)]="step.codeu.bienAfecta"
       formControlName="bienAfecta_codeu">
-      <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+      <mat-radio-button value="0">Si</mat-radio-button>
       <mat-radio-button value="1">No</mat-radio-button>
     </mat-radio-group>
     <br>
@@ -1038,14 +1009,14 @@
 
     <mat-label>Hipoteca</mat-label>
     <mat-radio-group aria-label="Hipoteca" [(ngModel)]="step.codeu.bienHipoteca" formControlName="bienHipoteca_codeu">
-      <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+      <mat-radio-button value="0">Si</mat-radio-button>
       <mat-radio-button value="1">No</mat-radio-button>
     </mat-radio-group>
     <br>
 
     <mat-form-field>
       <input matInput placeholder="A favor de" [(ngModel)]="step.codeu.bienHipAFavor"
-        formControlName="bienHipAFavor_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="bienHipAFavor_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('bienHipAFavor_codeu', 'required')">A favor de es requerido.</mat-error>
       <mat-error *ngIf="hasError('bienHipAFavor_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -1054,32 +1025,28 @@
     <h1>Vehículo Codeudor</h1>
 
     <mat-form-field>
-      <input matInput placeholder="Marca" [(ngModel)]="step.codeu.vehMarca" formControlName="vehMarca_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Marca" [(ngModel)]="step.codeu.vehMarca" formControlName="vehMarca_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('vehMarca_codeu', 'required')">Marca de es requerido.</mat-error>
       <mat-error *ngIf="hasError('vehMarca_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Clase" [(ngModel)]="step.codeu.vehClase" formControlName="vehClase_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Clase" [(ngModel)]="step.codeu.vehClase" formControlName="vehClase_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('vehClase_codeu', 'required')">Clase es requerido.</mat-error>
       <mat-error *ngIf="hasError('vehClase_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Modelo" [(ngModel)]="step.codeu.vehModelo" formControlName="vehModelo_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Modelo" [(ngModel)]="step.codeu.vehModelo" formControlName="vehModelo_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('vehModelo_codeu', 'required')">Modelo de es requerido.</mat-error>
       <mat-error *ngIf="hasError('vehModelo_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Placa" [(ngModel)]="step.codeu.vehPlaca" formControlName="vehPlaca_codeu"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+      <input matInput placeholder="Placa" [(ngModel)]="step.codeu.vehPlaca" formControlName="vehPlaca_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('vehPlaca_codeu', 'required')">Placa es requerido.</mat-error>
       <mat-error *ngIf="hasError('vehPlaca_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -1089,14 +1056,14 @@
 
     <mat-label>Pignorado</mat-label>
     <mat-radio-group aria-label="Pignorado" [(ngModel)]="step.codeu.vehPignorado" formControlName="vehPignorado_codeu">
-      <mat-radio-button value="0" [checked]="true">Si</mat-radio-button>
+      <mat-radio-button value="0">Si</mat-radio-button>
       <mat-radio-button value="1">No</mat-radio-button>
     </mat-radio-group>
     <br>
 
     <mat-form-field>
       <input matInput placeholder="A favor de" [(ngModel)]="step.codeu.vehPigAFavor"
-        formControlName="vehPigAFavor_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="vehPigAFavor_codeu">
       <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('vehPigAFavor_codeu', 'required')">A favor de es requerido.</mat-error>
       <mat-error *ngIf="hasError('vehPigAFavor_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
@@ -1104,7 +1071,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Valor Comercial" [(ngModel)]="step.codeu.vehValVomercial"
-        formControlName="vehValVomercial_codeu" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+        formControlName="vehValVomercial_codeu">
       <span matSuffix>Valor Comercial</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('vehValVomercial_codeu', 'required')">Valor Comercial es requerido.</mat-error>
@@ -1119,18 +1086,15 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
-      [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
   </mat-form-field>
 
   <br><br>
   <div class="form-actions">
-    <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
-      <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
-      <span>Aceptar</span>
+    <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>
+      <mat-icon>fast_forward</mat-icon>Continuar
     </button>
-    <button mat-raised-button color="warn" class="btn btn-secondary" (click)="hideForm()">Cancelar</button>
   </div>
 </form>

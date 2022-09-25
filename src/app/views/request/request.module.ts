@@ -1,6 +1,6 @@
 // Angular
 import { CommonModule } from '@angular/common';
-import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 
@@ -45,18 +45,26 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { CreditComponent } from './credit/credit.component';
 
-import { DialogConfirmationComponent } from "../../_components/dialog-confirmation/dialog-confirmation.component"
-import { DialogMessageComponent } from "../../_components/dialog-message/dialog-message.component";
-import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
-import { AddressComponent } from '../queries_reports/address/address.component';
+import { Step1Component } from './credit/step1/step1.component';
+import { Step2Component } from './credit/step2/step2.component';
+import { Step3Component } from './credit/step3/step3.component';
+import { Step4Component } from './credit/step4/step4.component';
+import { Step5Component } from './credit/step5/step5.component';
+import { Step6Component } from './credit/step6/step6.component';
+import { Step7Component } from './credit/step7/step7.component';
+import { Step8Component } from './credit/step8/step8.component';
+import { CreditCancelComponent } from './credit/credit-cancel/credit-cancel.component';
+import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
 
+
+import { SharedModule } from '../sharedModule/shared.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     BaseRoutingModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -90,14 +98,24 @@ import { AddressComponent } from '../queries_reports/address/address.component';
     MatToolbarModule,
     MatTooltipModule,
     MatTableExporterModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
+    SharedModule
+
+
   ],
   declarations: [
     CreditComponent,
-    AddressComponent,
-    DialogConfirmationComponent,
-    DialogMessageComponent,
-    ProgressSpinnerComponent,
+    Step1Component,
+    Step2Component,
+    Step3Component,
+    Step4Component,
+    Step5Component,
+    Step6Component,
+    Step7Component,
+    Step8Component,
+    CreditCancelComponent,
+    CreditEditComponent
   ]
 })
 export class BaseModule { }
+

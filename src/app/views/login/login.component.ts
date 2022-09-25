@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit{
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
       numeroDocumento: ['', [Validators.required,
-      Validators.pattern(EXP_REGULAR_NUMERO_CAMPO), Validators.maxLength(15), this.utilService.validarNumeroIdentificacion]],
+      Validators.pattern(EXP_REGULAR_NUMERO_CAMPO), Validators.maxLength(15)]],
       claveVirtual: ['', Validators.required],     
     });
   }

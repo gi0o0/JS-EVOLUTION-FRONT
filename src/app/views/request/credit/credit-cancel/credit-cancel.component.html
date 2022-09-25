@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Cancelar Solicitud</h1>
+<div mat-dialog-content>
+    <p>{{mensaje}}</p>
+</div>
+<button mat-raised-button color="primary" (click)="cerrarDialogo()" class="btn btn-info mat-accent">Cancelada por el cliente</button>
+<button mat-raised-button color="warn" (click)="confirmado()" class="btn btn-info mat-accent" cdkFocusInitial>Solicitud Negada</button>
+
+  

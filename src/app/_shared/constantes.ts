@@ -104,3 +104,5 @@ export const Registro = "Registro";
 export const Autenticación = "Autenticación";
                                                                                                                                                 
 export const FUNCIONALIDADES = "funcionalidades";
+
+export const WK_4 =4;

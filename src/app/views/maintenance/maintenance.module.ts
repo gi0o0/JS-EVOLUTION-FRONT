@@ -4,8 +4,6 @@ import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 
-
-
 // Components Routing
 import { BaseRoutingModule } from './maintenance-routing.module';
 
@@ -57,12 +55,10 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfileEditionComponent } from './profiles/profiles-edition/profile-edition.component';
 import { ProfileOptionComponent } from './profiles/profiles-option/profile-option.component';
 import { ProfileUserComponent } from './profiles/profiles-user/profile-user.component';
-import { DialogConfirmationComponent } from "../../_components/dialog-confirmation/dialog-confirmation.component"
-import { DialogMessageComponent } from "../../_components/dialog-message/dialog-message.component";
-import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
 import { EconomicsectorComponent } from './economicsector/economicsector.component';
 import { EconomicsectorEditionComponent } from './economicsector/economicsector-edition/economicsector-edition.component';
 
+import { SharedModule } from '../sharedModule/shared.module';
 
 
 @NgModule({
@@ -103,6 +99,8 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     MatToolbarModule,
     MatTooltipModule,
     MatTableExporterModule,
+
+    SharedModule
   ],
   declarations: [
     ParameterComponent,
@@ -111,9 +109,7 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     ProfileEditionComponent,
     ProfileOptionComponent,
     ProfileUserComponent,
-    DialogConfirmationComponent,
-    DialogMessageComponent,
-    ProgressSpinnerComponent,
+
     EconomicsectorComponent,
     EconomicsectorEditionComponent,
     WfParameterComponent,
@@ -121,6 +117,9 @@ import { EconomicsectorEditionComponent } from './economicsector/economicsector-
     WfParameterStateComponent,
     WfParameterStepDocComponent,
     WfParameterStepUserComponent
-  ]
+  ],
+  
 })
 export class BaseModule { }
+
+

@@ -9,6 +9,7 @@ export class DTOWfStepParameterDoc {
     fecUltMod: string;
     fecCrea: string;
     usuCrea: string;
+    indObligatorio: string;
 
     constructor() { }
 

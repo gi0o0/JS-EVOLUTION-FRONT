@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DTOWfParameter } from '../../../../_model/DTOWfParameter';
 import { DTOParameter } from '../../../../_model/DTOParameter';
 
@@ -10,14 +10,13 @@ import { CountriesService } from '../../../../_services/countries/countries.serv
 import { DeptosService } from '../../../../_services/deptos/deptos.service';
 import { CitiesService } from '../../../../_services/cities/cities.service';
 import { WfService } from '../../../../_services/wf/wf.service';
-import { Router } from '@angular/router';
 import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 import { DTOWfStepParameterDoc } from '../../../../_model/DTOWfStepParameterDoc';
 import { DTOWfStepParameterAut } from '../../../../_model/DTOWfStepParameterAut';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_CORREO } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
-import { AddressComponent } from '../../../queries_reports/address/address.component';
+import { AddressComponent } from '../../../../_components/address/address.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DTOFoclaaso } from '../../../../_model/DTOFoclaaso';
 import { DTOFotipcre } from '../../../../_model/DTOFotipcre';
@@ -41,7 +40,7 @@ import { DTOWfStepsCodeudor } from '../../../../_model/DTOWfStepsCodeudor';
 export class Step1Component implements OnInit {
 
   o: DTOWfParameter;
-  step: DTOWfSteps;
+  @Input() step: DTOWfSteps;
   codeu: DTOWfStepsCodeudor;
   forma: FormGroup;
   @ViewChild('regForm', { static: false }) myForm: NgForm;
@@ -76,13 +75,13 @@ export class Step1Component implements OnInit {
   listCitiesJob: DTOCities[];
   listCitiesDeu: DTOCities[];
   listCitiesDeuJob: DTOCities[];
-
+  @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
   idPais: number;
   idPaisJob: number;
   maxDate: Date;
   isCodeudor: boolean;
 
-  constructor(private router: Router, private parameterService: ParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,
+  constructor(private parameterService: ParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,
     private foclaasoService: FoclaasoService, private fotipcreService: FotipcreService, private cladocService: CladocService
     , private countriesService: CountriesService, private deptosService: DeptosService, private citiesService: CitiesService,
     private fotabproService: FotabproService, private baentidadService: BaentidadService, private basTTipCtaService: BasTTipCtaService, private wfService: WfService) {
@@ -91,8 +90,20 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit() {
+    this.callStepOld();
     this.initStep();
     this.crearFormulario();
+    this.getEntities();
+    this.getParameters();
+    this.getTipoContrato();
+    this.getFotipcre();
+    this.getCladoc();
+    this.getParametersPeriodicidad();
+    this.getCountries();
+    this.getFotabpro();
+    this.getEps();
+    this.getBaentidad();
+    this.getAccountType();
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear - 2, 12, 31);
     this.isCodeudor = true;
@@ -108,6 +119,33 @@ export class Step1Component implements OnInit {
       }
     });
 
+
+    if (this.step.isUpdate) {
+
+
+      this.clientDepo(this.step.paisCodigo, 'paisCodigo');
+      this.clientDepo(Number(this.step.paisDirTrabajo), 'paisDirTrabajo');
+      this.clientDepo(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu');
+      this.clientDepo(this.step.codeu.paisCodigo, 'paisCodigo_codeu');
+      this.clientCities(Number(this.step.paisDirTrabajo), Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
+      this.clientCities(this.step.paisCodigo, this.step.codiDept, 'codiDept');
+      this.clientCities(Number(this.step.codeu.paisDirTrabajo), Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
+
+
+      setTimeout(() => {
+        this.clientCities(this.step.codeu.paisCodigo, this.step.codeu.codiDept, 'codiDept_codeu');
+      }, 1000);
+
+    }
+  
+  }
+
+  callStepOld(){
+    if(this.step.isUpdate){
+      setTimeout(() => {
+        this.parentFun.emit();
+      }, 1000);
+    }
   }
 
   crearFormulario = () => {
@@ -141,7 +179,7 @@ export class Step1Component implements OnInit {
       barrioTra: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       paisDirTrabajo: ['', [Validators.required]],
       deptDirTrabajo: ['', [Validators.required]],
-      codiciuDirTrabajoCiud: ['', [Validators.required]],
+      ciuDirTrabajo: ['', [Validators.required]],
       faxTer: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       codProfe: ['', [Validators.required]],
       indContrato: ['', [Validators.required]],
@@ -198,7 +236,7 @@ export class Step1Component implements OnInit {
       barrioTra_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       paisDirTrabajo_codeu: ['', [Validators.required]],
       deptDirTrabajo_codeu: ['', [Validators.required]],
-      codiciuDirTrabajoCiud_codeu: ['', [Validators.required]],
+      ciuDirTrabajo_codeu: ['', [Validators.required]],
       faxTer_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       codProfe_codeu: ['', [Validators.required]],
       indContrato_codeu: ['', [Validators.required]],
@@ -247,20 +285,20 @@ export class Step1Component implements OnInit {
   }
 
   operarStep1() {
-  
+
     if (!this.validarErroresCampos()) {
       this.loading = true;
       this.wfService.createStep(this.step).subscribe(data => {
-        this.showMessage("Step Ingresado.");
         this.resetForm();
         this.loading = false;
         this.step = data as DTOWfSteps;
-        this.step.comments='';
+        this.step.comments = '';
         this.sendEmail();
+        this.showMessage("Step Ingresado.");
         this.wfService.wf_step_event.next(this.step);
       }, error => {
         this.loading = false;
-        this.showMessage(error);
+        this.showMessage("ERROR:" + error);
       });
 
     } else {
@@ -268,9 +306,9 @@ export class Step1Component implements OnInit {
     }
   }
 
-  sendEmail(){
-    this.step.idStep="2";
-    this.step.idSubStep="1";
+  sendEmail() {
+    this.step.idStep = "2";
+    this.step.idSubStep = "1";
     this.wfService.createStep(this.step).subscribe(data => {
       this.showMessage("Correo de  verificación remitido.");
     }, error => {
@@ -297,24 +335,8 @@ export class Step1Component implements OnInit {
   }
 
   showForm() {
-    this.getEntities();
-    this.getParameters();
-    this.getTipoContrato();
-    this.getFotipcre();
-    this.getCladoc();
-    this.getParametersPeriodicidad();
-    this.getCountries();
-    this.getFotabpro();
-    this.getEps();
-    this.getBaentidad();
-    this.getAccountType();
-    this.showFormAdd = true;
-  }
 
-  hideForm() {
-    this.forma.reset;
-    this.initStep();
-    this.showFormAdd = false;
+    this.showFormAdd = true;
   }
 
   showMessage(message: string) {
@@ -380,8 +402,6 @@ export class Step1Component implements OnInit {
       this.loading = false;
     });
   }
-
-
 
   getTipoContrato() {
     this.parameterService.listParametersByParamId('TIPO_CONTRATO').subscribe(async (res: DTOParameter[]) => {
@@ -504,22 +524,24 @@ export class Step1Component implements OnInit {
   }
 
   initStep() {
-    this.step = new DTOWfSteps();
-    this.step.idStep = '1';
-    this.step.idSubStep = '1';
-    this.step.nextStep = '1';
-    this.step.numeroRadicacion = 0;
-    this.codeu = new DTOWfStepsCodeudor();
-    this.step.codeu = this.codeu;
-    this.step.tipVivienda = '0';
-    this.step.bienAfecta = '0';
-    this.step.bienHipoteca = '0';
-    this.step.vehPignorado = '0';
-    this.step.codeu.tipVivienda = '0';
-    this.step.codeu.bienAfecta = '0';
-    this.step.codeu.bienHipoteca = '0';
-    this.step.codeu.vehPignorado = '0';
-    this.step.idWf = '0';
-  }
 
+    if (this.step == undefined) {
+      this.step = new DTOWfSteps();
+      this.step.idStep = '1';
+      this.step.idSubStep = '1';
+      this.step.nextStep = '1';
+      this.step.numeroRadicacion = 0;
+      this.codeu = new DTOWfStepsCodeudor();
+      this.step.codeu = this.codeu;
+      this.step.tipVivienda = '0';
+      this.step.bienAfecta = '0';
+      this.step.bienHipoteca = '0';
+      this.step.vehPignorado = '0';
+      this.step.codeu.tipVivienda = '0';
+      this.step.codeu.bienAfecta = '0';
+      this.step.codeu.bienHipoteca = '0';
+      this.step.codeu.vehPignorado = '0';
+      this.step.idWf = '0';
+    }
+  }
 }

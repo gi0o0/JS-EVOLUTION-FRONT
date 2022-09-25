@@ -1,15 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
+import { IconSetService } from '@coreui/icons-angular';
 import { BasicaAutenticacionInterceptor } from './_helpers/basica-autenticacion.interceptor';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -47,12 +46,7 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
 import { CookieService } from 'ngx-cookie-service';
-
-
-
-
 
 @NgModule({
   imports: [
@@ -70,7 +64,6 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     HttpClientModule,
 
-
   ],
   declarations: [
     AppComponent,
@@ -80,17 +73,19 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent,
     RegisterComponent,
     RegisterUserComponent,
-    CheckUserComponent
+    CheckUserComponent,
+
   ],
   providers: [
-    {
+   // { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicaAutenticacionInterceptor, multi: true },
+     { provide: LocationStrategy, useClass: HashLocationStrategy},
 
-      provide: HTTP_INTERCEPTORS, useClass: BasicaAutenticacionInterceptor, multi: true 
-    },
     IconSetService,
     CookieService,
 
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
+

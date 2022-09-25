@@ -29,16 +29,6 @@ export class UtilService {
     return null;
   }
 
-  validarNumeroIdentificacion( control: FormControl ): {[s: string]: boolean } {
-    const numero = control.value;
-    if ( numero && ((numero > 99999999 && numero <= 1000000000) || (numero >= 2000000000)) ) {
-      return {
-        validarNumeroIdenficacion: true
-      };
-    }
-
-    return null;
-  }
 
   formatoFechas(fecha: Date, simbolo: string) {
     const dd = String(fecha.getDate()).padStart(2, '0');

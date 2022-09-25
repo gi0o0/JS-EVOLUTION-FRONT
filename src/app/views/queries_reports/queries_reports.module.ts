@@ -41,11 +41,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DocsComponent } from './docs/docs.component';
-import { AddressComponent } from './address/address.component';
-import { DialogConfirmationComponent } from "../../_components/dialog-confirmation/dialog-confirmation.component"
-import { DialogMessageComponent } from "../../_components/dialog-message/dialog-message.component";
-import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer'; 
+import { SharedModule } from '../sharedModule/shared.module';
+
 
 
 @NgModule({
@@ -86,13 +84,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatToolbarModule,
     MatTooltipModule,
     PdfViewerModule,
+    SharedModule,
+    
   ],
   declarations: [
     DocsComponent,
-    AddressComponent,
-    DialogConfirmationComponent,
-    DialogMessageComponent,
-    ProgressSpinnerComponent,
   ]
 })
 export class BaseModule { }

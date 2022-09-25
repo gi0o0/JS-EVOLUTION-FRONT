@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { DTOParameter } from '../../../_model/DTOParameter';
-import { ParameterService } from '../../../_services/parameter/parameter.service';
+import { DTOParameter } from '../../_model/DTOParameter';
+import { ParameterService } from '../../_services/parameter/parameter.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-import { DTOAddressMessage } from '../../../_model/DTOAddressMessage';
+import { DTOAddressMessage } from '../../_model/DTOAddressMessage';
 
 @Component({
   selector: 'app-dashboard',

@@ -150,12 +150,12 @@
           <br><br>
           <div class="form-actions">
 
-            <button type="submit" name="ingresar" class="btn btn-secondary" (click)="setClear('')">
+            <button type="submit" name="ingresar" class="btn btn-secondary" (click)="setClear()">
               <span><mat-icon>delete_sweep</mat-icon>Limpiar</span>
             </button>
 
-            <button type="button" name="ingresar" class="btn btn btn-success px-4" [disabled]="cargando"  (click)="operar()">
-              <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+            <button type="button" name="ingresar" class="btn btn btn-success px-4"  (click)="operar()">
+              <i class="fa fa-sync fa-spin" ></i>&nbsp;
               <span><mat-icon> business</mat-icon>Aceptar</span>
             </button>
 

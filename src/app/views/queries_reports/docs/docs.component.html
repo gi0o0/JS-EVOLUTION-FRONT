@@ -12,7 +12,7 @@
 
             <mat-form-field>
               <input matInput placeholder="Usuario" [(ngModel)]="o.user" formControlName="user" type="number"
-                [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+               >
               <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
               <mat-error *ngIf="hasError('user', 'required')">Nombre es requerido.</mat-error>
               <mat-error *ngIf="hasError('user', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
@@ -20,7 +20,7 @@
 
             <mat-form-field>
               <input matInput placeholder="Solicitud" [(ngModel)]="o.request" formControlName="request" type="number"
-                [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+               >
               <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
               <mat-error *ngIf="hasError('request', 'required')">Solicitud es requerido.</mat-error>
               <mat-error *ngIf="hasError('request', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
@@ -28,8 +28,8 @@
             <br> <br>
 
             <div class="form-actions">
-              <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
-                <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+              <button type="submit" name="ingresar" class="btn btn-primary px-4">
+                <i class="fa fa-sync fa-spin" ></i>&nbsp;
                 <span>Buscar</span>
               </button>
             </div>

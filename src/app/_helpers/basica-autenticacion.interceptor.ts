@@ -1,9 +1,9 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse ,HttpResponse} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { catchError,tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { SeguridadService } from '../_services/seguridad/seguridad.service';
 import { OK } from '../_shared/constantes';
 
@@ -46,7 +46,7 @@ export class BasicaAutenticacionInterceptor implements HttpInterceptor {
                 }
             });
             return next.handle(inicicialRequest).pipe(
-                catchError((error: HttpErrorResponse) => {
+                catchError((error) => {
                     return throwError(error);
                 }));
         } else {
@@ -58,20 +58,21 @@ export class BasicaAutenticacionInterceptor implements HttpInterceptor {
             });
             return next.handle(modicadoRequest).pipe(
 
-                tap(event => {
+              /*  tap(event => {
                     if (event instanceof HttpResponse) {
-                        if(event.status==OK && req.method=='POST'){
-                           this.seguridadService.refreshSesion();
-                        }                      
+                        if (event.status == OK && req.method == 'POST') {
+                            this.seguridadService.refreshSesion();
+                        }
                     }
-                  },  catchError((error: HttpErrorResponse) => {
-                       return throwError(error);
-      
-                  })
-                ));
-          
-       
-    }
+                },*/ catchError((error) => {
+   
+                    return throwError(error);
+
+                })
+                );
+
+
+        }
 
     }
 

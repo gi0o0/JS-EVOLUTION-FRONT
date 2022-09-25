@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
       usuario: ['', [Validators.required,
-      Validators.pattern(EXP_REGULAR_NUMERO_CAMPO), Validators.maxLength(15), this.utilService.validarNumeroIdentificacion]],
+      Validators.pattern(EXP_REGULAR_NUMERO_CAMPO), Validators.maxLength(12)]],
       email: ['',],
     });
   }

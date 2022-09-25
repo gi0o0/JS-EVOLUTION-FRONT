@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SeguridadService } from '../../_services/seguridad/seguridad.service';
-import { RegisterByToken } from '../../_interfaces/RegisterByToken';
+
 import {
   FALLA_RESPUESTA_MALA, ERROR_NO_CONTROLADO, FALLA_NO_ENCONTRADO, ERROR_NO_CONTROLADO_CLAVE_NO_COINCIDE
 } from '../../_shared/constantes';
@@ -63,9 +63,9 @@ export class CheckUserComponent implements OnInit {
       this.step.token = this.token ;
       this.step.idStep="2";
       this.step.idSubStep="2";
-
+      this.step.nextStep="2";
       this.cargando = true;
-      console.log(this.step);
+
       this.securityService.registerByTokenTer(this.step).subscribe((response: any) => {
         this.cargando = false;
         this.okServicio = true;

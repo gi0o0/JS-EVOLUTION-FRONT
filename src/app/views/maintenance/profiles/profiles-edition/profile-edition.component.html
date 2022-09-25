@@ -5,7 +5,7 @@
 <div >
 
   <mat-form-field>
-  <input matInput placeholder="Nombres" formControlName="name"  [(ngModel)]="profile.name"   [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+  <input matInput placeholder="Nombres" formControlName="name"  [(ngModel)]="profile.name" >
   <mat-hint align="end">Not more then 15 characters long.</mat-hint>
   <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
   <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 15 characters</mat-error>
@@ -14,8 +14,8 @@
   
 </div>
 <br>
-<button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
-  <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+<button type="submit" name="ingresar" class="btn btn-primary px-4" >
+  <i class="fa fa-sync fa-spin"></i>&nbsp;
   <span>Aceptar</span>
 </button>
 <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>

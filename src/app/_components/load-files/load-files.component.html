@@ -1,0 +1,21 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div *ngFor="let doc of docs; let index = index" class="item" >
+  <h3>{{ doc.nomDocumento }}</h3>
+  <input class="btn btn-primary px-4" #attachments type="file" (change)="onFileChanged($event,doc)" #fileInput accept="{{ acceptFiles }}" required="true"/>
+<br><br>
+</div>
+
+<br><br>
+<div *ngFor="let selected of listOfFiles; let index = index" class="item" >
+  <h3>{{ selected }}</h3>
+  <button mat-raised-button color="warn" class="btn btn-secondary" (click)="removeSelectedFile(index)">delete</button>
+</div>
+
+<br><br>
+<button type="button" name="ingresar" class="btn btn-primary px-4"  (click)="send()">
+  <i class="fa fa-sync fa-spin" ></i>&nbsp;
+  <span>Enviar Archivos</span>
+</button>

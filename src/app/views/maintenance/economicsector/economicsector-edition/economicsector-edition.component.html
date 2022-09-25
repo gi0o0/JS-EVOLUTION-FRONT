@@ -27,7 +27,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Código" formControlName="codigo" [(ngModel)]="param.codSec"
-        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+       >
       <mat-hint align="end">Longitud máxima 5 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('codigo', 'required')">Código Sector es requerido.</mat-error>
       <mat-error *ngIf="hasError('codigo', 'maxlength')">Longitud máxima 5 caracteres.</mat-error>
@@ -35,7 +35,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nombre" formControlName="nombre" [(ngModel)]="param.nomSec"
-        [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+        >
       <mat-hint align="end">Longitud máxima 100 caracteres.</mat-hint>
       <mat-error *ngIf="hasError('nombre', 'required')">Nombre Sector es requerido.</mat-error>
       <mat-error *ngIf="hasError('nombre', 'maxlength')">Longitud máxima 100 caracteres.</mat-error>
@@ -43,8 +43,8 @@
 
   </div>
   <br>
-  <button type="submit" name="ingresar" class="btn btn-primary px-4" [disabled]="cargando">
-    <i class="fa fa-sync fa-spin" *ngIf="cargando"></i>&nbsp;
+  <button type="submit" name="ingresar" class="btn btn-primary px-4" >
+    <i class="fa fa-sync fa-spin" ></i>&nbsp;
     <span>Aceptar</span>
   </button>
   <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
