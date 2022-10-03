@@ -7,9 +7,7 @@ import { NgModule } from '@angular/core';
 // Components Routing
 import { BaseRoutingModule } from './maintenance-routing.module';
 
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -55,6 +53,7 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfileEditionComponent } from './profiles/profiles-edition/profile-edition.component';
 import { ProfileOptionComponent } from './profiles/profiles-option/profile-option.component';
 import { ProfileUserComponent } from './profiles/profiles-user/profile-user.component';
+import { ProfilesUserAddComponent } from './profiles/profiles-user-add/profiles-user-add.component';
 import { EconomicsectorComponent } from './economicsector/economicsector.component';
 import { EconomicsectorEditionComponent } from './economicsector/economicsector-edition/economicsector-edition.component';
 
@@ -109,6 +108,7 @@ import { SharedModule } from '../sharedModule/shared.module';
     ProfileEditionComponent,
     ProfileOptionComponent,
     ProfileUserComponent,
+    ProfilesUserAddComponent,
 
     EconomicsectorComponent,
     EconomicsectorEditionComponent,

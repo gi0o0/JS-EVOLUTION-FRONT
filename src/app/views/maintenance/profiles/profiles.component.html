@@ -9,8 +9,10 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
     <button mat-button (click)="openDialog()" mat-flat-button color="primary">Agregar Perfil</button>
-
+    <button mat-button (click)="openDialogoUserAdd()" class="btn btn-primary px-4" mat-button><mat-icon>note_add</mat-icon>Agregar Usuario</button>
   </div>
+
+
   
   <div class="example-container mat-elevation-z8">
     

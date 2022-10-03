@@ -7,6 +7,7 @@ import { EconomicsectorComponent } from './economicsector/economicsector.compone
 import { WfParameterComponent } from './wfparameter/wfparameter.component';
 import { WfParameterStepComponent } from './wfparameter/wfparameter-step/wfparameter-step.component';
 import { WfParameterStateComponent } from './wfparameter/wfparameter-state/wfparameter-state.component';
+import { ProfilesUserAddComponent } from './profiles/profiles-user-add/profiles-user-add.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,13 @@ const routes: Routes = [
         component: ProfilesComponent,
         data: {
           title: 'Profiles'
+        }
+      },
+      {
+        path: 'profilesuseradd',
+        component: ProfilesUserAddComponent,
+        data: {
+          title: 'ProfilesUserAdd'
         }
       },
       {

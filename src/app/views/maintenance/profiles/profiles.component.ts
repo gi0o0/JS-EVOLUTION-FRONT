@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { DialogConfirmationComponent } from "../../../_components/dialog-confirmation/dialog-confirmation.component";
 import { DialogMessageComponent } from "../../../_components/dialog-message/dialog-message.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,7 @@ export class ProfilesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog,) { }
+  constructor(private profileService: ProfileService, public dialog: MatDialog,private router: Router,) { }
 
   ngOnInit() {
 
@@ -60,6 +61,9 @@ export class ProfilesComponent implements OnInit {
 
 
 
+  openDialogoUserAdd(): void {
+    this.router.navigate(['maintenance/profilesuseradd']);
+  }
 
   getProfiles() {
     this.profileService.listAll().subscribe(async (response: DTOProfile[]) => {
