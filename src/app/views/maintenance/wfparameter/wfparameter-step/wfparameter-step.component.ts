@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { DTOWfParameter } from '../../../../_model/DTOWfParameter';
 import { WfParameterService } from '../../../../_services/wfparameter/wfparameter.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_NUMERO, EXP_REGULAR_NUMERO_MAX, EXP_REGULAR_CORREO } from '../../../../_shared/constantes';
+import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_NUMERO, EXP_REGULAR_NUMERO_MAX, EXP_REGULAR_CORREO,MENSAJE_ELIMINAR_STEP } from '../../../../_shared/constantes';
 import { DialogConfirmationComponent } from "../../../../_components/dialog-confirmation/dialog-confirmation.component";
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { MatDialog } from '@angular/material/dialog';
@@ -260,7 +260,7 @@ export class WfParameterStepComponent implements OnInit {
       this.getSteps();
       this.showMessage("Se elimino")
     }, error => {
-      this.showMessage(error.error.mensaje)
+      this.showMessage(error.error.mensaje +" - "+ MENSAJE_ELIMINAR_STEP)
     });
   }
 

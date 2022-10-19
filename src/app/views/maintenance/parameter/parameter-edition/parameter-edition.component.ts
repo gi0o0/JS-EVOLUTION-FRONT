@@ -39,16 +39,16 @@ export class ParameterEditionComponent implements OnInit {
   operar() {
     this.loading = true;
       this.parameterService.update(this.param).subscribe(data => {
-        this.parameterService.listAll().subscribe(profiles => {
-          this.parameterService.profileCambio.next(profiles);
+        this.parameterService.listAll().subscribe(params => {
+          this.parameterService.profileCambio.next(params);
           this.loading = false;
           this.parameterService.mensajeCambio.next("Operaciòn Correcta");
-          this.dialogRef.close();
+          this.cancelar();
         });
       }, error => {
         this.loading = false;
         this.parameterService.mensajeCambio.next(error.error.mensaje);
-        this.dialogRef.close();
+        this.cancelar();
       });
     
 

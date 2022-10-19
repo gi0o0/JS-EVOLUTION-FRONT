@@ -32,8 +32,6 @@ export class ParameterComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loading = true;
-
     this.parameterService.profileCambio.subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -42,12 +40,7 @@ export class ParameterComponent implements OnInit {
 
 
     this.parameterService.mensajeCambio.subscribe(data => {
-
-      this.dialog.open(DialogMessageComponent, {
-        width: '350px',
-        data: data
-      });
-
+      this.mostrarDialogoResultado(data);
     });
 
     this.getParameters();
@@ -56,6 +49,7 @@ export class ParameterComponent implements OnInit {
 
 
   getParameters() {
+    this.loading = true;
     this.parameterService.listAll().subscribe(async (res: DTOParameter[]) => {
       this.listParameters = new Array<DTOParameter>();
       res.forEach(pa => {
@@ -85,6 +79,8 @@ export class ParameterComponent implements OnInit {
       data: med
     });
   }
+
+
   mostrarDialogo(o: DTOParameter): void {
     this.dialog
       .open(DialogConfirmationComponent, {
@@ -98,6 +94,13 @@ export class ParameterComponent implements OnInit {
       });
   }
 
+  mostrarDialogoResultado(message: string): void {
+    this.dialog.open(DialogMessageComponent, {
+      width: '300px',
+      data: message
+    });
+  }
+
   eliminar(o: DTOParameter) {
     this.loading = true;
     this.parameterService.delete(o).subscribe(data => {
@@ -109,10 +112,7 @@ export class ParameterComponent implements OnInit {
       });
     }, error => {
       this.loading = false;
-      this.dialog.open(DialogMessageComponent, {
-        width: '300px',
-        data: error.error.mensaje
-      });
+      this.mostrarDialogoResultado(error.error.mensaje);  
     });
   }
 
