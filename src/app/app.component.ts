@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
 
   checkTimeOut() {
     this.timeoutId = setTimeout(
-      () => this.userInactive.next("User has been inactive"), environment.timeInactive
+      () => this.userInactive.next("User has been inactive"), 600000
     );
   }
 

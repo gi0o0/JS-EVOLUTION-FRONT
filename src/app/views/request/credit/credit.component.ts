@@ -134,7 +134,8 @@ export class CreditComponent implements OnInit {
   openDialogEdit(o: DTOWfSteps) {
     this.step=o;
     this.dialog.open(CreditEditComponent, {
-      width: '400px'
+      width: '400px',
+      data: this.step.numeroRadicacion,
     });
     
   }

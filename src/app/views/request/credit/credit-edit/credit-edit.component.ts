@@ -22,11 +22,13 @@ export class CreditEditComponent implements OnInit {
   nextStep: string = "";
   steps: DTOWfStepParameter[];
 
-  constructor(private dialogRef: MatDialogRef<CreditEditComponent>,private wfService: WfService) { }
+  constructor(private dialogRef: MatDialogRef<CreditEditComponent>,private wfService: WfService, @Inject(MAT_DIALOG_DATA) public id: number) { 
+
+  }
 
 
   ngOnInit() {
-    this.getStepsByWf(WK_4);
+    this.getStepsByWf(this.id);
    }
 
   cancelar() {
