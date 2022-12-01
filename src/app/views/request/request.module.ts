@@ -19,6 +19,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -75,6 +77,7 @@ import { SharedModule } from '../sharedModule/shared.module';
     MatStepperModule,
     MatFormFieldModule,
     MatDatepickerModule,
+
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -98,11 +101,9 @@ import { SharedModule } from '../sharedModule/shared.module';
     MatToolbarModule,
     MatTooltipModule,
     MatTableExporterModule,
-    MatNativeDateModule,
     SharedModule
-
-
   ],
+  
   declarations: [
     CreditComponent,
     Step1Component,
@@ -116,6 +117,7 @@ import { SharedModule } from '../sharedModule/shared.module';
     CreditCancelComponent,
     CreditEditComponent
   ]
+  
 })
 export class BaseModule { }
 

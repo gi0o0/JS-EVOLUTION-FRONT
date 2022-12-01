@@ -25,7 +25,7 @@ export class DTOWfStepsCodeudor {
     codProfe: string;
     indContrato:number;
     paramText:string; 
-
+    cargoWf:string; 
     idConyuge:number;
     nomCony:string;
     emailConyuge:string;

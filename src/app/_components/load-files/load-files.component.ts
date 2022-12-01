@@ -24,7 +24,7 @@ export class LoadFilesComponent implements OnInit {
   @ViewChild('attachments') attachment: any;
 
   listOfFiles: any[] = [];
-  maxFilesContador: number=0;
+  maxFilesContador: number = 0;
   maxFiles: number;
   sizeFiles: number;
   sizeFilesName: number;
@@ -53,7 +53,7 @@ export class LoadFilesComponent implements OnInit {
         if (this.listOfFiles.indexOf(selectedFile.name) === -1) {
 
           var name = selectedFile.name.split('.').slice(0, -1).join('.')
-     
+
           if (selectedFile.size > this.sizeFiles) {
             this.showMessage("El tamaño máximo por archivo permitido es " + this.sizeFiles);
             this.init();
@@ -63,7 +63,7 @@ export class LoadFilesComponent implements OnInit {
             this.init();
             break;
           }
-          this.listOfFiles.push(selectedFile.name);
+          this.listOfFiles.push(this.step.prefixFile+""+selectedFile.name);
           const reader = new FileReader();
           reader.readAsDataURL(selectedFile);
           reader.onload = () => {
@@ -83,15 +83,24 @@ export class LoadFilesComponent implements OnInit {
   send() {
 
     if (this.files.length > 0) {
-      if (this.files.length < this.maxFilesContador){
+      if (this.files.length < this.maxFilesContador) {
         this.showMessage("Debe ingresar los documentos que son Obligatorios.");
-      }else{
-        this.step.files = this.files
-        this.step.filesNames = this.listOfFiles
+      } else {
+
+        if (this.step.files != null) {
+          this.step.files = this.step.files.concat(this.files);
+        } else {
+          this.step.files = this.files;
+        }
+        if (this.step.filesNames != null) {
+          this.step.filesNames = this.step.filesNames.concat(this.listOfFiles);
+        } else {
+          this.step.filesNames = this.listOfFiles;
+        }
         this.wfService.wf_step_event_docs.next(this.step);
         this.init();
         this.dialogRef.close();
-      }       
+      }
     } else {
       this.showMessage("No se han seleccionado archivos.");
     }
@@ -121,9 +130,12 @@ export class LoadFilesComponent implements OnInit {
     this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
       res.forEach(o => {
 
-        if (o.indObligatorio == "S") {
-          this.maxFilesContador+=1;
+        if (this.step.isRequiredFiles != false) {
+          if (o.indObligatorio == "S") {
+            this.maxFilesContador += 1;
+          }
         }
+
         this.docs.push(o);
       });
     }, error => {

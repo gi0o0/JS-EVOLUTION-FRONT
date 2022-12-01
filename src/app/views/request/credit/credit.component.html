@@ -18,9 +18,26 @@
   <mat-table [dataSource]="dataSource" matSort matTableExporter #exporter="matTableExporter" [hiddenColumns]="[3]">
 
     <ng-container matColumnDef="numeroRadicacion">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> # Radicación </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.numeroRadicacion}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="nitter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cédula Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nitter}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomTer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomTer}} {{row.priApellido}} {{row.segApellido}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="idStepNow">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Paso Actual </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.idStepNow}} </mat-cell>
+    </ng-container>
+
+    
 
     <ng-container matColumnDef="estado">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Estado</mat-header-cell>

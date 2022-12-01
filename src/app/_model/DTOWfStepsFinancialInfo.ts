@@ -41,6 +41,7 @@ export class DTOWfStepsFinancialInfo {
 
     valorFuturo: string;
     capacidadEndeudamiento: string;
+    valorCuotaEstimada: string;
 
     constructor() { }
 

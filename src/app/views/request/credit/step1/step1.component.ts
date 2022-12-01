@@ -53,8 +53,6 @@ export class Step1Component implements OnInit {
   listFoclaaso: DTOFoclaaso[];
   listFotipcre: DTOFotipcre[];
   listBaentidad: DTOBaentidad[];
-  listFotabpro: DTOFotabpro[];
-  listFotabproCodeu: DTOFotabpro[];
   listTypeSolicitud: DTOParameter[];
   listTypeContrato: DTOParameter[];
   listTypeContratoCodeu: DTOParameter[];
@@ -90,7 +88,8 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit() {
-    this.callStepOld();
+
+ //   this.callStepOld();
     this.initStep();
     this.crearFormulario();
     this.getEntities();
@@ -100,13 +99,15 @@ export class Step1Component implements OnInit {
     this.getCladoc();
     this.getParametersPeriodicidad();
     this.getCountries();
-    this.getFotabpro();
     this.getEps();
     this.getBaentidad();
     this.getAccountType();
+
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear - 2, 12, 31);
     this.isCodeudor = true;
+
+
     this.parameterService.objetoCambioAdrressDian.subscribe(data => {
       if ("dirTerpal" == data.id) {
         this.step.dirTerpal = data.value;
@@ -122,7 +123,6 @@ export class Step1Component implements OnInit {
 
     if (this.step.isUpdate) {
 
-
       this.clientDepo(this.step.paisCodigo, 'paisCodigo');
       this.clientDepo(Number(this.step.paisDirTrabajo), 'paisDirTrabajo');
       this.clientDepo(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu');
@@ -131,17 +131,18 @@ export class Step1Component implements OnInit {
       this.clientCities(this.step.paisCodigo, this.step.codiDept, 'codiDept');
       this.clientCities(Number(this.step.codeu.paisDirTrabajo), Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
 
-
       setTimeout(() => {
         this.clientCities(this.step.codeu.paisCodigo, this.step.codeu.codiDept, 'codiDept_codeu');
       }, 1000);
 
     }
-  
+
+    console.log(this.step);
+
   }
 
-  callStepOld(){
-    if(this.step.isUpdate){
+  callStepOld() {
+    if (this.step.isUpdate) {
       setTimeout(() => {
         this.parentFun.emit();
       }, 1000);
@@ -162,11 +163,12 @@ export class Step1Component implements OnInit {
       priApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       segApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       lugarDoc: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
+      feExp_deu: ['', [Validators.required]],
       mailTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       dirTerpal: ['', [Validators.required]],
       telTer: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       telTer1: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      telTer2: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
+      telTer2: ['', [ Validators.pattern("^[0-9]*$"), Validators.maxLength(11)]],
       paisCodigo: ['', [Validators.required]],
       codiDept: ['', [Validators.required]],
       codiCiud: ['', [Validators.required]],
@@ -181,7 +183,7 @@ export class Step1Component implements OnInit {
       deptDirTrabajo: ['', [Validators.required]],
       ciuDirTrabajo: ['', [Validators.required]],
       faxTer: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      codProfe: ['', [Validators.required]],
+      cargoWf: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       indContrato: ['', [Validators.required]],
       paramText: ['', [Validators.required]],
       entBan: ['', [Validators.required]],
@@ -204,18 +206,18 @@ export class Step1Component implements OnInit {
       refParen3: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       refMail3: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       refCel3: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      bienNombre: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      bienValor: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(6)]],
+      bienNombre: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      bienValor: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
       bienAfecta: ['', [Validators.required]],
       bienHipoteca: ['', [Validators.required]],
       bienHipAFavor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehMarca: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehClase: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehModelo: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehPlaca: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehPignorado: ['', [Validators.required, Validators.required]],
+      vehMarca: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      vehClase: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      vehModelo: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      vehPlaca: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      vehPignorado: ['', [Validators.required]],
       vehPigAFavor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehValVomercial: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(6)]],
+      vehValVomercial: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
       doctip_codeu: ['', [Validators.required]],
       nitter_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       nomTer_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
@@ -238,7 +240,7 @@ export class Step1Component implements OnInit {
       deptDirTrabajo_codeu: ['', [Validators.required]],
       ciuDirTrabajo_codeu: ['', [Validators.required]],
       faxTer_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      codProfe_codeu: ['', [Validators.required]],
+      cargoWf_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       indContrato_codeu: ['', [Validators.required]],
       paramText_codeu: ['', [Validators.required]],
       idConyuge_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
@@ -258,7 +260,7 @@ export class Step1Component implements OnInit {
       refMail3_codeu: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       refCel3_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       bienNombre_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      bienValor_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(6)]],
+      bienValor_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
       bienAfecta_codeu: ['', [Validators.required]],
       bienHipoteca_codeu: ['', [Validators.required]],
       bienHipAFavor_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
@@ -268,7 +270,7 @@ export class Step1Component implements OnInit {
       vehPlaca_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       vehPignorado_codeu: ['', [Validators.required]],
       vehPigAFavor_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehValVomercial_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(6)]],
+      vehValVomercial_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
       comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
     });
 
@@ -294,7 +296,7 @@ export class Step1Component implements OnInit {
         this.step = data as DTOWfSteps;
         this.step.comments = '';
         this.sendEmail();
-        this.showMessage("Step Ingresado.");
+        this.showMessage("Paso Ingresado.");
         this.wfService.wf_step_event.next(this.step);
       }, error => {
         this.loading = false;
@@ -335,7 +337,6 @@ export class Step1Component implements OnInit {
   }
 
   showForm() {
-
     this.showFormAdd = true;
   }
 
@@ -344,7 +345,6 @@ export class Step1Component implements OnInit {
     this.dialog.open(DialogMessageComponent, {
       width: '300px',
       data: message,
-
     });
   }
 
@@ -378,16 +378,6 @@ export class Step1Component implements OnInit {
   getBaentidad() {
     this.baentidadService.listAll().subscribe(async (res: DTOBaentidad[]) => {
       this.listBaentidad = res;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-    });
-  }
-
-  getFotabpro() {
-    this.fotabproService.listAll().subscribe(async (res: DTOFotabpro[]) => {
-      this.listFotabpro = res;
-      this.listFotabproCodeu = res;
       this.loading = false;
     }, error => {
       this.loading = false;

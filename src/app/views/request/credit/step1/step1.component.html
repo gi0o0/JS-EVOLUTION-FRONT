@@ -110,6 +110,15 @@
     <mat-error *ngIf="hasError('lugarDoc', 'maxlength')">Longitud máxima 20 caracteres.</mat-error>
   </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <input matInput [matDatepicker]="picker" placeholder="Fecha expedición del documento" 
+      [(ngModel)]="step.feExp" formControlName="feExp_deu">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+    <mat-error *ngIf="hasError('feExp_deu', 'required')">Fecha expedición del documento es requerido.</mat-error>
+  </mat-form-field>
+
   <mat-form-field>
     <input matInput type="email" placeholder="Email" [(ngModel)]="step.mailTer" formControlName="mailTer">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
@@ -194,11 +203,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="picker" placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa"
+    <input matInput [matDatepicker]="picker2" placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa"
       formControlName="fecIngEmpresa">
     <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
     <mat-error *ngIf="hasError('fecIngEmpresa', 'required')">Fecha Ingreso Empresa es requerido.</mat-error>
   </mat-form-field>
 
@@ -215,11 +224,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="picker2" [max]="maxDate" placeholder="Fecha de Nacimiento"
+    <input matInput [matDatepicker]="picker3" [max]="maxDate" placeholder="Fecha de Nacimiento"
       [(ngModel)]="step.fecCump" formControlName="fecCump">
     <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
+    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+    <mat-datepicker #picker3></mat-datepicker>
     <mat-error *ngIf="hasError('fecCump', 'required')">Fecha de Nacimiento es requerido.</mat-error>
   </mat-form-field>
 
@@ -288,13 +297,11 @@
     <mat-error *ngIf="hasError('faxTer', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
   </mat-form-field>
 
-
-  <mat-form-field appearance="fill">
-    <mat-label>Cargo</mat-label>
-    <mat-select name="entitie" [(ngModel)]="step.codProfe" formControlName="codProfe">
-      <mat-option *ngFor="let s of listFotabpro" [value]="s.id">{{ s.name }}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="hasError('codProfe', 'required')">Cargo es requerido.</mat-error>
+  <mat-form-field>
+    <input matInput placeholder="Cargo" [(ngModel)]="step.cargoWf" formControlName="cargoWf">
+    <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
+    <mat-error *ngIf="hasError('cargoWf', 'required')">Cargo es requerido.</mat-error>
+    <mat-error *ngIf="hasError('cargoWf', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -674,11 +681,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <input matInput [matDatepicker]="picker" placeholder="Fecha expedición del documento"
+      <input matInput [matDatepicker]="picker4" placeholder="Fecha expedición del documento"
         [(ngModel)]="step.codeu.feExp" formControlName="feExp">
       <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+      <mat-datepicker #picker4></mat-datepicker>
       <mat-error *ngIf="hasError('feExp', 'required')">Fecha expedición del documento es requerido.</mat-error>
     </mat-form-field>
 
@@ -793,13 +800,14 @@
       <mat-error *ngIf="hasError('faxTer_codeu', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Cargo</mat-label>
-      <mat-select name="entitie" [(ngModel)]="step.codeu.codProfe" formControlName="codProfe_codeu">
-        <mat-option *ngFor="let s of listFotabproCodeu" [value]="s.id">{{ s.name }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="hasError('codProfe_codeu', 'required')">Cargo es requerido.</mat-error>
+
+    <mat-form-field>
+      <input matInput placeholder="Cargo" [(ngModel)]="step.codeu.cargoWf" formControlName="cargoWf_codeu">
+      <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
+      <mat-error *ngIf="hasError('cargoWf_codeu', 'required')">Cargo es requerido.</mat-error>
+      <mat-error *ngIf="hasError('cargoWf_codeu', 'maxlength')">Longitud máxima 60 caracteres.</mat-error>
     </mat-form-field>
+    
 
     <mat-form-field appearance="fill">
       <mat-label>Tipo de contrato</mat-label>

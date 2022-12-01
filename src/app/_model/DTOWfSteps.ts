@@ -7,6 +7,7 @@ export class DTOWfSteps {
     isUpdate: boolean;
     numeroRadicacion: number
     idStep: string;
+    idStepNow: string;
     nextStep: string;
     idSubStep: string;
     estado : string;
@@ -21,6 +22,7 @@ export class DTOWfSteps {
     priApellido: string;
     segApellido: string;
     lugarDoc: string;
+    feExp:string;
     mailTer: string;
     dirTerpal: string
     telTer: number;
@@ -78,9 +80,13 @@ export class DTOWfSteps {
     codeu: DTOWfStepsCodeudor;
     comments: string;
     token: string;
+    isRequiredFiles: boolean;
     files: string[];
     filesNames: string[];
+    prefixFile: string;
     financial : DTOWfStepsFinancialInfo;
+    cargoWf: string;
+    
 
     constructor() { }
 

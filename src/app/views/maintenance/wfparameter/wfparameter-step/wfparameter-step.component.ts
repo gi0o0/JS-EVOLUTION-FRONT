@@ -188,7 +188,7 @@ export class WfParameterStepComponent implements OnInit {
       if (this.step.idWf != null && this.step.idPaso != null) {
         this.service.updateStep(this.step).subscribe(data => {
           this.getSteps();
-          this.showMessage("Step Actualizado");
+          this.showMessage("Paso Actualizado");
           this.resetForm();
           this.showFormAdd = false;
         }, error => {
@@ -198,7 +198,7 @@ export class WfParameterStepComponent implements OnInit {
       } else {
         this.service.createStep(this.step).subscribe(data => {
           this.getSteps();
-          this.showMessage("Step Ingresado.");
+          this.showMessage("Paso Ingresado.");
           this.resetForm();
           this.showFormAdd = false;
         }, error => {

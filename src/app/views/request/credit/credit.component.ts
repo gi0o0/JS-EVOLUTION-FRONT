@@ -7,7 +7,7 @@ import { DTOWfSteps } from '../../../_model/DTOWfSteps';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {  NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import { DTOWfStepsCodeudor } from '../../../_model/DTOWfStepsCodeudor';
 import { DTOWfStepsFinancialInfo } from '../../../_model/DTOWfStepsFinancialInfo';
@@ -15,6 +15,8 @@ import { CreditCancelComponent } from './credit-cancel/credit-cancel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
 import { CreditEditComponent } from './credit-edit/credit-edit.component';
+import { WfParameterService } from '../../../_services/wfparameter/wfparameter.service';
+import { DTOWfStepParameterAut } from '../../../_model/DTOWfStepParameterAut';
 
 
 @Component({
@@ -33,40 +35,51 @@ export class CreditComponent implements OnInit {
   listRequest: DTOWfSteps[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion', 'estado', 'action'];
- 
+  displayedColumns = ['numeroRadicacion', 'nitter', 'nomTer', 'idStepNow', 'estado', 'action'];
+
 
   dataSource: MatTableDataSource<DTOWfSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor( private wfService: WfService,public dialog: MatDialog,) {
+  constructor(private wfService: WfService, public dialog: MatDialog, private wfParamService: WfParameterService,) {
     this.o = new DTOWfParameter();
 
   }
 
-  ngOnInit() {     
-    this.wfService.wf_step_event.subscribe(data => {      
-        this.step=data
-    }); 
+  ngOnInit() {
+
+    this.wfService.wf_step_event.subscribe(data => {
+      this.validUserByStep(data,data.isUpdate);
+    });
 
     this.wfService.getMoveToEdit.subscribe(move => {
       this.getCredit(move);
     });
-      this.getRequest();
-      this.initStep(false,0,"1");
+    this.getRequest();
+    this.initStep(false, 0, "1");
   }
 
+  validUserByStep(data: DTOWfSteps, isUpdate: boolean) {
+    this.loading = true;
+    this.wfParamService.validUserStepAuts(data.idWf, data.idStep).subscribe(async (res: any) => {
+      this.step = data;
+      this.step.isUpdate = isUpdate;
+      this.loading = false;
+    }, error => {
+      this.showMessage("Usuario no cuenta con permiso para editar o crear este Paso.");
+      this.loading = false;
+      this.hideForm() ;
+    });
+  }
   showForm() {
     this.showFormAdd = true;
   }
 
-  
-
   hideForm() {
     this.showFormAdd = false;
-    this.initStep(false,0,"1");
+    this.initStep(false, 0, "1");
   }
 
   applyFilter(value: string) {
@@ -74,41 +87,41 @@ export class CreditComponent implements OnInit {
   }
 
   getRequest() {
-      this.loading = true;
-      this.wfService.listByUser().subscribe(async (res: DTOWfSteps[]) => {
-         this.listRequest = res;
-         this.dataSource = new MatTableDataSource(this.listRequest);
-         this.dataSource.paginator = this.paginator;
-         this.dataSource.sort = this.sort;
-         this.loading = false;
-       }, error => {
-         this.loading = false;
-       });
+    this.loading = true;
+    this.wfService.listByUser().subscribe(async (res: DTOWfSteps[]) => {
+      this.listRequest = res;
+      this.dataSource = new MatTableDataSource(this.listRequest);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
   }
+
 
   getCreditFromChild() {
     this.getCredit(this.step.nextStep);
   }
 
-  getCredit(move :string) {
+  getCredit(move: string) {
     this.loading = true;
-    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion,move).subscribe(async (res: DTOWfSteps) => {
+    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move).subscribe(async (res: DTOWfSteps) => {
 
-      if(res.nextStep!=undefined){
-        this.step = res;
-        this.step.isUpdate=true;
-      }else{
-    //    this.showMessage("Paso no Iniciado, seleccionar Paso Previo");
-        this.step.isUpdate=false;
+      if (res.nextStep != undefined) {
+        this.validUserByStep(res,true);
+        this.step.isUpdate = true;
+      } else {   
+        this.step.isUpdate = false;
       }
-      
-       
-       this.loading = false;
-       this.showForm() ;
-     }, error => {
-       this.loading = false;
-     });
-}
+
+
+      this.loading = false;
+      this.showForm();
+    }, error => {
+      this.loading = false;
+    });
+  }
 
   showDialogCancel(o: DTOWfSteps): void {
     this.dialog
@@ -117,27 +130,27 @@ export class CreditComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((estado: string) => {
-       if(estado!=undefined){
-        o.estado=estado
-           this.loading = true;       
-            this.wfService.updateState(o).subscribe(data => {  
-              this.loading = false;
-              this.showMessage("Solicitud Actualizada.");
-            }, error => {
-              this.loading = false;
-              this.showMessage("ERROR:" + error);
-            });
-          }
+        if (estado != undefined) {
+          o.estado = estado
+          this.loading = true;
+          this.wfService.updateState(o).subscribe(data => {
+            this.loading = false;
+            this.showMessage("Solicitud Actualizada.");
+          }, error => {
+            this.loading = false;
+            this.showMessage("ERROR:" + error);
+          });
+        }
       });
   }
 
   openDialogEdit(o: DTOWfSteps) {
-    this.step=o;
+    this.step = o;
     this.dialog.open(CreditEditComponent, {
       width: '400px',
       data: this.step.numeroRadicacion,
     });
-    
+
   }
 
   showMessage(message: string) {
@@ -149,12 +162,12 @@ export class CreditComponent implements OnInit {
     });
   }
 
-  showCreateStep(){
-    this.initStep(false,0,'1');
+  showCreateStep() {
+    this.initStep(false, 0, '1');
     this.showForm();
   }
 
-  initStep(isUpdate: boolean,numRad:number,nextStep :string) {
+  initStep(isUpdate: boolean, numRad: number, nextStep: string) {
     this.step = new DTOWfSteps();
     this.step.idStep = '1';
     this.step.idSubStep = '1';
@@ -172,13 +185,13 @@ export class CreditComponent implements OnInit {
     this.step.codeu.bienHipoteca = '0';
     this.step.codeu.vehPignorado = '0';
     this.step.idWf = '4';
-    this.step.entitie='0';
-    this.step.valorPress='0';
-    this.step.perCuota='0';
-    this.step.nroCuotas=0;
+    this.step.entitie = '0';
+    this.step.valorPress = '0';
+    this.step.perCuota = '0';
+    this.step.nroCuotas = 0;
     var financial = new DTOWfStepsFinancialInfo();
-    this.step.financial=financial;
-    this.step.isUpdate=isUpdate;
+    this.step.financial = financial;
+    this.step.isUpdate = isUpdate;
   }
 
 }

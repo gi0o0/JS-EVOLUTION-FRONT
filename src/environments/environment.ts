@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  //url_host: 'https://comercial-avaltitulos.com:1157/v01/jarzsoft',
   url_host: 'http://localhost:8081/v01/jarzsoft',
   keyCaptcha: '6LdpnMoZAAAAAEwLzYqK0jjVuuF-2qvaI3QXvc8y',
   timeInactive: 600000

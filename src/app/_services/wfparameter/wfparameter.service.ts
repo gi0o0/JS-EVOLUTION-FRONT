@@ -83,6 +83,9 @@ export class WfParameterService {
     return this.http.get<DTOWfStepParameterAut[]>(`${this.url}/${idWf}/steps/${idStep}/auts`,{ withCredentials: true });
   }
 
-  
+  validUserStepAuts = (idWf: string,idStep :string) => {
+    return this.http.get<DTOWfStepParameterAut[]>(`${this.url}/wf/${idWf}/step/${idStep}/security`,{ withCredentials: true });
+  }
+
 
 }
