@@ -3,15 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-
-
-
 // Components Routing
 import { BaseRoutingModule } from './request-routing.module';
-
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -33,7 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -60,6 +54,7 @@ import { CreditEditComponent } from './credit/credit-edit/credit-edit.component'
 
 
 import { SharedModule } from '../sharedModule/shared.module';
+import { CreditSearchComponent } from './creditsearch/creditsearch.component';
 
 
 @NgModule({
@@ -106,6 +101,7 @@ import { SharedModule } from '../sharedModule/shared.module';
   
   declarations: [
     CreditComponent,
+    CreditSearchComponent,
     Step1Component,
     Step2Component,
     Step3Component,

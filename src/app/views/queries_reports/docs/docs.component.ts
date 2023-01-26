@@ -51,6 +51,8 @@ export class DocsComponent implements OnInit {
     return this.forma.controls[controlName].hasError(errorName);
   }
 
+
+
   operar() {
     this.showFile = false;
     if (!this.validarErroresCampos()) {

@@ -1,0 +1,158 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()" class="form-horizontal" #regForm="ngForm">
+
+            <mat-form-field>
+              <input matInput placeholder="Fecha dd-mm-yyyy" [(ngModel)]="o.user" formControlName="user" type="number">
+              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('user', 'required')">Nombre es requerido.</mat-error>
+              <mat-error *ngIf="hasError('user', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Usuario" [(ngModel)]="o.user" formControlName="user" type="number">
+              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('user', 'required')">Nombre es requerido.</mat-error>
+              <mat-error *ngIf="hasError('user', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Solicitud" [(ngModel)]="o.request" formControlName="request" type="number">
+              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('request', 'required')">Solicitud es requerido.</mat-error>
+              <mat-error *ngIf="hasError('request', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+            </mat-form-field>
+            <br> <br>
+
+            <div class="form-actions">
+              <button type="submit" name="ingresar" class="btn btn-primary px-4">
+                <i class="fa fa-sync fa-spin"></i>&nbsp;
+                <span>Buscar</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort matTableExporter #exporter="matTableExporter" [hiddenColumns]="[3]">
+
+    <ng-container matColumnDef="numeroRadicacion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> # Radicación </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numeroRadicacion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nitter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cédula Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nitter}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomTer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomTer}} {{row.priApellido}} {{row.segApellido}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="idStepNow">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Paso Actual </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.idStepNow}} </mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Estado</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.estado}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row" class="action-link">
+        <button mat-button color="primary" (click)="openDialogEdit(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="showDialogCancel(row)">
+          <mat-icon>restore_from_trash</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button mat-raised-button color="primary"
+      (click)="exporter.exportTable('xlsx', {fileName:'wfparameter-step'})">Export to xlsx</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('csv', {fileName:'wfparameter-step'})">Export To csv</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('json', {fileName:'wfparameter-step'})">Export To json</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('txt', {fileName:'wfparameter-step'})">Export To txt</button>
+  </div>
+</div>
+
+<br>
+
+<div class="animated fadeIn" *ngIf="showFormAdd">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>Estado Work Flow
+          <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-close" (click)="hideForm()"><i
+                class="icon-close"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="step.nextStep==='1'">
+            <step-1 [step]="step" (parentFun)="getCreditFromChild()"></step-1>
+          </div>
+          <div *ngIf="step.nextStep==='2'">
+            <step-2 [step]="step" (parentFun)="getCreditFromChild()"></step-2>
+          </div>
+          <div *ngIf="step.nextStep==='3'">
+            <step-3 [step]="step" (parentFun)="getCreditFromChild()"></step-3>
+          </div>
+          <div *ngIf="step.nextStep==='4'">
+            <step-4 [step]="step" (parentFun)="getCreditFromChild()"></step-4>
+          </div>
+          <div *ngIf="step.nextStep==='5'">
+            <step-5 [step]="step" (parentFun)="getCreditFromChild()"></step-5>
+          </div>
+          <div *ngIf="step.nextStep==='6'">
+            <step-6 [step]="step" (parentFun)="getCreditFromChild()"></step-6>
+          </div>
+          <div *ngIf="step.nextStep==='7'">
+            <step-7 [step]="step" (parentFun)="getCreditFromChild()"></step-7>
+          </div>
+          <div *ngIf="step.nextStep==='8'">
+            <step-8 [step]="step" (parentFun)="getCreditFromChild()"></step-8>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

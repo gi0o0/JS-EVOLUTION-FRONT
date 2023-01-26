@@ -18,5 +18,9 @@ export class DocsService {
     return this.http.get<DTODoc[]>(`${this.url}/${user}/application/${idRequest}/doc/${idDoc}`,{ withCredentials: true });
   }
 
+  listDocsByIdAndStep = (idRad: string,step :string) => {
+    return this.http.get<DTODoc[]>(`${this.url}/${idRad}/application/${step}`,{ withCredentials: true });
+  }
+
 
 }

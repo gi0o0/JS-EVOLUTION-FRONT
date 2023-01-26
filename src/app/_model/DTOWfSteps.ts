@@ -1,4 +1,5 @@
 
+import { DTOWfDocs } from './DTOWfDocs';
 import { DTOWfStepsCodeudor } from './DTOWfStepsCodeudor';
 import { DTOWfStepsFinancialInfo } from './DTOWfStepsFinancialInfo';
 export class DTOWfSteps {
@@ -81,8 +82,7 @@ export class DTOWfSteps {
     comments: string;
     token: string;
     isRequiredFiles: boolean;
-    files: string[];
-    filesNames: string[];
+    files: DTOWfDocs[];
     prefixFile: string;
     financial : DTOWfStepsFinancialInfo;
     cargoWf: string;

@@ -1,10 +1,9 @@
 
 import { NgModule } from '@angular/core';
 import { AddressComponent } from '../../_components/address/address.component';
+import { WalletComponent } from '../../_components/wallet/wallet.component';
 
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -84,6 +83,7 @@ import { LoadFilesComponent } from '../../_components/load-files/load-files.comp
   ],
   declarations: [
     AddressComponent,
+    WalletComponent,
     DialogConfirmationComponent,
     DialogMessageComponent,
     ProgressSpinnerComponent,
@@ -91,6 +91,7 @@ import { LoadFilesComponent } from '../../_components/load-files/load-files.comp
 
   ], exports: [
     AddressComponent,
+    WalletComponent,
     DialogConfirmationComponent,
     DialogMessageComponent,
     ProgressSpinnerComponent,

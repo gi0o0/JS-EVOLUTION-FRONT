@@ -5,4 +5,5 @@ export class DTOTercero {
     segApellido: string;
     lugarDoc: string;
     nitTer:string;
+    docTip:string;
 }

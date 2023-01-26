@@ -7,8 +7,17 @@
         <div class="card-body">
 
           <mat-form-field style="display: block;">
-            <input matInput placeholder="Direcciòn Resultado" [(ngModel)]="address" disabled style="font-size: 30px; font-weight: bold;" maxlength="100">
-          </mat-form-field>
+            <mat-label>Autosize textarea</mat-label>
+            <textarea
+                matInput
+                placeholder="Direcciòn Resultado" 
+                [(ngModel)]="address"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                disabled style="font-size: 30px; font-weight: bold;" maxlength="100">
+            </textarea>
+        </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Nomenclatura</mat-label>
@@ -147,12 +156,18 @@
             class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn"
             (click)="setCaracter(' ')"><span>ESPACIO</span></button>
 
+            <button type="submit" name="return"  class="mat-focus-indicator btn btn-light mat-warning-button mat-button-base mat-warn" (click)="setClearLast()">
+              <span><mat-icon>assignment_return</mat-icon></span>
+            </button>
+
           <br><br>
           <div class="form-actions">
 
             <button type="submit" name="ingresar" class="btn btn-secondary" (click)="setClear()">
               <span><mat-icon>delete_sweep</mat-icon>Limpiar</span>
             </button>
+
+       
 
             <button type="button" name="ingresar" class="btn btn btn-success px-4"  (click)="operar()">
               <i class="fa fa-sync fa-spin" ></i>&nbsp;

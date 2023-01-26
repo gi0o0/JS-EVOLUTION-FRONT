@@ -5,6 +5,7 @@ import { DTOWfSteps } from '../../_model/DTOWfSteps';
 
 import { Subject } from 'rxjs';
 import { DTOWfStepParameter } from '../../_model/DTOWfStepParameter';
+import { DTOWallet } from '../../_model/DTOWallet';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class WfService {
 
   updateStep(o: DTOWfSteps) {
     return this.http.put(`${this.url}/${o.idWf}`, o,{ withCredentials: true });
+  }
+
+  listWalletByUser(user: string) {
+    return this.http.get<DTOWallet[]>(`${this.url}/${user}/portafolio`,{ withCredentials: true });
   }
   
 }

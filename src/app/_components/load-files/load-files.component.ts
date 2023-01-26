@@ -1,7 +1,8 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DTOParameter } from '../../_model/DTOParameter';
+import { DTOWfDocs } from '../../_model/DTOWfDocs';
 import { DTOWfStepParameterDoc } from '../../_model/DTOWfStepParameterDoc';
 import { DTOWfSteps } from '../../_model/DTOWfSteps';
 import { ParameterService } from '../../_services/parameter/parameter.service';
@@ -23,14 +24,14 @@ export class LoadFilesComponent implements OnInit {
 
   @ViewChild('attachments') attachment: any;
 
-  listOfFiles: any[] = [];
-  maxFilesContador: number = 0;
   maxFiles: number;
   sizeFiles: number;
   sizeFilesName: number;
   acceptFiles: string;
-  files: string[] = [];
+  documentos: DTOWfDocs[] = [];
   docs: DTOWfStepParameterDoc[] = [];
+  indObligatorio: boolean;
+  documentosObligatorios: String[] = [];
 
   constructor(private dialogRef: MatDialogRef<LoadFilesComponent>, @Inject(MAT_DIALOG_DATA) public data: DTOWfSteps,
     public dialog: MatDialog, private wfParamService: WfParameterService, private parameterService: ParameterService, private wfService: WfService) {
@@ -38,7 +39,6 @@ export class LoadFilesComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.getParametersFiles();
     this.getDocs();
   }
@@ -50,57 +50,64 @@ export class LoadFilesComponent implements OnInit {
     } else {
       for (var i = 0; i <= event.target.files.length - 1; i++) {
         var selectedFile = event.target.files[i];
-        if (this.listOfFiles.indexOf(selectedFile.name) === -1) {
+        let name = doc.nomDocumento.replaceAll(" ", "_")
 
-          var name = selectedFile.name.split('.').slice(0, -1).join('.')
-
-          if (selectedFile.size > this.sizeFiles) {
-            this.showMessage("El tamaño máximo por archivo permitido es " + this.sizeFiles);
-            this.init();
-            break;
-          } else if (name.length > this.sizeFilesName) {
-            this.showMessage("El tamaño máximo por nombre de archivo permitido es de " + this.sizeFilesName + " caracteres");
-            this.init();
-            break;
-          }
-          this.listOfFiles.push(this.step.prefixFile+""+selectedFile.name);
-          const reader = new FileReader();
-          reader.readAsDataURL(selectedFile);
-          reader.onload = () => {
-            this.files.push(reader.result + "");
-          };
+        if (selectedFile.size > this.sizeFiles) {
+          this.showMessage("El tamaño máximo por archivo permitido es " + this.sizeFiles);
+          this.init();
+          break;
         }
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = () => {
+          const d = new DTOWfDocs();
+          d.idDocumento = doc.idDocumento
+          d.value = reader.result + ""
+          d.nomDocumento = name
+          this.documentos.push(d);
+        };
+
       }
     }
   }
 
   removeSelectedFile(index) {
-    this.listOfFiles.splice(index, 1);
-    this.files.splice(index, 1);
+    this.documentos.splice(index, 1);
   }
-
 
   send() {
 
-    if (this.files.length > 0) {
-      if (this.files.length < this.maxFilesContador) {
-        this.showMessage("Debe ingresar los documentos que son Obligatorios.");
-      } else {
-
-        if (this.step.files != null) {
-          this.step.files = this.step.files.concat(this.files);
-        } else {
-          this.step.files = this.files;
+    if (this.documentos.length > 0) {
+      this.documentosObligatorios= [];
+      this.docs.forEach(o => {
+        this.indObligatorio = true;
+        if (o.indObligatorio == "S") {
+          this.indObligatorio = false;
+          this.documentos.forEach(f => {
+            if (f.idDocumento == o.idDocumento) {
+              this.indObligatorio = true;
+            }
+          });
         }
-        if (this.step.filesNames != null) {
-          this.step.filesNames = this.step.filesNames.concat(this.listOfFiles);
-        } else {
-          this.step.filesNames = this.listOfFiles;
+        if (!this.indObligatorio) {
+          this.documentosObligatorios.push(o.nomDocumento)         
         }
-        this.wfService.wf_step_event_docs.next(this.step);
-        this.init();
-        this.dialogRef.close();
+      });
+      if (this.documentosObligatorios.length>0) {
+        this.showMessage("Debe ingresar los documentos que son Obligatorios."+ this.documentosObligatorios);
+        return
       }
+
+      if (this.step.files != null) {
+        this.step.files = this.step.files.concat(this.documentos);
+      } else {
+        this.step.files = this.documentos;
+      }
+
+      this.wfService.wf_step_event_docs.next(this.step);
+      this.init();
+      this.dialogRef.close();
+
     } else {
       this.showMessage("No se han seleccionado archivos.");
     }
@@ -128,22 +135,12 @@ export class LoadFilesComponent implements OnInit {
 
   getDocs() {
     this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
-      res.forEach(o => {
-
-        if (this.step.isRequiredFiles != false) {
-          if (o.indObligatorio == "S") {
-            this.maxFilesContador += 1;
-          }
-        }
-
-        this.docs.push(o);
-      });
+      this.docs = res;
     }, error => {
       console.log(error);
       this.loading = false;
     });
   }
-
 
   showMessage(message: string) {
     this.loading = false;
@@ -154,8 +151,7 @@ export class LoadFilesComponent implements OnInit {
   }
 
   init() {
-    this.listOfFiles = [];
-    this.files = [];
+    this.documentos = [];
   }
 
 }

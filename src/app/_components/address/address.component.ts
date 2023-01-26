@@ -43,6 +43,13 @@ export class AddressComponent implements OnInit {
     this.address = "";
   }
 
+  setClearLast() {
+    if(this.address.length>0){
+      this.address = this.address.substring(0, this.address.length - 1);
+    }
+    
+  }
+
   onParameterChange(event) {
     this.address = this.address + event.value.text;
   }
