@@ -6,6 +6,7 @@ export class DTOWfSteps {
 
     idWf: string;
     isUpdate: boolean;
+    readonly: boolean;
     numeroRadicacion: number
     idStep: string;
     idStepNow: string;
@@ -19,6 +20,7 @@ export class DTOWfSteps {
     perCuota: string;
     doctip: string;
     nitter: string;
+    codTer: string;
     nomTer: string;
     priApellido: string;
     segApellido: string;

@@ -6,6 +6,7 @@ import { DTOWfSteps } from '../../_model/DTOWfSteps';
 import { Subject } from 'rxjs';
 import { DTOWfStepParameter } from '../../_model/DTOWfStepParameter';
 import { DTOWallet } from '../../_model/DTOWallet';
+import { DTOWFFilter } from '../../_model/DTOWFFilter';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class WfService {
 
   listByNumRadAndMov(numRad: number,move: string,) {
     return this.http.get<DTOWfSteps>(`${this.url}/${numRad}/step/${move}`,{ withCredentials: true });
+  }
+
+  listWithFilter(filter: DTOWFFilter) {
+    return this.http.post<DTOWfSteps[]>(`${this.url}/filter`,filter,{ withCredentials: true });
   }
 
   deleteStep(o: DTOWfSteps) {

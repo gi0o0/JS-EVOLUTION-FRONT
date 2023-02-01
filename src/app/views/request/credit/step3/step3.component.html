@@ -8,7 +8,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Sueldo Básico" [(ngModel)]="step.financial.sueldo" formControlName="sueldo"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Sueldo Básico</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('sueldo', 'required')">Sueldo Básico es requerido.</mat-error>
@@ -21,7 +21,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Recargos" [(ngModel)]="step.financial.recargos" formControlName="recargos"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Recargos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('recargos', 'required')">Recargos es requerido.</mat-error>
@@ -34,7 +34,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Bonos" [(ngModel)]="step.financial.bonos" formControlName="bonos"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Bonos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('bonos', 'required')">Bonos.</mat-error>
@@ -47,7 +47,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Compensatorios" [(ngModel)]="step.financial.compensatorios"
-      formControlName="compensatorios" (change)="onChangeEventSum($event)">
+      formControlName="compensatorios" (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Compensatorios</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('compensatorios', 'required')">Compensatorios.</mat-error>
@@ -60,7 +60,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Bonificación" [(ngModel)]="step.financial.bonificacion" formControlName="bonificacion"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Bonificación</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('bonificacion', 'required')">Bonificación.</mat-error>
@@ -73,7 +73,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Horas Extras" [(ngModel)]="step.financial.horas_extras" formControlName="horas_extras"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Horas Extras</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('horas_extras', 'required')">Horas Extras.</mat-error>
@@ -86,7 +86,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros Pagos" [(ngModel)]="step.financial.otros_pagos1" formControlName="otros_pagos1"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Otros Pagos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_pagos1', 'required')">Otros Pagos.</mat-error>
@@ -99,7 +99,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros Pagos" [(ngModel)]="step.financial.otros_pagos2" formControlName="otros_pagos2"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Otros Pagos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_pagos2', 'required')">Otros Pagos.</mat-error>
@@ -112,7 +112,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros Pagos" [(ngModel)]="step.financial.otros_pagos3" formControlName="otros_pagos3"
-      (change)="onChangeEventSum($event)">
+      (change)="onChangeEventSum($event)" [readonly]="step.readonly">
     <span matSuffix>Otros Pagos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_pagos3', 'required')">Otros Pagos.</mat-error>
@@ -129,7 +129,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Salud" [(ngModel)]="step.financial.salud" formControlName="salud"
-      (change)="onChangeEventSumDes($event)">
+      (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Salud</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('salud', 'required')">Salud es requerido.</mat-error>
@@ -142,7 +142,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Salud Pensión" [(ngModel)]="step.financial.pension" formControlName="pension"
-      (change)="onChangeEventSumDes($event)">
+      (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Salud Pensión</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('pension', 'required')">Salud Pensión.</mat-error>
@@ -155,7 +155,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Libranza" [(ngModel)]="step.financial.libranza" formControlName="libranza"
-      (change)="onChangeEventSumDes($event)">
+      (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Libranza</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('libranza', 'required')">Libranza.</mat-error>
@@ -168,7 +168,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Cuota Sindical" [(ngModel)]="step.financial.cuota_sindical"
-      formControlName="cuota_sindical" (change)="onChangeEventSumDes($event)">
+      formControlName="cuota_sindical" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Cuota Sindical</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('cuota_sindical', 'required')">Cuota Sindical.</mat-error>
@@ -181,7 +181,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Cuota interna" [(ngModel)]="step.financial.cuota_interna"
-      formControlName="cuota_interna" (change)="onChangeEventSumDes($event)">
+      formControlName="cuota_interna" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Cuota interna</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('cuota_interna', 'required')">Cuota interna.</mat-error>
@@ -194,7 +194,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros descuentos" [(ngModel)]="step.financial.otros_decuentos1"
-      formControlName="otros_decuentos1" (change)="onChangeEventSumDes($event)">
+      formControlName="otros_decuentos1" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Otros descuentos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_decuentos1', 'required')">Otros descuentos.</mat-error>
@@ -207,7 +207,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros descuentos" [(ngModel)]="step.financial.otros_decuentos2"
-      formControlName="otros_decuentos2" (change)="onChangeEventSumDes($event)">
+      formControlName="otros_decuentos2" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Otros descuentos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_decuentos2', 'required')">Otros descuentos.</mat-error>
@@ -220,7 +220,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Otros descuentos" [(ngModel)]="step.financial.otros_decuentos3"
-      formControlName="otros_decuentos3" (change)="onChangeEventSumDes($event)">
+      formControlName="otros_decuentos3" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
     <span matSuffix>Otros descuentos</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('otros_decuentos3', 'required')">Otros descuentos.</mat-error>
@@ -235,7 +235,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Valor Compras de Cartera 1" [(ngModel)]="step.financial.compra_cartera1"
-        formControlName="compra_cartera1" (change)="onChangeEventSumDes($event)">
+        formControlName="compra_cartera1" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Valor Compras de Cartera 1</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_cartera1', 'required')">Valor Compras de Cartera.</mat-error>
@@ -248,7 +248,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Entidad Compras de Cartera 1" [(ngModel)]="step.financial.entidad_cartera1"
-        formControlName="entidad_cartera1" (change)="onChangeEventSumDes($event)">
+        formControlName="entidad_cartera1" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Entidad Compras de Cartera 1</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('entidad_cartera1', 'required')">Entidad Compras de Cartera.</mat-error>
@@ -261,7 +261,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Obligación Compras de Cartera 1" [(ngModel)]="step.financial.obligacion_cartera1"
-        formControlName="obligacion_cartera1" (change)="onChangeEventSumDes($event)">
+        formControlName="obligacion_cartera1" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Obligación Compras de Cartera 1</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('obligacion_cartera1', 'required')">Obligación Compras de Cartera.</mat-error>
@@ -274,7 +274,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Valor Compras de Cartera 2" [(ngModel)]="step.financial.compra_cartera2"
-        formControlName="compra_cartera2" (change)="onChangeEventSumDes($event)">
+        formControlName="compra_cartera2" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Valor Compras de Cartera 2 </span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_cartera2', 'required')">Valor Compras de Cartera.</mat-error>
@@ -287,7 +287,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Entidad Compras de Cartera 2" [(ngModel)]="step.financial.entidad_cartera2"
-        formControlName="entidad_cartera2" (change)="onChangeEventSumDes($event)">
+        formControlName="entidad_cartera2" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Entidad Compras de Cartera 2</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('entidad_cartera2', 'required')">Entidad Compras de Cartera.</mat-error>
@@ -300,7 +300,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nit Entidad 2" [(ngModel)]="step.financial.compra_nit2"
-        formControlName="compra_nit2">
+        formControlName="compra_nit2" [readonly]="step.readonly">
       <span matSuffix>Nit Entidad 2</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_nit2', 'required')">Nit Entidad.</mat-error>
@@ -313,7 +313,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Obligación Compras de Cartera 2" [(ngModel)]="step.financial.obligacion_cartera2"
-        formControlName="obligacion_cartera2" (change)="onChangeEventSumDes($event)">
+        formControlName="obligacion_cartera2" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Obligación Compras de Cartera 2</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('obligacion_cartera2', 'required')">Obligación Compras de Cartera.</mat-error>
@@ -327,7 +327,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Valor Compras de Cartera 3" [(ngModel)]="step.financial.compra_cartera3"
-        formControlName="compra_cartera3" (change)="onChangeEventSumDes($event)">
+        formControlName="compra_cartera3" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Valor Compras de Cartera 3</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_cartera3', 'required')">Valor Compras de Cartera.</mat-error>
@@ -340,7 +340,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Entidad Compras de Cartera 3" [(ngModel)]="step.financial.entidad_cartera3"
-        formControlName="entidad_cartera3" (change)="onChangeEventSumDes($event)">
+        formControlName="entidad_cartera3" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Entidad Compras de Cartera 3</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('entidad_cartera3', 'required')">Entidad Compras de Cartera.</mat-error>
@@ -353,7 +353,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nit Entidad 3" [(ngModel)]="step.financial.compra_nit3"
-        formControlName="compra_nit3">
+        formControlName="compra_nit3" [readonly]="step.readonly">
       <span matSuffix>Nit Entidad 3</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_nit3', 'required')">Nit Entidad.</mat-error>
@@ -366,7 +366,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Obligación Compras de Cartera 3" [(ngModel)]="step.financial.obligacion_cartera3"
-        formControlName="obligacion_cartera3" (change)="onChangeEventSumDes($event)">
+        formControlName="obligacion_cartera3" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Obligación Compras de Cartera 3</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('obligacion_cartera3', 'required')">Obligación Compras de Cartera.</mat-error>
@@ -379,7 +379,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Valor Compras de Cartera 4" [(ngModel)]="step.financial.compra_cartera4"
-        formControlName="compra_cartera4" (change)="onChangeEventSumDes($event)">
+        formControlName="compra_cartera4" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Valor Compras de Cartera 4</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_cartera4', 'required')">Valor Compras de Cartera.</mat-error>
@@ -392,7 +392,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Entidad Compras de Cartera 4" [(ngModel)]="step.financial.entidad_cartera4"
-        formControlName="entidad_cartera4" (change)="onChangeEventSumDes($event)">
+        formControlName="entidad_cartera4" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Entidad Compras de Cartera 4</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('entidad_cartera4', 'required')">Entidad Compras de Cartera.</mat-error>
@@ -405,7 +405,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Nit Entidad 4" [(ngModel)]="step.financial.compra_nit4"
-        formControlName="compra_nit4">
+        formControlName="compra_nit4" [readonly]="step.readonly">
       <span matSuffix>Nit Entidad 4</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_nit4', 'required')">Nit Entidad.</mat-error>
@@ -418,7 +418,7 @@
 
     <mat-form-field>
       <input matInput placeholder="Obligación Compras de Cartera 4" [(ngModel)]="step.financial.obligacion_cartera4"
-        formControlName="obligacion_cartera4" (change)="onChangeEventSumDes($event)">
+        formControlName="obligacion_cartera4" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Obligación Compras de Cartera 4</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('obligacion_cartera4', 'required')">Obligación Compras de Cartera.</mat-error>
@@ -440,9 +440,11 @@
   <br><br>
   <h1>TOTAL DESCUENTOS: $&nbsp; {{totalDescuentos | number:'.2'}}</h1>
 
+  <div *ngIf="!step.readonly">
   <button mat-button (click)="calculateCapacity()" type='button' mat-flat-button class="btn btn-warning">
     <mat-icon>settings_applications</mat-icon>Calcular Capacidad de Endeudamiento
   </button>
+</div>
 
   <br><br>
   <h1>DISPONIBLE : $&nbsp; {{totalIngresos - totalDescuentos | number:'.2'}}</h1>
@@ -451,7 +453,7 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments">
+    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments" [readonly]="step.readonly">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
   </mat-form-field>
@@ -500,9 +502,11 @@
   
 
   <br><br>
+  <div *ngIf="!step.readonly">
   <div class="form-actions">
     <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>
       <mat-icon>fast_forward</mat-icon>Continuar
     </button>
+  </div>
   </div>
 </form>

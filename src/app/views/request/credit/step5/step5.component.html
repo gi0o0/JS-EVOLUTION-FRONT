@@ -5,28 +5,31 @@
 <h1>Paso 5</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep5()" class="form-horizontal" #regForm="ngForm">
 
- 
-  <br><br>
-    <button mat-button (click)="Approve('11')" type='button' mat-flat-button class="btn btn-warning mat-ok">
-      <mat-icon>check</mat-icon>Aceptar Solicitud
-    </button>
-
-    <button mat-button (click)="Approve('10')" type='button' mat-flat-button class="btn btn-info mat-accent">
-      <mat-icon>close</mat-icon>Cancelar Solicitud
-    </button>
-
-    <br><br>
-    <mat-form-field>
-      <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments">
-      <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
-      <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
-    </mat-form-field>
-
 
   <br><br>
-  <div class="form-actions">
-    <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>
-      <mat-icon>fast_forward</mat-icon>Continuar
-    </button>
+  <button mat-button (click)="Approve('11')" type='button' mat-flat-button class="btn btn-warning mat-ok">
+    <mat-icon>check</mat-icon>Aceptar Solicitud
+  </button>
+
+  <button mat-button (click)="Approve('10')" type='button' mat-flat-button class="btn btn-info mat-accent">
+    <mat-icon>close</mat-icon>Cancelar Solicitud
+  </button>
+
+  <br><br>
+  <mat-form-field>
+    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
+      [readonly]="step.readonly">
+    <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
+    <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
+  </mat-form-field>
+
+
+  <br><br>
+  <div *ngIf="!step.readonly">
+    <div class="form-actions">
+      <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>
+        <mat-icon>fast_forward</mat-icon>Continuar
+      </button>
+    </div>
   </div>
 </form>

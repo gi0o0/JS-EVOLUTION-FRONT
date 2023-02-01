@@ -2,6 +2,7 @@ export class DTOWfStepsCodeudor {
 
     doctip: string;
     nitter: string;
+    codTer: string;
     nomTer: string;
     priApellido: string;
     segApellido: string;

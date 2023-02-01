@@ -8,15 +8,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { FormBuilder, FormGroup,NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { DTOWfStepsCodeudor } from '../../../_model/DTOWfStepsCodeudor';
 import { DTOWfStepsFinancialInfo } from '../../../_model/DTOWfStepsFinancialInfo';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
-import { EXP_REGULAR_NUMERO } from '../../../_shared/constantes';
+import { EXP_REGULAR_NUMERO, EXP_REGULAR_ALFANUMERICO } from '../../../_shared/constantes';
 import { WfParameterService } from '../../../_services/wfparameter/wfparameter.service';
+import { DTOWFFilter } from '../../../_model/DTOWFFilter';
+import { CreditEditComponent } from '../credit/credit-edit/credit-edit.component';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class CreditSearchComponent implements OnInit {
 
   o: DTOWfParameter;
   step: DTOWfSteps;
+  filter: DTOWFFilter;
+
   codeu: DTOWfStepsCodeudor;
   public forma: FormGroup;
 
@@ -46,18 +50,27 @@ export class CreditSearchComponent implements OnInit {
 
   constructor(private wfService: WfService, public dialog: MatDialog, private wfParamService: WfParameterService, private formBuilder: FormBuilder) {
     this.o = new DTOWfParameter();
+    this.filter = new DTOWFFilter();
     this.crearFormulario();
 
   }
 
   ngOnInit() {
+
+    this.wfService.getMoveToEdit.subscribe(move => {
+      this.getCredit(move);
+    });
+
     this.initStep(false, 0, "1");
   }
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
-      user: ['', [Validators.required, Validators.pattern(EXP_REGULAR_NUMERO), Validators.maxLength(15)]],
-      request: ['0', [Validators.pattern(EXP_REGULAR_NUMERO), Validators.maxLength(15)]]
+      fechaInit: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
+      fechaFin: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
+      asesor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
+      estado: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
+
     });
   }
 
@@ -74,19 +87,6 @@ export class CreditSearchComponent implements OnInit {
     this.dataSource.filter = value.trim().toLocaleLowerCase();;
   }
 
-  getRequest() {
-    this.loading = true;
-    this.wfService.listByUser().subscribe(async (res: DTOWfSteps[]) => {
-      this.listRequest = res;
-      this.dataSource = new MatTableDataSource(this.listRequest);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-    });
-  }
-
 
   getCreditFromChild() {
     this.getCredit(this.step.nextStep);
@@ -95,17 +95,11 @@ export class CreditSearchComponent implements OnInit {
   getCredit(move: string) {
     this.loading = true;
     this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move).subscribe(async (res: DTOWfSteps) => {
-
-      if (res.nextStep != undefined) {
-      
-        this.step.isUpdate = true;
-      } else {   
-        this.step.isUpdate = false;
-      }
-
-
+      this.step = res;
+      this.step.readonly = true;
+      this.step.isUpdate = true;
       this.loading = false;
-    
+      this.showFormAdd = true;
     }, error => {
       this.loading = false;
     });
@@ -118,6 +112,31 @@ export class CreditSearchComponent implements OnInit {
       data: message,
 
     });
+  }
+
+  openDialogEdit(o: DTOWfSteps) {
+    this.showFormAdd = false;
+    this.step = o;
+    this.dialog.open(CreditEditComponent, {
+      width: '400px',
+      data: this.step.numeroRadicacion,
+    });
+
+  }
+
+  consultarSolicitudes() {
+    this.showFormAdd = false;
+    this.loading = true;
+    this.wfService.listWithFilter(this.filter).subscribe(async (res: DTOWfSteps[]) => {
+      this.listRequest = res;
+      this.dataSource = new MatTableDataSource(this.listRequest);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+
   }
 
   showCreateStep() {

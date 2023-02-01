@@ -8,27 +8,39 @@
       <div class="card">
         <div class="card-body">
 
-          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()" class="form-horizontal" #regForm="ngForm">
+          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="consultarSolicitudes()" class="form-horizontal" #regForm="ngForm">
 
             <mat-form-field>
-              <input matInput placeholder="Fecha dd-mm-yyyy" [(ngModel)]="o.user" formControlName="user" type="number">
-              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
-              <mat-error *ngIf="hasError('user', 'required')">Nombre es requerido.</mat-error>
-              <mat-error *ngIf="hasError('user', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+              <input matInput placeholder="Fecha Inicial yyyy-mm-dd" [(ngModel)]="filter.fechaInit" formControlName="fechaInit" >
+              <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('fechaInit', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
             </mat-form-field>
 
             <mat-form-field>
-              <input matInput placeholder="Usuario" [(ngModel)]="o.user" formControlName="user" type="number">
-              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
-              <mat-error *ngIf="hasError('user', 'required')">Nombre es requerido.</mat-error>
-              <mat-error *ngIf="hasError('user', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+              <input matInput placeholder="Fecha Final yyyy-mm-dd" [(ngModel)]="filter.fechaFin" formControlName="fechaFin" >
+              <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('fechaFin', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
             </mat-form-field>
 
             <mat-form-field>
-              <input matInput placeholder="Solicitud" [(ngModel)]="o.request" formControlName="request" type="number">
-              <mat-hint align="end">Longitud máxima 15 caracteres.</mat-hint>
-              <mat-error *ngIf="hasError('request', 'required')">Solicitud es requerido.</mat-error>
-              <mat-error *ngIf="hasError('request', 'maxlength')">Longitud máxima 15 caracteres.</mat-error>
+              <input matInput placeholder="Asesor" [(ngModel)]="filter.asesor" formControlName="asesor" >
+              <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
+              <mat-error *ngIf="hasError('asesor', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Estado</mat-label>
+              <mat-select name="estado" [(ngModel)]="filter.estado" formControlName="estado">
+                <mat-option value="S">Solicitud de Crédito</mat-option>
+                <mat-option value="R">Radicado</mat-option>
+                <mat-option value="P">Pre Aprobado</mat-option>
+                <mat-option value="I">Sin Pre Aprobado</mat-option>
+                <mat-option value="E">Solicitud en espera</mat-option>
+                <mat-option value="N">Negado</mat-option>
+                <mat-option value="C">Cancelado Solicitud del Cliente </mat-option>
+                <mat-option value="A">Aprobado</mat-option>
+                <mat-option value="D">Desembolsado</mat-option>
+              </mat-select>
             </mat-form-field>
             <br> <br>
 
@@ -87,10 +99,7 @@
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let row" class="action-link">
         <button mat-button color="primary" (click)="openDialogEdit(row)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-button color="warn" (click)="showDialogCancel(row)">
-          <mat-icon>restore_from_trash</mat-icon>
+          <mat-icon>remove_red_eye</mat-icon>
         </button>
       </td>
     </ng-container>
