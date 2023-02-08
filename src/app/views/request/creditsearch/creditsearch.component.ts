@@ -15,10 +15,15 @@ import { DTOWfStepsFinancialInfo } from '../../../_model/DTOWfStepsFinancialInfo
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
-import { EXP_REGULAR_NUMERO, EXP_REGULAR_ALFANUMERICO } from '../../../_shared/constantes';
-import { WfParameterService } from '../../../_services/wfparameter/wfparameter.service';
+import { EXP_REGULAR_ALFANUMERICO } from '../../../_shared/constantes';
 import { DTOWFFilter } from '../../../_model/DTOWFFilter';
 import { CreditEditComponent } from '../credit/credit-edit/credit-edit.component';
+import { FoclaasoService } from '../../../_services/foclaaso/foclaaso.service';
+import { DTOFoclaaso } from '../../../_model/DTOFoclaaso';
+import { UserWebService } from '../../../_services/userweb/userweb.service';
+import { DTOTercero } from '../../../_model/DTOTercero';
+import { DTOParameter } from '../../../_model/DTOParameter';
+import { ParameterService } from '../../../_services/parameter/parameter.service';
 
 
 @Component({
@@ -31,6 +36,9 @@ export class CreditSearchComponent implements OnInit {
   o: DTOWfParameter;
   step: DTOWfSteps;
   filter: DTOWFFilter;
+  listFoclaaso: DTOFoclaaso[];
+  listAdvisers: DTOTercero[];
+  listSector: DTOParameter[];
 
   codeu: DTOWfStepsCodeudor;
   public forma: FormGroup;
@@ -48,7 +56,7 @@ export class CreditSearchComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private wfService: WfService, public dialog: MatDialog, private wfParamService: WfParameterService, private formBuilder: FormBuilder) {
+  constructor(private wfService: WfService, public dialog: MatDialog, private parameterService: ParameterService, private foclaasoService: FoclaasoService, private userWebService: UserWebService, private formBuilder: FormBuilder) {
     this.o = new DTOWfParameter();
     this.filter = new DTOWFFilter();
     this.crearFormulario();
@@ -62,15 +70,19 @@ export class CreditSearchComponent implements OnInit {
     });
 
     this.initStep(false, 0, "1");
+    this.getEntities();
+    this.getAdvisers();
+    this.getSector();
   }
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
       fechaInit: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
       fechaFin: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
-      asesor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
+      asesor: ['',],
       estado: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
-
+      entitie: ['',],
+      sector: ['',],
     });
   }
 
@@ -86,6 +98,36 @@ export class CreditSearchComponent implements OnInit {
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLocaleLowerCase();;
   }
+
+  getAdvisers() {
+    this.loading = true;
+    this.userWebService.listAdvisers().subscribe(async (res: DTOTercero[]) => {
+      this.listAdvisers = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
+  getEntities() {
+    this.loading = true;
+    this.foclaasoService.listAllWithoutFilter().subscribe(async (res: DTOFoclaaso[]) => {
+      this.listFoclaaso = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
+  getSector() {
+    this.parameterService.listParametersByParamId('SECTOR').subscribe(async (res: DTOParameter[]) => {
+      this.listSector = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
 
 
   getCreditFromChild() {

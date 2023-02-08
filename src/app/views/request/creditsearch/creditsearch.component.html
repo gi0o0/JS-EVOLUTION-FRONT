@@ -8,24 +8,21 @@
       <div class="card">
         <div class="card-body">
 
-          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="consultarSolicitudes()" class="form-horizontal" #regForm="ngForm">
+          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="consultarSolicitudes()" class="form-horizontal"
+            #regForm="ngForm">
 
             <mat-form-field>
-              <input matInput placeholder="Fecha Inicial yyyy-mm-dd" [(ngModel)]="filter.fechaInit" formControlName="fechaInit" >
+              <input matInput placeholder="Fecha Inicial yyyy-mm-dd" [(ngModel)]="filter.fechaInit"
+                formControlName="fechaInit">
               <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
               <mat-error *ngIf="hasError('fechaInit', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
             </mat-form-field>
 
             <mat-form-field>
-              <input matInput placeholder="Fecha Final yyyy-mm-dd" [(ngModel)]="filter.fechaFin" formControlName="fechaFin" >
+              <input matInput placeholder="Fecha Final yyyy-mm-dd" [(ngModel)]="filter.fechaFin"
+                formControlName="fechaFin">
               <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
               <mat-error *ngIf="hasError('fechaFin', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-              <input matInput placeholder="Asesor" [(ngModel)]="filter.asesor" formControlName="asesor" >
-              <mat-hint align="end">Longitud máxima 10 caracteres.</mat-hint>
-              <mat-error *ngIf="hasError('asesor', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
@@ -42,6 +39,28 @@
                 <mat-option value="D">Desembolsado</mat-option>
               </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Entidad</mat-label>
+              <mat-select name="entitie" [(ngModel)]="filter.entitie" formControlName="entitie">
+                <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Asesor</mat-label>
+              <mat-select name="asesor" [(ngModel)]="filter.asesor" formControlName="asesor">
+                <mat-option *ngFor="let s of listAdvisers" [value]="s.codTer">{{ s.nomTercero }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Sector económico</mat-label>
+              <mat-select name="sector" [(ngModel)]="filter.sector" formControlName="sector">
+                <mat-option *ngFor="let s of listSector" [value]="s.text">{{ s.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <br> <br>
 
             <div class="form-actions">

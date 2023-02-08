@@ -429,9 +429,9 @@
       <span matSuffix>.00</span>
     </mat-form-field>
 
-    <div *ngIf="!step.isUpdate">
+    <div>
       <button mat-button (click)="callLoadFile()" type='button' class="btn btn-primary px-4" mat-button>
-        <mat-icon>file_copy</mat-icon>Cargar Archivos
+        <mat-icon>file_copy</mat-icon>  {{ !step.isUpdate ? 'Cargar Archivos' : 'Actualizar Archivos' }} 
       </button>
     </div>
 

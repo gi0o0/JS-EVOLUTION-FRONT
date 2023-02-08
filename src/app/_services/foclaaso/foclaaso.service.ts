@@ -23,5 +23,10 @@ export class FoclaasoService {
     return this.http.get<DTOFoclaaso[]>(`${this.url}`,{ withCredentials: true });
   }
 
+  listAllWithoutFilter = () => {
+    return this.http.get<DTOFoclaaso[]>(`${this.url}/all`,{ withCredentials: true });
+  }
+
+
 
 }

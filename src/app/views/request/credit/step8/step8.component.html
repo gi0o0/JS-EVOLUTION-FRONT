@@ -5,12 +5,13 @@
 <h1>Paso 8</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep8()" class="form-horizontal" #regForm="ngForm">
 
-  <div *ngIf="!step.isUpdate">
-    <button mat-button (click)="callLoadFile()" type='button' mat-flat-button class="btn btn-info">
-      <mat-icon>account_balance</mat-icon>Agregar documentos Solicitud
-    </button>
-    <br><br>
-  </div>
+  <button mat-button (click)="sendFiles()" type='button' mat-flat-button class="btn btn-info">
+    <mat-icon>account_balance</mat-icon>Enviar Archivos
+  </button>
+
+  <button mat-button (click)="callLoadFile()" type='button' mat-flat-button class="btn btn-info">
+    <mat-icon>account_balance</mat-icon>{{ !step.isUpdate ? 'Cargar Archivos' : 'Actualizar Archivos' }}
+  </button>
 
   <div *ngIf="step.isUpdate">
     <br><br>

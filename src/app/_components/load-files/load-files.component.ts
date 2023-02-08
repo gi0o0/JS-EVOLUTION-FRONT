@@ -89,7 +89,7 @@ export class LoadFilesComponent implements OnInit {
             }
           });
         }
-        if (!this.indObligatorio) {
+        if (!this.indObligatorio && !this.step.isUpdate) {
           this.documentosObligatorios.push(o.nomDocumento)         
         }
       });

@@ -75,7 +75,7 @@ export class Step8Component implements OnInit {
 
       if (this.isLoadFiles) {
         this.loading = true;
-        this.step.idSubStep = '0'
+        this.step.idSubStep = '2'
         this.wfService.createStep(this.step).subscribe(data => {
           this.resetForm();
           this.loading = false;
@@ -93,6 +93,19 @@ export class Step8Component implements OnInit {
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }
+  }
+
+  sendFiles() {
+
+    this.loading = true;
+    this.step.idSubStep = '1'
+    this.wfService.createStep(this.step).subscribe(data => {
+      this.loading = false;
+      this.showMessage("Archivos Enviados.");
+    }, error => {
+      this.loading = false;
+      this.showMessage("ERROR:" + error);
+    });
   }
 
   getDocs() {

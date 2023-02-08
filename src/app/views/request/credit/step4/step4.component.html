@@ -5,9 +5,9 @@
 <h1>Paso 4</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep3()" class="form-horizontal" #regForm="ngForm">
 
-  <div *ngIf="!step.isUpdate">
+  <div >
     <button mat-button (click)="callLoadFile('')" type='button' class="btn btn-primary px-4" mat-button>
-      <mat-icon>file_copy</mat-icon>Cargar Archivos
+      <mat-icon>file_copy</mat-icon>{{ !step.isUpdate ? 'Cargar Archivos' : 'Actualizar Archivos' }} 
     </button>
     <br><br>
   </div>
