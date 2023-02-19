@@ -1,0 +1,22 @@
+<div class="card">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select name="estado" [(ngModel)]="estado">
+            <mat-option value="S">Solicitud de Crédito</mat-option>
+            <mat-option value="R">Radicado</mat-option>
+            <mat-option value="P">Pre Aprobado</mat-option>
+            <mat-option value="E">Solicitud en espera</mat-option>
+            <mat-option value="N">Negado</mat-option>
+            <mat-option value="C">Cancelado Solicitud del Cliente </mat-option>
+            <mat-option value="A">Aprobado</mat-option>
+            <mat-option value="D">Desembolsado</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button type="button" name="ingresar" class="btn btn btn-success px-4" (click)="operar()">
+        <i class="fa fa-sync fa-spin"></i>&nbsp;
+        <span>Aceptar</span>
+    </button>
+
+</div>

@@ -55,6 +55,8 @@ import { CreditEditComponent } from './credit/credit-edit/credit-edit.component'
 
 import { SharedModule } from '../sharedModule/shared.module';
 import { CreditSearchComponent } from './creditsearch/creditsearch.component';
+import { CreditStateComponent } from './creditstate/creditstate.component';
+import { CreditChangeStateComponent } from './creditstate/credit-change_state/credit-change_state.component';
 
 
 @NgModule({
@@ -102,6 +104,7 @@ import { CreditSearchComponent } from './creditsearch/creditsearch.component';
   declarations: [
     CreditComponent,
     CreditSearchComponent,
+    CreditStateComponent,
     Step1Component,
     Step2Component,
     Step3Component,
@@ -111,6 +114,7 @@ import { CreditSearchComponent } from './creditsearch/creditsearch.component';
     Step7Component,
     Step8Component,
     CreditCancelComponent,
+    CreditChangeStateComponent,
     CreditEditComponent
   ]
   

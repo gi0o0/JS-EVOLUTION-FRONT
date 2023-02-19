@@ -1,8 +1,3 @@
-<button mat-button (click)="showCreateStep()" mat-flat-button color="primary">
-  <mat-icon>playlist_add</mat-icon>Nueva Solicitud
-</button>
-<button mat-raised-button color="warn" class="btn btn-secondary" type="button"  (click)="hideForm()">Cancelar</button>
-
 <div *ngIf="loading">
   <app-progress-spinner></app-progress-spinner>
 </div>
@@ -37,24 +32,27 @@
       <mat-cell *matCellDef="let row"> {{row.idStepNow}} </mat-cell>
     </ng-container>
 
-    
+
 
     <ng-container matColumnDef="estado">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Estado</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.estado}} </mat-cell>
     </ng-container>
 
+
+
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let row" class="action-link">
         <button mat-button color="primary" (click)="openDialogEdit(row)">
-          <mat-icon>edit</mat-icon>
+          <mat-icon>remove_red_eye</mat-icon>
         </button>
-        <button mat-button color="warn"  (click)="showDialogCancel(row)">
-          <mat-icon>restore_from_trash</mat-icon>
+        <button mat-button color="warn"  (click)="showDialogChangeState(row)">
+          <mat-icon>compare arrows icon</mat-icon>
         </button>
       </td>
     </ng-container>
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;">
@@ -112,10 +110,7 @@
           <div *ngIf="step.nextStep==='8'">
             <step-8 [step]="step" (parentFun)="getCreditFromChild()"></step-8>
           </div>
-          <div *ngIf="step.nextStep==='I'">
-           {{approvalMessage}}
-          </div>
-          
+
         </div>
       </div>
     </div>
