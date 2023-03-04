@@ -11,15 +11,7 @@ export const ERROR_NO_CONTROLADO_CLAVE_NO_COINCIDE = 'Las claves no coinciden';
 export const ERROR_NO_CONTROLADO = 'Hubo un problema con el servicio. Contacta al administrador';
 export const ERROR_LOGIN = 'No existe un usuario asociado con los datos suministrados, por favor verifica los datos e ingresa de nuevo.';
 export const CANTIDAD_FIELDSET = 33.33;
-export const PERSONA_NATURAL = '2901';
-export const ESTABLECIMIENTO_COMERCIO = '2902';
-export const ID_MENSAJE_PERSONA_NATURAL = '15';
-export const ID_MENSAJE_ESTABLECIMIENTO_COMERCIO = '16';
-export const ID_MENSAJE_LISTADO_MATRICULA = '17';
-export const ID_MENSAJE_LISTADO_MUTACIONES = '18';
-export const ID_MENSAJE_MUTACION_DIR_COMERCIAL_JUDICIAL = '20';
-export const ID_MENSAJE_INFORMATIVO_DIRECCION = '21';
-export const ID_MENSAJE_NO_CAMBIO_MUTACIONES = '22';
+
 export const NOMBRE = 1;
 export const ID_URL_FORMATO = '25';
 export const ID_URL_SERVICIO = '26';
@@ -31,26 +23,11 @@ export const EXP_REGULAR_NUMERO_CAMPO = /^([0-9])*$/;
 export const EXP_ESPACIOS = /\s+/g;
 export const EXP_ESPACIOS_TEXTO_INI_FIN = /^\s+|\s+$/g;
 export const EXP_REGULAR_ALFANUMERICO = '^[a-zA-ZÀ-ÿ-Z0-9_ ]*$';
-export const ID_TIPO_DIRECCIONES_COMERCIAL = '161';
-export const ID_TIPO_DIRECCIONES_JUDICIAL = '162';
+export const EXP_REGULAR_FECHA_YYYMMDD = '([0-9]{4,})([-])([0-9]{2,})([-])([0-9]{2,})';
 export const EXP_REGULAR_CARACTERES_ESPECIALES = '/[.*+\-?^${}()|[\]\\]/g';
-export const ID_CODIGO_ALERTA_SIPREF_NO_MUTACION = 10;
-export const ID_CODIGO_ALERTA_SIPREF_MUTACION_DIRECCION = 23;
-export const MUTACION_NOMBRE = 20;
-export const MUTACION_DIRECCION = 21;
-export const MUTACION_DIRECCION_COMERCIAL = '21';
-export const MUTACION_DIRECCION_JUDICIAL = '22';
-export const MUNICIPIO_BOGOTA = '11001';
-export const ID_MENSAJE_MUNICIPIO_BOGOTA_SHD = '180';
-export const ID_MENSAJE_MUNICIPIO_JURISDICCION_SHD = '179';
-export const DESCRIPCION_ACTIVIDAD_ECONOMICA = 26;
-export const MUTACION_ACTIVIDAD_ECONOMICA = 24;
+
 export const MENSAJE_ELIMINAR_STEP = 'Eliminar primero las Autorizaciones y Documentos.';
-export const MENSAJE_INFORMATIVO_ACTIVIDAD_SOCIAL_2 = '182';
 export const MENSAJE_GUARDO_EXITOSAMENTE = 'Su información se guardó exitosamente';
-
-
-
 export const REFRESH_TOKEN_NAME = "refreshToken";
 export const ACCESS_TOKEN_NAME = "accessToken";
 export const TOKEN_TYPE = "tokenType";
@@ -61,8 +38,7 @@ export const ActualizacionClave = "Actualización clave";
 export const ActualizacionDatos = "Actualización datos";
 export const RecuperarClave = "Recuperar clave";
 export const Registro = "Registro";
-export const Autenticación = "Autenticación";
-                                                                                                                                                
+export const Autenticación = "Autenticación";                                                                                                                                         
 export const FUNCIONALIDADES = "funcionalidades";
 
 export const WK_4 =4;

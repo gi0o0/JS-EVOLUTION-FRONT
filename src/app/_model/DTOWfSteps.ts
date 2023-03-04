@@ -26,6 +26,8 @@ export class DTOWfSteps {
     segApellido: string;
     lugarDoc: string;
     feExp:string;
+    sexo:string;
+    indSolCredito:string;
     mailTer: string;
     dirTerpal: string
     telTer: number;

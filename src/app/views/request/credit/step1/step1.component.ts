@@ -13,8 +13,8 @@ import { WfService } from '../../../../_services/wf/wf.service';
 import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 import { DTOWfStepParameterDoc } from '../../../../_model/DTOWfStepParameterDoc';
 import { DTOWfStepParameterAut } from '../../../../_model/DTOWfStepParameterAut';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_CORREO } from '../../../../_shared/constantes';
+import { FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
+import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_CORREO, EXP_REGULAR_FECHA_YYYMMDD } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { AddressComponent } from '../../../../_components/address/address.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +25,6 @@ import { DTOCountries } from '../../../../_model/DTOCountries';
 import { DTODeptos } from '../../../../_model/DTODeptos';
 import { DTOCities } from '../../../../_model/DTOCities';
 import { FotabproService } from '../../../../_services/fotabpro/fotabpro.service';
-import { DTOFotabpro } from '../../../../_model/DTOFotabpro';
 import { BaentidadService } from '../../../../_services/baentidad/baentidad.service';
 import { DTOBaentidad } from '../../../../_model/DTOBaentidad';
 import { BasTTipCtaService } from '../../../../_services/basttipcta/basttipcta.service';
@@ -52,6 +51,7 @@ export class Step1Component implements OnInit {
   showFormAdd: boolean = false;
   docs: DTOWfStepParameterDoc[] = [];
   auts: DTOWfStepParameterAut[];
+  entitie: DTOFoclaaso;
   listFoclaaso: DTOFoclaaso[];
   listFotipcre: DTOFotipcre[];
   listBaentidad: DTOBaentidad[];
@@ -107,7 +107,7 @@ export class Step1Component implements OnInit {
 
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear - 2, 12, 31);
-    this.isCodeudor = true;
+    this.isCodeudor = false;
 
 
     this.parameterService.objetoCambioAdrressDian.subscribe(data => {
@@ -125,17 +125,13 @@ export class Step1Component implements OnInit {
 
     if (this.step.isUpdate) {
 
-      this.clientDepo(this.step.paisCodigo, 'paisCodigo');
-      this.clientDepo(Number(this.step.paisDirTrabajo), 'paisDirTrabajo');
-      this.clientDepo(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu');
-      this.clientDepo(this.step.codeu.paisCodigo, 'paisCodigo_codeu');
-      this.clientCities(Number(this.step.paisDirTrabajo), Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
-      this.clientCities(this.step.paisCodigo, this.step.codiDept, 'codiDept');
-      this.clientCities(Number(this.step.codeu.paisDirTrabajo), Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
-
-      setTimeout(() => {
-        this.clientCities(this.step.codeu.paisCodigo, this.step.codeu.codiDept, 'codiDept_codeu');
-      }, 1000);
+      if (this.step.codeu != null) {
+        this.isCodeo();
+        this.clientDepoUpdate(this.step.codeu.paisCodigo, 'paisCodigo_codeu', this.step.codeu.codiDept, 'codiDept_codeu');
+        this.clientDepoUpdate(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu', Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
+      }
+      this.clientDepoUpdate(this.step.paisCodigo, 'paisCodigo', this.step.codiDept, 'codiDept');
+      this.clientDepoUpdate(Number(this.step.paisDirTrabajo), 'paisDirTrabajo', Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
 
     }
 
@@ -163,7 +159,9 @@ export class Step1Component implements OnInit {
       priApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       segApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       lugarDoc: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
-      feExp_deu: ['', [Validators.required]],
+      indSolCredito: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
+      feExp_deu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),]],
       mailTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       dirTerpal: ['', [Validators.required]],
       telTer: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
@@ -173,9 +171,9 @@ export class Step1Component implements OnInit {
       codiDept: ['', [Validators.required]],
       codiCiud: ['', [Validators.required]],
       barrio: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      fecIngEmpresa: ['', [Validators.required]],
+      fecIngEmpresa: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),]],
       antiEmpresa: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]],
-      fecCump: ['', [Validators.required]],
+      fecCump: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),]],
       tipVivienda: ['', [Validators.required]],
       dirTeralt: ['', [Validators.required]],
       barrioTra: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
@@ -193,7 +191,7 @@ export class Step1Component implements OnInit {
       nomCony: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       emailConyuge: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       celConyuge: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      nroCuotas: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(4), Validators.minLength(1)]],
+      nroCuotas: ['', [Validators.required, Validators.pattern("^[1-9]*$"), Validators.maxLength(4), Validators.minLength(1)]],
       refNombre1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       refParen1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       refMail1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
@@ -218,61 +216,125 @@ export class Step1Component implements OnInit {
       vehPignorado: ['', [Validators.required]],
       vehPigAFavor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       vehValVomercial: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
-      doctip_codeu: ['', [Validators.required]],
-      nitter_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      nomTer_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      priApellido_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      segApellido_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      lugarDoc_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
-      mailTer_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
-      dirTerpal_codeu: ['', [Validators.required]],
-      telTer_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      feExp: ['', [Validators.required]],
-      paisCodigo_codeu: ['', [Validators.required]],
-      codiDept_codeu: ['', [Validators.required]],
-      codiCiud_codeu: ['', [Validators.required]],
-      barrio_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      antiEmpresa_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]],
-      tipVivienda_codeu: ['', [Validators.required]],
-      dirTeralt_codeu: ['', [Validators.required]],
-      barrioTra_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      paisDirTrabajo_codeu: ['', [Validators.required]],
-      deptDirTrabajo_codeu: ['', [Validators.required]],
-      ciuDirTrabajo_codeu: ['', [Validators.required]],
-      faxTer_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      cargoWf_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      indContrato_codeu: ['', [Validators.required]],
-      paramText_codeu: ['', [Validators.required]],
-      idConyuge_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      nomCony_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      emailConyuge_codeu: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
-      celConyuge_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      refNombre1_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refParen1_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refMail1_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
-      refCel1_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      refNombre2_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refParen2_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refMail2_codeu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
-      refCel2_codeu: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      refNombre3_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refParen3_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      refMail3_codeu: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
-      refCel3_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      bienNombre_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      bienValor_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
-      bienAfecta_codeu: ['', [Validators.required]],
-      bienHipoteca_codeu: ['', [Validators.required]],
-      bienHipAFavor_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehMarca_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehClase_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehModelo_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehPlaca_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehPignorado_codeu: ['', [Validators.required]],
-      vehPigAFavor_codeu: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      vehValVomercial_codeu: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
       comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
     });
+
+  }
+
+  crearFormularioWithCodeo = () => {
+
+    this.forma.addControl('doctip_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('nitter_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('nomTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('priApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('lugarDoc_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]))
+    this.forma.addControl('mailTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
+    this.forma.addControl('dirTerpal_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('telTer_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('feExp', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD)]))
+    this.forma.addControl('paisCodigo_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('codiDept_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('codiCiud_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('barrio_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('antiEmpresa_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]))
+    this.forma.addControl('tipVivienda_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('dirTeralt_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('barrioTra_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('paisDirTrabajo_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('deptDirTrabajo_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('ciuDirTrabajo_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('faxTer_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('cargoWf_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('indContrato_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('paramText_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('idConyuge_codeu', new FormControl('', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('nomCony_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('emailConyuge_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
+    this.forma.addControl('celConyuge_codeu', new FormControl('', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('refNombre1_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refParen1_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refMail1_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
+    this.forma.addControl('refCel1_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('refNombre2_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refParen2_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refMail2_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
+    this.forma.addControl('refCel2_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('refNombre3_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refParen3_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('refMail3_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
+    this.forma.addControl('refCel3_codeu', new FormControl('', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
+    this.forma.addControl('bienNombre_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('bienValor_codeu', new FormControl('', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]))
+    this.forma.addControl('bienAfecta_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('bienHipoteca_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('bienHipAFavor_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehMarca_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehClase_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehModelo_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehPlaca_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehPignorado_codeu', new FormControl('', [Validators.required]))
+    this.forma.addControl('vehPigAFavor_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('vehValVomercial_codeu', new FormControl('', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]))
+
+    this.forma.removeControl('');
+  }
+
+  removeFormularioWithCodeo = () => {
+
+    this.forma.removeControl('doctip_codeu')
+    this.forma.removeControl('nitter_codeu')
+    this.forma.removeControl('nomTer_codeu')
+    this.forma.removeControl('priApellido_codeu')
+    this.forma.removeControl('segApellido_codeu')
+    this.forma.removeControl('lugarDoc_codeu')
+    this.forma.removeControl('mailTer_codeu')
+    this.forma.removeControl('dirTerpal_codeu')
+    this.forma.removeControl('telTer_codeu')
+    this.forma.removeControl('feExp')
+    this.forma.removeControl('paisCodigo_codeu')
+    this.forma.removeControl('codiDept_codeu')
+    this.forma.removeControl('codiCiud_codeu')
+    this.forma.removeControl('barrio_codeu')
+    this.forma.removeControl('antiEmpresa_codeu')
+    this.forma.removeControl('tipVivienda_codeu')
+    this.forma.removeControl('dirTeralt_codeu')
+    this.forma.removeControl('barrioTra_codeu')
+    this.forma.removeControl('paisDirTrabajo_codeu')
+    this.forma.removeControl('deptDirTrabajo_codeu')
+    this.forma.removeControl('ciuDirTrabajo_codeu')
+    this.forma.removeControl('faxTer_codeu')
+    this.forma.removeControl('cargoWf_codeu')
+    this.forma.removeControl('indContrato_codeu')
+    this.forma.removeControl('paramText_codeu')
+    this.forma.removeControl('idConyuge_codeu')
+    this.forma.removeControl('nomCony_codeu')
+    this.forma.removeControl('emailConyuge_codeu')
+    this.forma.removeControl('celConyuge_codeu')
+    this.forma.removeControl('refNombre1_codeu')
+    this.forma.removeControl('refParen1_codeu')
+    this.forma.removeControl('refMail1_codeu')
+    this.forma.removeControl('refCel1_codeu')
+    this.forma.removeControl('refNombre2_codeu')
+    this.forma.removeControl('refParen2_codeu')
+    this.forma.removeControl('refMail2_codeu')
+    this.forma.removeControl('refCel2_codeu')
+    this.forma.removeControl('refNombre3_codeu')
+    this.forma.removeControl('refParen3_codeu')
+    this.forma.removeControl('refMail3_codeu')
+    this.forma.removeControl('refCel3_codeu')
+    this.forma.removeControl('bienNombre_codeu')
+    this.forma.removeControl('bienValor_codeu')
+    this.forma.removeControl('bienAfecta_codeu')
+    this.forma.removeControl('bienHipoteca_codeu')
+    this.forma.removeControl('bienHipAFavor_codeu')
+    this.forma.removeControl('vehMarca_codeu')
+    this.forma.removeControl('vehClase_codeu')
+    this.forma.removeControl('vehModelo_codeu')
+    this.forma.removeControl('vehPlaca_codeu')
+    this.forma.removeControl('vehPignorado_codeu')
+    this.forma.removeControl('vehPigAFavor_codeu')
+    this.forma.removeControl('vehValVomercial_codeu')
 
   }
 
@@ -430,13 +492,13 @@ export class Step1Component implements OnInit {
 
     this.userService.listUserTerceroByNitter(Number(nitter)).subscribe(async (res: DTOTercero) => {
       if (tipoUser == "CODEO") {
-        this.step.codeu.doctip=res.docTip;
+        this.step.codeu.doctip = res.docTip;
         this.step.codeu.nomTer = res.nomTercero;
         this.step.codeu.priApellido = res.priApellido;
         this.step.codeu.segApellido = res.segApellido;
 
       } else {
-        this.step.doctip=res.docTip;
+        this.step.doctip = res.docTip;
         this.step.nomTer = res.nomTercero;
         this.step.priApellido = res.priApellido;
         this.step.segApellido = res.segApellido;
@@ -455,16 +517,31 @@ export class Step1Component implements OnInit {
     this.clientDepo(this.idPais, name);
   }
 
+
+
   onCountriesChangeJob(event, name: string) {
     this.idPaisJob = event.value;
     this.clientDepo(this.idPaisJob, name);
   }
 
   onDeptosChange(event, name: string) {
+
+    if (undefined == this.idPais && name == 'codiDept') {
+      this.idPais = this.step.paisCodigo;
+    }
+    if (undefined == this.idPais && name == 'codiDept_codeu') {
+      this.idPais = this.step.codeu.paisCodigo;
+    }
     this.clientCities(this.idPais, event.value, name);
   }
 
   onDeptosChangeJob(event, name: string) {
+    if (undefined == this.idPaisJob && name == 'deptDirTrabajo') {
+      this.idPaisJob = Number(this.step.paisDirTrabajo);
+    }
+    if (undefined == this.idPaisJob && name == 'deptDirTrabajo_codeu') {
+      this.idPaisJob = Number(this.step.codeu.paisDirTrabajo);
+    }
     this.clientCities(this.idPaisJob, event.value, name);
   }
 
@@ -492,6 +569,30 @@ export class Step1Component implements OnInit {
       this.listAccountType = res;
       this.loading = false;
     }, error => {
+      this.loading = false;
+    });
+  }
+
+  clientDepoUpdate(idPais: number, namePais: string, idDep: number, nameDepo: string) {
+    this.loading = true;
+    this.deptosService.listAll(idPais).subscribe(async (res: DTODeptos[]) => {
+      this.loading = false;
+      if ("paisCodigo" == namePais) {
+        this.listDeptos = res;
+        this.listCities = [];
+      } else if ("paisDirTrabajo" == namePais) {
+        this.listDeptosJob = res;
+        this.listCitiesJob = [];
+      } else if ("paisCodigo_codeu" == namePais) {
+        this.listDeptosDeu = res;
+        this.listCitiesDeu = [];
+      } else if ("paisDirTrabajo_codeu" == namePais) {
+        this.listDeptosDeuJob = res;
+        this.listCitiesDeuJob = [];
+      }
+      this.clientCities(idPais, idDep, nameDepo);
+    }, error => {
+      console.log(error);
       this.loading = false;
     });
   }
@@ -558,5 +659,41 @@ export class Step1Component implements OnInit {
       this.step.codeu.vehPignorado = '0';
       this.step.idWf = '0';
     }
+  }
+
+
+  onEntitieChange(event) {
+    this.isCodeudor = false;
+    this.listFoclaaso.forEach((currentValue, index) => {
+      if (currentValue.id == event.value) {
+        this.entitie = currentValue;
+      }
+    });
+  }
+
+  valueRequestchange(value) {
+    if (this.entitie != undefined) {
+
+
+      if ("" != value && value != undefined && value.length >= 6) {
+        if (value <= this.entitie.monto1 && this.entitie.indCodeudorMonto1 == "1") {
+          this.isCodeo();
+        } else if (value > this.entitie.monto1 && value <= this.entitie.monto2 && this.entitie.indCodeudorMonto2 == "1") {
+          this.isCodeo();
+        } else if (value > this.entitie.monto2 && value <= this.entitie.monto3 && this.entitie.indCodeudorMonto3 == "1") {
+          this.isCodeo();
+        } else if (value > this.entitie.monto3 && value <= this.entitie.monto4 && this.entitie.indCodeudorMonto4 == "1") {
+          this.isCodeo();
+        } else {
+          this.isCodeudor = false;
+          this.removeFormularioWithCodeo();
+        }
+      }
+    }
+  }
+
+  isCodeo() {
+    this.crearFormularioWithCodeo();
+    this.isCodeudor = true;
   }
 }

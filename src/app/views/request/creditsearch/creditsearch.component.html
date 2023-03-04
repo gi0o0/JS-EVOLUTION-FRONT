@@ -28,6 +28,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Estado</mat-label>
               <mat-select name="estado" [(ngModel)]="filter.estado" formControlName="estado">
+                <mat-option value="">Todos</mat-option>
                 <mat-option value="S">Solicitud de Crédito</mat-option>
                 <mat-option value="R">Radicado</mat-option>
                 <mat-option value="P">Pre Aprobado</mat-option>
@@ -43,6 +44,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Entidad</mat-label>
               <mat-select name="entitie" [(ngModel)]="filter.entitie" formControlName="entitie">
+                <mat-option value="">Todos</mat-option>
                 <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -50,6 +52,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Asesor</mat-label>
               <mat-select name="asesor" [(ngModel)]="filter.asesor" formControlName="asesor">
+                <mat-option value="">Todos</mat-option>
                 <mat-option *ngFor="let s of listAdvisers" [value]="s.codTer">{{ s.nomTercero }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -57,6 +60,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Sector económico</mat-label>
               <mat-select name="sector" [(ngModel)]="filter.sector" formControlName="sector">
+                <mat-option value="">Todos</mat-option>
                 <mat-option *ngFor="let s of listSector" [value]="s.text">{{ s.value }}</mat-option>
               </mat-select>
             </mat-form-field>

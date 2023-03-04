@@ -5,49 +5,24 @@
 <h1>Paso 8</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep8()" class="form-horizontal" #regForm="ngForm">
 
-  <button mat-button (click)="sendFiles()" type='button' mat-flat-button class="btn btn-info">
-    <mat-icon>account_balance</mat-icon>Enviar Archivos
+
+  <br><br>
+  <button mat-button (click)="Approve('11')" type='button' mat-flat-button class="btn btn-warning mat-ok">
+    <mat-icon>check</mat-icon>Aceptar Solicitud
   </button>
 
-  <button mat-button (click)="callLoadFile()" type='button' mat-flat-button class="btn btn-info">
-    <mat-icon>account_balance</mat-icon>{{ !step.isUpdate ? 'Cargar Archivos' : 'Actualizar Archivos' }}
+  <button mat-button (click)="Approve('10')" type='button' mat-flat-button class="btn btn-info mat-accent">
+    <mat-icon>close</mat-icon>Cancelar Solicitud
   </button>
 
-  <div *ngIf="step.isUpdate">
-    <br><br>
-    <div class="example-container mat-elevation-z8">
-
-      <mat-table [dataSource]="dataSource" matSort>
-
-        <ng-container matColumnDef="NombreDocumento">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Documentos </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let row" class="action-link">
-            <button mat-button color="primary" (click)="openView(row)"
-              type='button'><mat-icon>file_copy</mat-icon></button>
-          </td>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;">
-        </mat-row>
-      </mat-table>
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
-    <br><br>
-  </div>
-
+  <br><br>
   <mat-form-field>
     <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
       [readonly]="step.readonly">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
   </mat-form-field>
+
 
   <br><br>
   <div *ngIf="!step.readonly">

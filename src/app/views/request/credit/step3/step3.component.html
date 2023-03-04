@@ -141,11 +141,11 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Salud Pensión" [(ngModel)]="step.financial.pension" formControlName="pension"
+    <input matInput placeholder="Pensión" [(ngModel)]="step.financial.pension" formControlName="pension"
       (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
-    <span matSuffix>Salud Pensión</span>
+    <span matSuffix>Pensión</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
-    <mat-error *ngIf="hasError('pension', 'required')">Salud Pensión.</mat-error>
+    <mat-error *ngIf="hasError('pension', 'required')">Pensión.</mat-error>
     <mat-error *ngIf="hasError('pension', 'pattern')">Longitud máxima 10 número.</mat-error>
     <mat-error *ngIf="hasError('pension', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
     <mat-error *ngIf="hasError('pension', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
@@ -239,11 +239,11 @@
       <span matSuffix>Valor Compras de Cartera 1</span>
       <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
       <mat-error *ngIf="hasError('compra_cartera1', 'required')">Valor Compras de Cartera.</mat-error>
-      <mat-error *ngIf="hasError('compra_cartera1', 'pattern')">Longitud máxima 10 número.</mat-error>
+      <mat-error *ngIf="hasError('compra_cartera1', 'pattern')">Error Formato.</mat-error>
       <mat-error *ngIf="hasError('compra_cartera1', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
-      <mat-error *ngIf="hasError('compra_cartera1', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
+      <mat-error *ngIf="hasError('compra_cartera1', 'minlength')">Longitud Minima 1 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
     <mat-form-field>
@@ -256,7 +256,7 @@
       <mat-error *ngIf="hasError('entidad_cartera1', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('entidad_cartera1', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -269,7 +269,7 @@
       <mat-error *ngIf="hasError('obligacion_cartera1', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('obligacion_cartera1', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -282,7 +282,7 @@
       <mat-error *ngIf="hasError('compra_cartera2', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_cartera2', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -295,7 +295,7 @@
       <mat-error *ngIf="hasError('entidad_cartera2', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('entidad_cartera2', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
     <mat-form-field>
@@ -308,7 +308,7 @@
       <mat-error *ngIf="hasError('compra_nit2', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_nit2', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -321,7 +321,7 @@
       <mat-error *ngIf="hasError('obligacion_cartera2', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('obligacion_cartera2', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
 
@@ -335,7 +335,7 @@
       <mat-error *ngIf="hasError('compra_cartera3', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_cartera3', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
     <mat-form-field>
@@ -348,7 +348,7 @@
       <mat-error *ngIf="hasError('entidad_cartera3', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('entidad_cartera3', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -361,7 +361,7 @@
       <mat-error *ngIf="hasError('compra_nit3', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_nit3', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -374,7 +374,7 @@
       <mat-error *ngIf="hasError('obligacion_cartera3', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('obligacion_cartera3', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
     <mat-form-field>
@@ -387,7 +387,7 @@
       <mat-error *ngIf="hasError('compra_cartera4', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_cartera4', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+     
     </mat-form-field>
 
     <mat-form-field>
@@ -400,7 +400,7 @@
       <mat-error *ngIf="hasError('entidad_cartera4', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('entidad_cartera4', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -413,7 +413,7 @@
       <mat-error *ngIf="hasError('compra_nit4', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('compra_nit4', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -426,7 +426,7 @@
       <mat-error *ngIf="hasError('obligacion_cartera4', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
       <mat-error *ngIf="hasError('obligacion_cartera4', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
       <span matPrefix>$&nbsp;</span>
-      <span matSuffix>.00</span>
+      
     </mat-form-field>
 
     <div>

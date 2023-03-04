@@ -7,9 +7,17 @@
 <h1>Paso 1</h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep1()" class="form-horizontal" #regForm="ngForm">
 
+  <mat-label> ¿ha solicitado crédito en el último trimestre?</mat-label>
+  <mat-radio-group aria-label="indSolCredito" [(ngModel)]="step.indSolCredito" formControlName="indSolCredito"
+    [disabled]="step.readonly">
+    <mat-radio-button value="S">Si</mat-radio-button>
+    <mat-radio-button value="N">No</mat-radio-button>
+  </mat-radio-group>
+  <br>  <br>
+
   <mat-form-field appearance="fill">
     <mat-label>Entidad</mat-label>
-    <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly">
+    <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly"   (selectionChange)="onEntitieChange($event)">
       <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
     <mat-error *ngIf="hasError('entitie', 'required')">Entidad es requerido.</mat-error>
@@ -27,7 +35,7 @@
 
   <mat-form-field>
     <input matInput placeholder="Monto Solicitado" [(ngModel)]="step.valorPress" formControlName="valorPress"
-      [readonly]="step.readonly">
+      [readonly]="step.readonly" (ngModelChange)="valueRequestchange($event)">
     <span matSuffix>Monto Solicitado</span>
     <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
     <mat-error *ngIf="hasError('valorPress', 'required')">Monto Solicitado es requerido.</mat-error>
@@ -124,13 +132,21 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="picker" placeholder="Fecha expedición del documento" [(ngModel)]="step.feExp"
-      formControlName="feExp_deu" [readonly]="step.readonly">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <input matInput placeholder="Fecha expedición del documento" [(ngModel)]="step.feExp" formControlName="feExp_deu" [readonly]="step.readonly">
+    <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('feExp_deu', 'required')">Fecha expedición del documento es requerido.</mat-error>
+    <mat-error *ngIf="hasError('feExp_deu', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
   </mat-form-field>
+  
+  <br> <br>
+  <mat-label> Sexo</mat-label>
+  <mat-radio-group aria-label="sexo" [(ngModel)]="step.sexo" formControlName="sexo"
+    [disabled]="step.readonly">
+    <mat-radio-button value="1">Másculino</mat-radio-button>
+    <mat-radio-button value="2">Femenino</mat-radio-button>
+    <mat-radio-button value="3">No Binario</mat-radio-button>
+  </mat-radio-group>
+  <br>  <br>
 
   <mat-form-field>
     <input matInput type="email" placeholder="Email" [(ngModel)]="step.mailTer" formControlName="mailTer"
@@ -222,12 +238,10 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="picker2" placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa"
-      formControlName="fecIngEmpresa" [readonly]="step.readonly">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
+    <input matInput placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa" formControlName="fecIngEmpresa" [readonly]="step.readonly">
+    <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('fecIngEmpresa', 'required')">Fecha Ingreso Empresa es requerido.</mat-error>
+    <mat-error *ngIf="hasError('fecIngEmpresa', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -243,12 +257,10 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="picker3" [max]="maxDate" placeholder="Fecha de Nacimiento"
-      [(ngModel)]="step.fecCump" formControlName="fecCump" [readonly]="step.readonly">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-    <mat-datepicker #picker3></mat-datepicker>
+    <input matInput [max]="maxDate" placeholder="Fecha de Nacimiento" [(ngModel)]="step.fecCump" formControlName="fecCump" [readonly]="step.readonly">
+      <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('fecCump', 'required')">Fecha de Nacimiento es requerido.</mat-error>
+    <mat-error *ngIf="hasError('fecCump', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
   </mat-form-field>
 
   <br> <br>
@@ -737,13 +749,12 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <input matInput [matDatepicker]="picker4" placeholder="Fecha expedición del documento"
-        [(ngModel)]="step.codeu.feExp" formControlName="feExp" [readonly]="step.readonly">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-      <mat-datepicker #picker4></mat-datepicker>
+      <input matInput placeholder="Fecha expedición del documento"[(ngModel)]="step.codeu.feExp" formControlName="feExp" [readonly]="step.readonly">
+        <mat-hint>YYYY-MM-DD</mat-hint>
       <mat-error *ngIf="hasError('feExp', 'required')">Fecha expedición del documento es requerido.</mat-error>
+      <mat-error *ngIf="hasError('feExp', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
     </mat-form-field>
+    
 
 
     <mat-form-field appearance="fill">
