@@ -47,7 +47,7 @@
     <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
       [readonly]="step.readonly">
     <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
-    <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 120 caracteres.</mat-error>
+    <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 1000 caracteres.</mat-error>
   </mat-form-field>
 
 

@@ -60,7 +60,7 @@ export class Step5Component implements OnInit {
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
-      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
   }
 

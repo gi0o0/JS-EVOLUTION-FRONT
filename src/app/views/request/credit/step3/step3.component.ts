@@ -33,6 +33,8 @@ export class Step3Component implements OnInit {
   totalIngresos: number = 0;
   totalDescuentos: number = 0;
   capacidad: string = "";
+  disponible: string = "";
+  valorDesembolso: string = "";
   valorCuotaEstimada: string = "";
   public color: string;
   @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
@@ -47,7 +49,7 @@ export class Step3Component implements OnInit {
 
   ngOnInit() {
 
-    this.step.tipSolCredito="3";
+   
     if (this.step.tipSolCredito == "3") {
       this.isBuyForeignPortfolio = true;
       this.isLoadFiles = false;
@@ -127,7 +129,7 @@ export class Step3Component implements OnInit {
       otros_decuentos1: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       otros_decuentos2: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       otros_decuentos3: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
-      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
   }
 
@@ -167,7 +169,7 @@ export class Step3Component implements OnInit {
       obligacion_cartera4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_nit4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
 
-      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
   }
 
@@ -199,7 +201,8 @@ export class Step3Component implements OnInit {
           this.wfService.wf_step_event.next(this.step);
         }, error => {
           this.loading = false;
-          this.showMessage("ERROR:" + error);
+          console.log(error);
+          this.showMessage(error.error.mensaje);
         });
       } else {
         this.showMessage("No se han adjuntado archivos o realizado el calculo");
@@ -221,6 +224,9 @@ export class Step3Component implements OnInit {
       this.step = data as DTOWfSteps;
       this.capacidad = this.step.financial.capacidadEndeudamiento;
       this.valorCuotaEstimada = this.step.financial.valorCuotaEstimada;
+      this.disponible= this.step.financial.disponible;
+      this.valorDesembolso= this.step.financial.valorDesembolso;
+
       if (Number(this.step.financial.capacidadEndeudamiento) >= 0) {
         this.color = "#E8F5E9";
       } else {

@@ -216,7 +216,7 @@ export class Step1Component implements OnInit {
       vehPignorado: ['', [Validators.required]],
       vehPigAFavor: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       vehValVomercial: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
-      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
 
   }
