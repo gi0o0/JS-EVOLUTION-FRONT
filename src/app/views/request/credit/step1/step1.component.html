@@ -144,7 +144,7 @@
     [disabled]="step.readonly">
     <mat-radio-button value="1">Másculino</mat-radio-button>
     <mat-radio-button value="2">Femenino</mat-radio-button>
-    <mat-radio-button value="3">No Binario</mat-radio-button>
+    <mat-radio-button value="3">Otro</mat-radio-button>
   </mat-radio-group>
   <br>  <br>
 
@@ -1178,7 +1178,7 @@
   <mat-form-field>
     <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
       [readonly]="step.readonly">
-    <mat-hint align="end">Longitud máxima 60 caracteres.</mat-hint>
+    <mat-hint align="end">Longitud máxima 1000 caracteres.</mat-hint>
     <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 1000 caracteres.</mat-error>
   </mat-form-field>
 
