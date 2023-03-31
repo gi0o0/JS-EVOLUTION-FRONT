@@ -43,6 +43,10 @@ export class Step4Component implements OnInit {
 
   ngOnInit() {
 
+    if (this.step.tipSolCredito == "3") {
+      this.isLoadFiles = false;
+    } 
+
     this.crearFormulario();
      
     this.wfService.wf_step_event_docs.subscribe(data => {

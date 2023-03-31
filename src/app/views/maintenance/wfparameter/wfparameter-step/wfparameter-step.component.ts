@@ -38,11 +38,11 @@ export class WfParameterStepComponent implements OnInit {
   auts: DTOWfStepParameterAut[];
 
   dataSource: MatTableDataSource<DTOWfStepParameter>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   dataSourceDocs: MatTableDataSource<DTOWfStepParameterDoc>;
-  @ViewChild(MatPaginator) paginatorDocs: MatPaginator;
+  @ViewChild('MatPaginatorDocs') paginatorDocs: MatPaginator;
   @ViewChild(MatSort) sortDocs: MatSort;
 
   constructor(private router: Router, private service: WfParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,) {
@@ -307,8 +307,8 @@ export class WfParameterStepComponent implements OnInit {
 
   setDataSourceDocs(){
     this.dataSourceDocs = new MatTableDataSource(this.step.docs);
-    this.dataSourceDocs.paginator = this.paginator;
-    this.dataSourceDocs.sort = this.sort;
+    this.dataSourceDocs.paginator = this.paginatorDocs;
+    this.dataSourceDocs.sort = this.sortDocs;
   }
 
 
