@@ -12,6 +12,13 @@
   </mat-form-field>
 
   <br><br>
+  <div class="form-actions">
+    <button mat-button (click)="sendEmail()" type='button' mat-flat-button class="btn btn-info">
+      <mat-icon>email</mat-icon>Envió Email
+    </button>
+  </div>
+
+  <br><br>
   <div *ngIf="!step.readonly">
     <div class="form-actions">
       <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>

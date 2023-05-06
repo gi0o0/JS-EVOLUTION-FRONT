@@ -24,7 +24,6 @@ import { DTOCladoc } from '../../../../_model/DTOCladoc';
 import { DTOCountries } from '../../../../_model/DTOCountries';
 import { DTODeptos } from '../../../../_model/DTODeptos';
 import { DTOCities } from '../../../../_model/DTOCities';
-import { FotabproService } from '../../../../_services/fotabpro/fotabpro.service';
 import { BaentidadService } from '../../../../_services/baentidad/baentidad.service';
 import { DTOBaentidad } from '../../../../_model/DTOBaentidad';
 import { BasTTipCtaService } from '../../../../_services/basttipcta/basttipcta.service';
@@ -83,8 +82,8 @@ export class Step1Component implements OnInit {
 
   constructor(private parameterService: ParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,
     private foclaasoService: FoclaasoService, private fotipcreService: FotipcreService, private cladocService: CladocService
-    , private countriesService: CountriesService, private deptosService: DeptosService, private citiesService: CitiesService,
-    private fotabproService: FotabproService, private baentidadService: BaentidadService, private basTTipCtaService: BasTTipCtaService, private wfService: WfService, private userService: UserService) {
+    , private countriesService: CountriesService, private deptosService: DeptosService, private citiesService: CitiesService
+    , private baentidadService: BaentidadService, private basTTipCtaService: BasTTipCtaService, private wfService: WfService, private userService: UserService) {
     this.o = new DTOWfParameter();
 
   }
@@ -121,7 +120,6 @@ export class Step1Component implements OnInit {
         this.step.codeu.dirTeralt = data.value;
       }
     });
-
 
     if (this.step.isUpdate) {
 
@@ -226,6 +224,7 @@ export class Step1Component implements OnInit {
     this.forma.addControl('doctip_codeu', new FormControl('', [Validators.required]))
     this.forma.addControl('nitter_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
     this.forma.addControl('nomTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('empresa_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(90)]))
     this.forma.addControl('priApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
     this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
     this.forma.addControl('lugarDoc_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]))
@@ -335,7 +334,6 @@ export class Step1Component implements OnInit {
     this.forma.removeControl('vehPignorado_codeu')
     this.forma.removeControl('vehPigAFavor_codeu')
     this.forma.removeControl('vehValVomercial_codeu')
-
   }
 
   hasError = (controlName: string, errorName: string) => {
@@ -357,7 +355,6 @@ export class Step1Component implements OnInit {
         this.loading = false;
         this.step = data as DTOWfSteps;
         this.step.comments = '';
-        this.sendEmail();
         this.showMessage("Paso Ingresado.");
         this.wfService.wf_step_event.next(this.step);
       }, error => {
@@ -369,17 +366,6 @@ export class Step1Component implements OnInit {
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }
-  }
-
-  sendEmail() {
-    this.step.idStep = "2";
-    this.step.idSubStep = "1";
-    this.wfService.createStep(this.step).subscribe(data => {
-      this.showMessage("Correo de  verificación remitido.");
-    }, error => {
-      this.loading = false;
-      this.showMessage(error.mensaje);
-    });
   }
 
   resetForm() {

@@ -55,6 +55,7 @@ export class DTOWfStepsCodeudor {
     vehPignorado:string;
     vehPigAFavor:string;
     vehValVomercial:number;
+    empresaCod:string;
 
 
     constructor() { }

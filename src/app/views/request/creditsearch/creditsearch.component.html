@@ -53,7 +53,7 @@
               <mat-label>Asesor</mat-label>
               <mat-select name="asesor" [(ngModel)]="filter.asesor" formControlName="asesor">
                 <mat-option value="">Todos</mat-option>
-                <mat-option *ngFor="let s of listAdvisers" [value]="s.codTer">{{ s.nomTercero }}</mat-option>
+                <mat-option *ngFor="let s of listAdvisers" [value]="s.codTer">{{ s.nomTercero }} {{ s.priApellido }} {{ s.segApellido }}   </mat-option>
               </mat-select>
             </mat-form-field>
 

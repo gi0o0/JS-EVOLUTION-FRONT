@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { EXP_REGULAR_ALFANUMERICO } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { MatDialog } from '@angular/material/dialog';
-
 import { LoadFilesComponent } from '../../../../_components/load-files/load-files.component';
 import { DocsService } from '../../../../_services/docs/docs.service';
 import { DTODoc } from '../../../../_model/DTODoc';
@@ -55,6 +54,7 @@ export class Step3Component implements OnInit {
       this.isLoadFiles = false;
       this.crearFormularioisBuyForeign();
     } else {
+      this.isLoadFiles = true;
       this.crearFormulario();
     }
 
@@ -67,6 +67,7 @@ export class Step3Component implements OnInit {
 
     if (this.step.isUpdate) {
       this.getDocs();
+      this.isLoadFiles = true;
      // this.calculateCapacity();
     }
 
@@ -104,11 +105,7 @@ export class Step3Component implements OnInit {
         this.parentFun.emit();
       }, 10);
     }
-
-
-
   }
-
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
@@ -152,7 +149,6 @@ export class Step3Component implements OnInit {
       otros_decuentos1: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       otros_decuentos2: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       otros_decuentos3: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
-    
       compra_cartera1: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       entidad_cartera1: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       obligacion_cartera1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
@@ -168,7 +164,6 @@ export class Step3Component implements OnInit {
       entidad_cartera4: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       obligacion_cartera4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_nit4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
-
       comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
   }
@@ -301,19 +296,11 @@ export class Step3Component implements OnInit {
     var otros_decuentos2 = this.step.financial.otros_decuentos2 == undefined ? 0 : Number(this.step.financial.otros_decuentos2);
     var otros_decuentos3 = this.step.financial.otros_decuentos3 == undefined ? 0 : Number(this.step.financial.otros_decuentos3);
     var compra_cartera1 = this.step.financial.compra_cartera1 == undefined ? 0 : Number(this.step.financial.compra_cartera1);
-    var entidad_cartera1 = this.step.financial.entidad_cartera1 == undefined ? 0 : Number(this.step.financial.entidad_cartera1);
-    var obligacion_cartera1 = this.step.financial.obligacion_cartera1 == undefined ? 0 : Number(this.step.financial.obligacion_cartera1);
     var compra_cartera2 = this.step.financial.compra_cartera2 == undefined ? 0 : Number(this.step.financial.compra_cartera2);
-    var entidad_cartera2 = this.step.financial.entidad_cartera2 == undefined ? 0 : Number(this.step.financial.entidad_cartera2);
-    var obligacion_cartera2 = this.step.financial.obligacion_cartera2 == undefined ? 0 : Number(this.step.financial.obligacion_cartera2);
     var compra_cartera3 = this.step.financial.compra_cartera3 == undefined ? 0 : Number(this.step.financial.compra_cartera3);
-    var entidad_cartera3 = this.step.financial.entidad_cartera3 == undefined ? 0 : Number(this.step.financial.entidad_cartera3);
-    var obligacion_cartera3 = this.step.financial.obligacion_cartera3 == undefined ? 0 : Number(this.step.financial.obligacion_cartera3);
     var compra_cartera4 = this.step.financial.compra_cartera4 == undefined ? 0 : Number(this.step.financial.compra_cartera4);
-    var entidad_cartera4 = this.step.financial.entidad_cartera4 == undefined ? 0 : Number(this.step.financial.entidad_cartera4);
-    var obligacion_cartera4 = this.step.financial.obligacion_cartera4 == undefined ? 0 : Number(this.step.financial.obligacion_cartera4);
     this.totalDescuentos = salud + pension + libranza + cuota_sindical + cuota_interna + otros_decuentos1 + otros_decuentos2 + otros_decuentos3 + compra_cartera1
-      + entidad_cartera1 + obligacion_cartera1 + compra_cartera2 + entidad_cartera2 + obligacion_cartera2 + compra_cartera3 + entidad_cartera3 + obligacion_cartera3 + compra_cartera4 + entidad_cartera4 + obligacion_cartera4;
+       +  + compra_cartera2 +   compra_cartera3  + compra_cartera4 ;
   }
 
   onChangeEventSum(event: any) {

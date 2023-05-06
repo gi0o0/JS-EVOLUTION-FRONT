@@ -793,6 +793,14 @@
     </mat-form-field>
 
     <mat-form-field>
+      <input matInput placeholder="Nombre Empresa" [(ngModel)]="step.codeu.empresaCod" formControlName="empresa_codeu"
+        [readonly]="step.readonly">
+      <mat-hint align="end">Longitud máxima 90 caracteres.</mat-hint>
+      <mat-error *ngIf="hasError('empresa_codeu', 'required')">Nombre Empresa es requerido.</mat-error>
+      <mat-error *ngIf="hasError('empresa_codeu', 'maxlength')">Longitud máxima 90 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput placeholder="Antigüedad meses" [(ngModel)]="step.codeu.antiEmpresa"
         formControlName="antiEmpresa_codeu" min="1" max="2" [readonly]="step.readonly">
       <span matSuffix>Antigüedad meses</span>

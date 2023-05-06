@@ -1,12 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { WfService } from '../../../../_services/wf/wf.service';
 import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { EXP_REGULAR_ALFANUMERICO } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
-import { AddressComponent } from '../../../../_components/address/address.component';
 import { MatDialog } from '@angular/material/dialog';
-
 
 @Component({
   selector: 'step-2',
@@ -22,27 +20,23 @@ export class Step2Component implements OnInit {
   @ViewChild('regForm', { static: false }) myForm: NgForm;
   errorServicio: boolean;
   loading: boolean = false;
-  showFormAdd: boolean = false;
+  isLoadEmail: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService) {
-  
-  }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService) { }
 
   ngOnInit() {
     this.crearFormulario();
     this.callStepOld();
   }
 
-  callStepOld(){
-    if(this.step.isUpdate){
+  callStepOld() {
+    if (this.step.isUpdate) {
       setTimeout(() => {
         this.parentFun.emit();
       }, 10);
+      this.isLoadEmail = true;
     }
   }
- 
-
- 
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
@@ -55,30 +49,46 @@ export class Step2Component implements OnInit {
   }
 
   operarStep2() {
-   
+
     if (!this.validarErroresCampos()) {
-      this.loading = true;
+      if (this.isLoadEmail) {
+        this.loading = true;
         this.wfService.listById(this.step.numeroRadicacion).subscribe(data => {
           this.loading = false;
           if (data.estado != "4") {
-            this.showMessage("Solicitar al usuario " + this.step.nitter + " que ingrese a la bandeja del correo " + this.step.mailTer + " y seleccione el enlace remitido para culminar el proceso de verificación");      
+            this.showMessage("Solicitar al usuario " + this.step.nitter + " que ingrese a la bandeja del correo " + this.step.mailTer + " y seleccione el enlace remitido para culminar el proceso de verificación");
           } else {
-            this.showMessage("Se ha realizado la verificación del correo "+ this.step.mailTer +" de forma Correcta.");
+            this.showMessage("Se ha realizado la verificación del correo " + this.step.mailTer + " de forma Correcta.");
             this.step.nextStep = "3";
             this.resetForm();
             this.wfService.wf_step_event.next(this.step);
-          }    
+          }
         }, error => {
           this.loading = false;
           this.showMessage(error.mensaje);
         });
+      } else {
+        this.showMessage("No se ha enviado el email");
+      }
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }
   }
-  
 
- 
+  sendEmail() {
+    this.step.idStep = "2";
+    this.step.idSubStep = "1";
+    this.wfService.createStep(this.step).subscribe(data => {
+      this.showMessage("Correo de  verificación remitido.");
+      this.isLoadEmail = true;
+    }, error => {
+      this.isLoadEmail = false;
+      this.loading = false;
+      this.showMessage(error.mensaje);
+    });
+  }
+
+
   validarErroresCampos = () => {
     let errorCampos = false;
     if (this.forma.invalid) {
@@ -90,14 +100,10 @@ export class Step2Component implements OnInit {
     }
     return errorCampos;
   }
+
   resetForm() {
     this.forma.reset;
     this.myForm.resetForm();
-  }
-
-  showForm() {
-  
-    this.showFormAdd = true;
   }
 
   showMessage(message: string) {
@@ -105,17 +111,7 @@ export class Step2Component implements OnInit {
     this.dialog.open(DialogMessageComponent, {
       width: '300px',
       data: message,
-
     });
   }
-
-  showWindowAddAddress(id: string) {
-    this.dialog.open(AddressComponent, {
-      width: '600px',
-      height: '500px',
-      data: id,
-    });
-  }
-
 
 }
