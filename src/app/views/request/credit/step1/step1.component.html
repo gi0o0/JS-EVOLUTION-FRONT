@@ -137,6 +137,32 @@
     <mat-error *ngIf="hasError('feExp_deu', 'required')">Fecha expedición del documento es requerido.</mat-error>
     <mat-error *ngIf="hasError('feExp_deu', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
   </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>País Nacimiento</mat-label>
+    <mat-select name="typeRequest" [(ngModel)]="step.dirPaisTer" formControlName="dirPaisTer"
+      (selectionChange)="onCountriesChange($event,'dirPaisNac')" [disabled]="step.readonly">
+      <mat-option *ngFor="let s of listCountriesNac" [value]="s.id">{{ s.name }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="hasError('dirPaisTer', 'required')">Pais Nacimiento es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Departamentos Nacimiento</mat-label>
+    <mat-select name="typeRequest" [(ngModel)]="step.dirDepTer" formControlName="dirDepTer"
+      (selectionChange)="onDeptosChange($event,'dirDepNac')" [disabled]="step.readonly">
+      <mat-option *ngFor="let s of listDeptosNac" [value]="s.id">{{ s.name }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="hasError('dirDepTer', 'required')">Departamento Nacimiento es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Ciudades Nacimiento</mat-label>
+    <mat-select name="typeRequest" [(ngModel)]="step.dirCiuTer" formControlName="dirCiuTer" [disabled]="step.readonly">
+      <mat-option *ngFor="let s of listCitiesNac" [value]="s.id">{{ s.name }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="hasError('dirCiuTer', 'required')">Ciudade Nacimiento es requerido.</mat-error>
+  </mat-form-field>
   
   <br> <br>
   <mat-label> Sexo</mat-label>
@@ -205,29 +231,29 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Pais</mat-label>
+    <mat-label>País Ubicación</mat-label>
     <mat-select name="typeRequest" [(ngModel)]="step.paisCodigo" formControlName="paisCodigo"
       (selectionChange)="onCountriesChange($event,'paisCodigo')" [disabled]="step.readonly">
       <mat-option *ngFor="let s of listCountries" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="hasError('paisCodigo', 'required')">Pais es requerido.</mat-error>
+    <mat-error *ngIf="hasError('paisCodigo', 'required')">Pais Ubicación es requerido.</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Departamentos</mat-label>
+    <mat-label>Departamentos Ubicación</mat-label>
     <mat-select name="typeRequest" [(ngModel)]="step.codiDept" formControlName="codiDept"
       (selectionChange)="onDeptosChange($event,'codiDept')" [disabled]="step.readonly">
       <mat-option *ngFor="let s of listDeptos" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="hasError('codiDept', 'required')">Departamentos es requerido.</mat-error>
+    <mat-error *ngIf="hasError('codiDept', 'required')">Departamento Ubicación es requerido.</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Ciudades</mat-label>
+    <mat-label>Ciudades Ubicación</mat-label>
     <mat-select name="typeRequest" [(ngModel)]="step.codiCiud" formControlName="codiCiud" [disabled]="step.readonly">
       <mat-option *ngFor="let s of listCities" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="hasError('codiCiud', 'required')">Ciudades es requerido.</mat-error>
+    <mat-error *ngIf="hasError('codiCiud', 'required')">Ciudade Ubicación es requerido.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -294,7 +320,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Pais Dirección Trabajo</mat-label>
+    <mat-label>País Dirección Trabajo</mat-label>
     <mat-select name="typeRequest" [(ngModel)]="step.paisDirTrabajo" formControlName="paisDirTrabajo"
       (selectionChange)="onCountriesChangeJob($event,'paisDirTrabajo')" [disabled]="step.readonly">
       <mat-option *ngFor="let s of listCountriesJob" [value]="s.id">{{ s.name }}</mat-option>

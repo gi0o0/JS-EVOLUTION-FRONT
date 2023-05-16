@@ -27,6 +27,7 @@ export class Step2Component implements OnInit {
   ngOnInit() {
     this.crearFormulario();
     this.callStepOld();
+    console.log("Paso 2" + this.step);
   }
 
   callStepOld() {

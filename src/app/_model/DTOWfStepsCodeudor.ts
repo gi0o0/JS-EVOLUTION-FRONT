@@ -13,7 +13,7 @@ export class DTOWfStepsCodeudor {
     feExp:string;
     paisCodigo:number;
     codiDept:number;
-    codiCiud :number;
+    codiCiud :number;  
     barrio: string;
     antiEmpresa: number;
     tipVivienda :string;

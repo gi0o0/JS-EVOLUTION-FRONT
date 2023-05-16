@@ -63,14 +63,17 @@ export class Step1Component implements OnInit {
   listCladoc: DTOCladoc[];
   listAccountType: DTOBasTTipCta[];
   listCountries: DTOCountries[];
+  listCountriesNac: DTOCountries[];
   listCountriesJob: DTOCountries[];
   listCountriesDeu: DTOCountries[];
   listCountriesDeuJob: DTOCountries[];
   listDeptos: DTODeptos[];
+  listDeptosNac: DTODeptos[];
   listDeptosJob: DTODeptos[];
   listDeptosDeu: DTODeptos[];
   listDeptosDeuJob: DTODeptos[];
   listCities: DTOCities[];
+  listCitiesNac: DTOCities[];
   listCitiesJob: DTOCities[];
   listCitiesDeu: DTOCities[];
   listCitiesDeuJob: DTOCities[];
@@ -130,6 +133,7 @@ export class Step1Component implements OnInit {
       }
       this.clientDepoUpdate(this.step.paisCodigo, 'paisCodigo', this.step.codiDept, 'codiDept');
       this.clientDepoUpdate(Number(this.step.paisDirTrabajo), 'paisDirTrabajo', Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
+      this.clientDepoUpdate(Number(this.step.dirPaisTer), 'dirPaisNac', Number(this.step.dirDepTer), 'dirDepNac');
 
     }
 
@@ -168,6 +172,9 @@ export class Step1Component implements OnInit {
       paisCodigo: ['', [Validators.required]],
       codiDept: ['', [Validators.required]],
       codiCiud: ['', [Validators.required]],
+      dirPaisTer: ['', [Validators.required]],
+      dirDepTer: ['', [Validators.required]],
+      dirCiuTer: ['', [Validators.required]],
       barrio: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       fecIngEmpresa: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),]],
       antiEmpresa: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]],
@@ -357,6 +364,7 @@ export class Step1Component implements OnInit {
         this.step.comments = '';
         this.showMessage("Paso Ingresado.");
         this.wfService.wf_step_event.next(this.step);
+        console.log("Paso 1" + this.step);
       }, error => {
         this.loading = false;
         console.log(error);
@@ -465,6 +473,7 @@ export class Step1Component implements OnInit {
   getCountries() {
     this.countriesService.listAll().subscribe(async (res: DTOCountries[]) => {
       this.listCountries = res;
+      this.listCountriesNac = res;
       this.listCountriesJob = res;
       this.listCountriesDeu = res;
       this.listCountriesDeuJob = res;
@@ -503,8 +512,6 @@ export class Step1Component implements OnInit {
     this.clientDepo(this.idPais, name);
   }
 
-
-
   onCountriesChangeJob(event, name: string) {
     this.idPaisJob = event.value;
     this.clientDepo(this.idPaisJob, name);
@@ -517,6 +524,9 @@ export class Step1Component implements OnInit {
     }
     if (undefined == this.idPais && name == 'codiDept_codeu') {
       this.idPais = this.step.codeu.paisCodigo;
+    }
+    if (undefined == this.idPais && name == 'dirDepNac') {
+      this.idPais = this.step.dirPaisTer;
     }
     this.clientCities(this.idPais, event.value, name);
   }
@@ -575,6 +585,9 @@ export class Step1Component implements OnInit {
       } else if ("paisDirTrabajo_codeu" == namePais) {
         this.listDeptosDeuJob = res;
         this.listCitiesDeuJob = [];
+      }else if ("dirPaisNac" == namePais) {
+        this.listDeptosNac = res;
+        this.listCitiesNac = [];
       }
       this.clientCities(idPais, idDep, nameDepo);
     }, error => {
@@ -599,6 +612,9 @@ export class Step1Component implements OnInit {
       } else if ("paisDirTrabajo_codeu" == name) {
         this.listDeptosDeuJob = res;
         this.listCitiesDeuJob = [];
+      } else if ("dirPaisNac" == name) {
+        this.listDeptosNac = res;
+        this.listCitiesNac = [];
       }
     }, error => {
       console.log(error);
@@ -618,6 +634,8 @@ export class Step1Component implements OnInit {
         this.listCitiesDeu = res;
       } else if ("deptDirTrabajo_codeu" == name) {
         this.listCitiesDeuJob = res;
+      } else if ("dirDepNac" == name) {
+        this.listCitiesNac = res;
       }
     }, error => {
       console.log(error);

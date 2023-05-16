@@ -36,6 +36,9 @@ export class DTOWfSteps {
     paisCodigo: number;
     codiDept: number;
     codiCiud: number;
+    dirPaisTer:number;
+    dirDepTer:number;
+    dirCiuTer :number;
     barrio: string;
     fecIngEmpresa: string;
     antiEmpresa: number;
