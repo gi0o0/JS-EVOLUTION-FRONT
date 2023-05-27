@@ -11,6 +11,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DocsService } from '../../../../_services/docs/docs.service';
+import { WfParameterService } from '../../../../_services/wfparameter/wfparameter.service';
+import { DTOWfStepParameterDoc } from '../../../../_model/DTOWfStepParameterDoc';
 
 @Component({
   selector: 'step-7',
@@ -35,7 +37,7 @@ export class Step7Component implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService, private serviceDocs: DocsService,) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService, private serviceDocs: DocsService, private wfParamService: WfParameterService) { }
 
   ngOnInit() {
     this.crearFormulario();
@@ -49,6 +51,7 @@ export class Step7Component implements OnInit {
     if (this.step.isUpdate) {
       this.getDocs();
     }
+    this.getDocsParam();
   }
 
   callStepOld() {
@@ -114,6 +117,20 @@ export class Step7Component implements OnInit {
       console.log(error);
       this.loading = false;
     });;
+  }
+
+  getDocsParam() {
+    this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
+      this.isLoadFiles = true;
+      res.forEach(o => {
+        if (o.indObligatorio == "S") {
+          this.isLoadFiles = false;
+        }
+      })
+    }, error => {
+      console.log(error);
+      this.loading = false;
+    });
   }
 
   openView(o?: DTODoc) {

@@ -13,12 +13,12 @@
 
     <ng-container matColumnDef="saldoCapital">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Saldo Capital</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.saldoCapital}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.saldoCapital | number:'.2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="saldoK">
       <mat-header-cell *matHeaderCellDef mat-sort-header>saldoK</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.saldoK}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.saldoK | number:'.2' }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="indicador">
