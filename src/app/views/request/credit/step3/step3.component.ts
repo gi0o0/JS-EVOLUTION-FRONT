@@ -151,6 +151,7 @@ export class Step3Component implements OnInit {
       otros_decuentos3: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       compra_cartera1: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       entidad_cartera1: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      compra_nit1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       obligacion_cartera1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_cartera2: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       entidad_cartera2: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],

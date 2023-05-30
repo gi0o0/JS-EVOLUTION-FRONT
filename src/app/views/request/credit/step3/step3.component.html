@@ -258,6 +258,17 @@
     </mat-form-field>
 
     <mat-form-field>
+      <input matInput placeholder="Nit Entidad 1" [(ngModel)]="step.financial.compra_nit1" formControlName="compra_nit1"
+        [readonly]="step.readonly">
+      <span matSuffix>Nit Entidad 1</span>
+      <mat-hint align="end">Longitud máxima 10 número.</mat-hint>
+      <mat-error *ngIf="hasError('compra_nit1', 'required')">Nit Entidad.</mat-error>
+      <mat-error *ngIf="hasError('compra_nit1', 'pattern')">Longitud máxima 10 número.</mat-error>
+      <mat-error *ngIf="hasError('compra_nit1', 'maxlength')">Longitud máxima 10 caracteres.</mat-error>
+      <mat-error *ngIf="hasError('compra_nit1', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput placeholder="Obligación Compras de Cartera 1" [(ngModel)]="step.financial.obligacion_cartera1"
         formControlName="obligacion_cartera1" (change)="onChangeEventSumDes($event)" [readonly]="step.readonly">
       <span matSuffix>Obligación Compras de Cartera 1</span>

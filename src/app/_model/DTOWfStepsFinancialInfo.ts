@@ -20,8 +20,10 @@ export class DTOWfStepsFinancialInfo {
     otros_decuentos1: number;
     otros_decuentos2: number;
     otros_decuentos3: number;
+
     compra_cartera1: number;
     entidad_cartera1: number;
+    compra_nit1: number;
     obligacion_cartera1: number;
 
     compra_cartera2: number;
