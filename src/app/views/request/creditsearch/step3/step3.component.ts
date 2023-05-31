@@ -304,8 +304,7 @@ export class Step3Component implements OnInit {
     var compra_cartera4 = this.step.financial.compra_cartera4 == undefined ? 0 : Number(this.step.financial.compra_cartera4);
     var entidad_cartera4 = this.step.financial.entidad_cartera4 == undefined ? 0 : Number(this.step.financial.entidad_cartera4);
     var obligacion_cartera4 = this.step.financial.obligacion_cartera4 == undefined ? 0 : Number(this.step.financial.obligacion_cartera4);
-    this.totalDescuentos = salud + pension + libranza + cuota_sindical + cuota_interna + otros_decuentos1 + otros_decuentos2 + otros_decuentos3 + compra_cartera1
-      + entidad_cartera1 + obligacion_cartera1 + compra_cartera2 + entidad_cartera2 + obligacion_cartera2 + compra_cartera3 + entidad_cartera3 + obligacion_cartera3 + compra_cartera4 + entidad_cartera4 + obligacion_cartera4;
+    this.totalDescuentos = salud + pension + libranza + cuota_sindical + cuota_interna + otros_decuentos1 + otros_decuentos2 + otros_decuentos3 ;
   }
 
   onChangeEventSum(event: any) {
