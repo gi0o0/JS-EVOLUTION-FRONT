@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SeguridadService } from '../../_services/seguridad/seguridad.service';
 
 import {
-  FALLA_RESPUESTA_MALA, ERROR_NO_CONTROLADO, FALLA_NO_ENCONTRADO, ERROR_NO_CONTROLADO_CLAVE_NO_COINCIDE
+  FALLA_RESPUESTA_MALA, ERROR_NO_CONTROLADO, FALLA_NO_ENCONTRADO
 } from '../../_shared/constantes';
 import { DTOWfSteps } from '../../_model/DTOWfSteps';
 
@@ -40,8 +40,8 @@ export class CheckUserComponent implements OnInit {
         this.token = params.token;
       }
       );
-    this.check="Validando....";
-    this.color="#FFFDE7";
+    this.check = "Validando....";
+    this.color = "#FFFDE7";
     this.registerByToken();
   }
 
@@ -59,35 +59,37 @@ export class CheckUserComponent implements OnInit {
     this.errorServicio = false;
     this.okServicio = false;
 
+    var param = this.token.split(","); 
 
-      this.step.token = this.token ;
-      this.step.idStep="2";
-      this.step.idSubStep="2";
-      this.step.nextStep="2";
-      this.cargando = true;
+    this.step.token = param[0];
+    this.step.idStep = "2";
+    this.step.idSubStep = "2";
+    this.step.nextStep = "2";
+    this.step.idWf =  param[1];
+    this.cargando = true;
 
-      this.securityService.registerByTokenTer(this.step).subscribe((response: any) => {
-        this.cargando = false;
-        this.okServicio = true;
-        this.mensajes.push(response.body);
-        this.check="OK - VERIFICADO....";
-        this.color="#E8F5E9";
-      }, error => {
+    this.securityService.registerByTokenTer(this.step).subscribe((response: any) => {
+      this.cargando = false;
+      this.okServicio = true;
+      this.mensajes.push(response.body);
+      this.check = "OK - VERIFICADO....";
+      this.color = "#E8F5E9";
+    }, error => {
 
-        const message = error.error.mensaje;
-        this.check="ERROR - "+message;
-        this.color="#FFEBEE";
-        
-        console.log(error.error.mensaje);
-        if (error.status == FALLA_RESPUESTA_MALA) {
-          this.mensajesErrores.push(message);
-        } else if (error.status == FALLA_NO_ENCONTRADO) {
-          this.mensajesErrores.push(message);
-        } else {
-          this.mensajesErrores.push(ERROR_NO_CONTROLADO);
-        }
-      });
-    
+      const message = error.error.mensaje;
+      this.check = "ERROR - " + message;
+      this.color = "#FFEBEE";
+
+      console.log(error.error.mensaje);
+      if (error.status == FALLA_RESPUESTA_MALA) {
+        this.mensajesErrores.push(message);
+      } else if (error.status == FALLA_NO_ENCONTRADO) {
+        this.mensajesErrores.push(message);
+      } else {
+        this.mensajesErrores.push(ERROR_NO_CONTROLADO);
+      }
+    });
+
   }
 
   esObjetoJson = (msj) => {

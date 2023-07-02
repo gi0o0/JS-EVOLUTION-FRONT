@@ -1,0 +1,16 @@
+<div  *ngIf="loading">
+  <app-progress-spinner ></app-progress-spinner>
+</div>
+
+<h1>Elegir Paso a Editar</h1>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Paso</mat-label>
+    <mat-select name="entitie" [(ngModel)]="nextStep">
+      <mat-option *ngFor="let s of steps" [value]="s.idPaso">{{ s.idPaso }} - {{ s.nomPaso }}</mat-option>
+    </mat-select>    
+  </mat-form-field>
+
+ 
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>

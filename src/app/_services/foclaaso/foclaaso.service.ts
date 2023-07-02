@@ -20,11 +20,15 @@ export class FoclaasoService {
   }
 
   listAll = () => {
-    return this.http.get<DTOFoclaaso[]>(`${this.url}`,{ withCredentials: true });
+    return this.http.get<DTOFoclaaso[]>(`${this.url}`, { withCredentials: true });
   }
 
   listAllWithoutFilter = () => {
-    return this.http.get<DTOFoclaaso[]>(`${this.url}/all`,{ withCredentials: true });
+    return this.http.get<DTOFoclaaso[]>(`${this.url}/all`, { withCredentials: true });
+  }
+
+  foclaasoByCodTer = (codTer: number) => {
+    return this.http.get<DTOFoclaaso>(`${this.url}/${codTer}/tercero`, { withCredentials: true });
   }
 
 

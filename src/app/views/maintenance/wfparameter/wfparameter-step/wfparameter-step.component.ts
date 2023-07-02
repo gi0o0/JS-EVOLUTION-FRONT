@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DTOWfParameter } from '../../../../_model/DTOWfParameter';
 import { WfParameterService } from '../../../../_services/wfparameter/wfparameter.service';
 import { Router } from '@angular/router';
@@ -265,7 +265,7 @@ export class WfParameterStepComponent implements OnInit {
   }
 
   eliminarItemDoc(doc: DTOWfStepParameterDoc) {
-    console.log(this.step.idPaso)
+  
     if(this.step.idPaso==undefined){
       const index: number = this.step.docs.indexOf(doc);
       if (index !== -1) {

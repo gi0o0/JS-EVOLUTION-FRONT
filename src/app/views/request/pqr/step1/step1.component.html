@@ -1,0 +1,70 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<h1>Paso 1 PQR</h1>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep1()" class="form-horizontal" #regForm="ngForm">
+
+  <mat-form-field>
+    <input matInput placeholder="Documento de Identidad" [(ngModel)]="step.nitter" formControlName="nitter" min="5"
+      max="11" [readonly]="step.readonly">
+    <span matSuffix>Documento de Identidad</span>
+    <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
+    <mat-error *ngIf="hasError('nitter', 'required')">Documento de Identidad es requerido.</mat-error>
+    <mat-error *ngIf="hasError('nitter', 'pattern')">Error Formato Documento de Identidad</mat-error>
+    <mat-error *ngIf="hasError('nitter', 'maxlength')">Longitud máxima 11 número.</mat-error>
+    <mat-error *ngIf="hasError('nitter', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
+
+    <br><br>
+    <div *ngIf="!step.readonly">
+      <button mat-button (click)="getUser(step.nitter)" type='button' mat-flat-button class="btn btn-info">
+        <mat-icon>search</mat-icon>Buscar
+      </button>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="step.nomTer" formControlName="nomTer" readonly>
+    <mat-error *ngIf="hasError('nomTer', 'required')">Nombre es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Lugar de expedición" [(ngModel)]="step.lugarDoc" formControlName="lugarDoc" readonly>
+    <mat-error *ngIf="hasError('lugarDoc', 'required')">Lugar de expedición es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Fecha expedición del documento" [(ngModel)]="step.feExp" formControlName="feExp_deu" readonly>
+    <mat-error *ngIf="hasError('feExp_deu', 'required')">Fecha expedición del documento es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Dirección" [(ngModel)]="step.dirTerpal" readonly formControlName="dirTerpal">
+    <mat-error *ngIf="hasError('dirTerpal', 'required')">Dirección es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Pagaduria | Empresa" [(ngModel)]="step.company" readonly formControlName="company">
+    <mat-error *ngIf="hasError('company', 'required')">Pagaduria | Empresa es requerido.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments" [readonly]="step.readonly">
+    <mat-hint align="end">Longitud máxima 1000 caracteres.</mat-hint>
+    <mat-error *ngIf="hasError('comments', 'maxlength')">Longitud máxima 1000 caracteres.</mat-error>
+  </mat-form-field>
+
+  <section>
+    <mat-checkbox  [(ngModel)]="step.isRequiredEmail" formControlName="isRequiredEmail">Enviar correo de confirmación</mat-checkbox>
+  </section>
+
+  <br><br>
+  <div *ngIf="!step.readonly">
+    <div class="form-actions">
+      <button type="submit" name="ingresar" class="btn btn-primary px-4" mat-button>
+        <mat-icon>fast_forward</mat-icon>Continuar
+      </button>
+    </div>
+  </div>
+
+</form>

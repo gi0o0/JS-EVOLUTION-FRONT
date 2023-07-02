@@ -6,4 +6,7 @@ export class DTOTercero {
     lugarDoc: string;
     nitTer:string;
     docTip:string;
+    feExp:string;
+    dirTerpal:string;
+    mailTer:string;
 }

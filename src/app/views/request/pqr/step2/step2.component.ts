@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { WfService } from '../../../../_services/wf/wf.service';
-import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { EXP_REGULAR_ALFANUMERICO } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { MatDialog } from '@angular/material/dialog';
+import { WfPqrService } from '../../../../_services/wfpqr/wfpqr.service';
+import { DTOWfPqrSteps } from '../../../../_model/DTOWfPqrSteps';
 
 @Component({
-  selector: 'step-2',
+  selector: 'step-2-pqr',
   templateUrl: './step2.component.html',
   styleUrls: ['./step2.component.css']
 })
-export class Step2Component implements OnInit {
+export class Step2PqrComponent implements OnInit {
 
-  @Input() step: DTOWfSteps;
+  @Input() step: DTOWfPqrSteps;
   @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
 
   forma: FormGroup;
@@ -22,21 +22,20 @@ export class Step2Component implements OnInit {
   loading: boolean = false;
   isLoadEmail: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfPqrService) { }
 
   ngOnInit() {
     this.crearFormulario();
-    this.callStepOld();
+
+
+    if (this.step.isUpdate) {
+      this.isLoadEmail = true;
+      setTimeout(() => { this.parentFun.emit(); }, 10);
+
+    }
+
   }
 
-  callStepOld() {
-    if (this.step.isUpdate) {
-      setTimeout(() => {
-        this.parentFun.emit();
-      }, 10);
-      this.isLoadEmail = true;
-    }
-  }
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
@@ -51,25 +50,27 @@ export class Step2Component implements OnInit {
   operarStep2() {
 
     if (!this.validarErroresCampos()) {
-      if (this.isLoadEmail) {
-        this.loading = true;
-        this.wfService.listById(this.step.numeroRadicacion).subscribe(data => {
-          this.loading = false;
-          if (data.estado != "4") {
-            this.showMessage("Solicitar al usuario " + this.step.nitter + " que ingrese a la bandeja del correo " + this.step.mailTer + " y seleccione el enlace remitido para culminar el proceso de verificación");
-          } else {
-            this.showMessage("Se ha realizado la verificación del correo " + this.step.mailTer + " de forma Correcta.");
-            this.step.nextStep = "3";
-            this.resetForm();
-            this.wfService.wf_step_event.next(this.step);
-          }
-        }, error => {
-          this.loading = false;
-          this.showMessage(error.mensaje);
-        });
-      } else {
-        this.showMessage("No se ha enviado el email");
-      }
+
+      this.loading = true;
+      this.step.idSubStep = "3";
+      this.wfService.createStep(this.step).subscribe(data => {
+        this.loading = false;
+        this.step = data as DTOWfPqrSteps;
+        if (this.step.state == "4") {
+          this.showMessage("Solicitar al usuario " + this.step.nitter + " que ingrese a la bandeja del correo " + this.step.mailTer + " y seleccione el enlace remitido para culminar el proceso de verificación");
+        } else {
+          this.showMessage("Paso Ingresado.");
+          this.resetForm();
+          this.wfService.wf_step_event.next(this.step);
+          this.step.comments = '';
+        }
+
+      }, error => {
+        this.loading = false;
+        console.log(error);
+        this.showMessage("ERROR:" + error.error.mensaje);
+      });
+
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }

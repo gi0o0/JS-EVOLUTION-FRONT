@@ -1,0 +1,12 @@
+<h1>Elegir Tipo de Solicitud</h1>
+
+<mat-form-field appearance="fill">
+  <mat-label>Tipo de Solicitud</mat-label>
+  <mat-select name="entitie" [(ngModel)]="nextStep">
+    <mat-option value="1">Estados - PQR - DP</mat-option>
+    <mat-option value="2">Llamadas</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>

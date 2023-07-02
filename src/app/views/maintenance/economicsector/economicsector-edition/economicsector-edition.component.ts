@@ -31,7 +31,6 @@ export class EconomicsectorEditionComponent implements OnInit {
   public errorServicio: boolean;
 
   ngOnInit() {
-    //console.log(this.data);
     this.param = new DTOEconomicsector();
     this.param.codSec = this.data.codSec;
     this.param.nomSec = this.data.nomSec;

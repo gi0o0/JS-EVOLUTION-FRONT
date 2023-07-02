@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { DTOWfSteps } from '../../_model/DTOWfSteps';
+
 
 import { Subject } from 'rxjs';
 import { DTOWfStepParameter } from '../../_model/DTOWfStepParameter';
 import { DTOWallet } from '../../_model/DTOWallet';
 import { DTOWFFilter } from '../../_model/DTOWFFilter';
+import { DTOWfPqrSteps } from '../../_model/DTOWfPqrSteps';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WfService {
+export class WfPqrService {
 
-  objetoCambio = new Subject<DTOWfSteps>();
+  objetoCambio = new Subject<DTOWfPqrSteps>();
   mensajeCambio = new Subject<string>();
-  wf_step_event = new Subject<DTOWfSteps>();
-  wf_step_event_docs = new Subject<DTOWfSteps>();
+  wf_step_event = new Subject<DTOWfPqrSteps>();
+  wf_step_event_docs = new Subject<DTOWfPqrSteps>();
   getMoveToEdit = new Subject<string>();
   getWfToEdit = new Subject<string>();
 
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.url_host + '/wf';
+    this.url = environment.url_host + '/wfpqr';
   }
 
   listStepById = (id: number) => {
@@ -31,39 +32,39 @@ export class WfService {
   }
 
   listByUser = () => {
-    return this.http.get<DTOWfSteps[]>(`${this.url}`, { withCredentials: true });
+    return this.http.get<DTOWfPqrSteps[]>(`${this.url}`, { withCredentials: true });
   }
 
   listById(id: number) {
-    return this.http.get<DTOWfSteps>(`${this.url}/${id}`, { withCredentials: true });
+    return this.http.get<DTOWfPqrSteps>(`${this.url}/${id}`, { withCredentials: true });
   }
 
-  listByNumRadAndMov(numRad: number, move: string,) {
-    return this.http.get<DTOWfSteps>(`${this.url}/${numRad}/step/${move}`, { withCredentials: true });
+  listByNumRadAndMov(numRad: number, move: string, wf: string,) {
+    return this.http.get<DTOWfPqrSteps>(`${this.url}/${numRad}/step/${move}/wf/${wf}`, { withCredentials: true });
   }
 
   listWithFilter(filter: DTOWFFilter) {
-    return this.http.post<DTOWfSteps[]>(`${this.url}/filter`, filter, { withCredentials: true });
+    return this.http.post<DTOWfPqrSteps[]>(`${this.url}/filter`, filter, { withCredentials: true });
   }
 
-  deleteStep(o: DTOWfSteps) {
+  deleteStep(o: DTOWfPqrSteps) {
     return this.http.request('delete', `${this.url}/${o.idWf}`, { body: o, withCredentials: true });
   }
 
-  createStep(o: DTOWfSteps) {
+  createStep(o: DTOWfPqrSteps) {
     return this.http.post(`${this.url}`, o, { withCredentials: true });
   }
 
-  updateState(o: DTOWfSteps) {
+  updateState(o: DTOWfPqrSteps) {
     return this.http.put(`${this.url}/state`, o, { withCredentials: true });
   }
 
-  updateStep(o: DTOWfSteps) {
+  updateStep(o: DTOWfPqrSteps) {
     return this.http.put(`${this.url}/${o.idWf}`, o, { withCredentials: true });
   }
 
-  listWalletByUser(user: string) {
-    return this.http.get<DTOWallet[]>(`${this.url}/${user}/portafolio`, { withCredentials: true });
+  listWalletByUser(user: string, wf: string) {
+    return this.http.get<DTOWallet[]>(`${this.url}/${user}/portafolio/${wf}`, { withCredentials: true });
   }
 
 }

@@ -48,7 +48,7 @@ export class Step3Component implements OnInit {
 
   ngOnInit() {
 
-   
+
     if (this.step.tipSolCredito == "3") {
       this.isBuyForeignPortfolio = true;
       this.isLoadFiles = false;
@@ -59,16 +59,17 @@ export class Step3Component implements OnInit {
     }
 
     this.wfService.wf_step_event_docs.subscribe(data => {
-      if ("3" == data.nextStep) {
+      if ("3" == data.nextStep && this.step.idWf == '4') {
         this.isLoadFiles = true;
       }
     });
+
+
     this.callStepOld();
 
     if (this.step.isUpdate) {
       this.getDocs();
       this.isLoadFiles = true;
-     // this.calculateCapacity();
     }
 
   }
@@ -150,7 +151,7 @@ export class Step3Component implements OnInit {
       otros_decuentos2: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       otros_decuentos3: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       compra_cartera1: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
-      entidad_cartera1: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      entidad_cartera1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_nit1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       obligacion_cartera1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_cartera2: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
@@ -159,10 +160,10 @@ export class Step3Component implements OnInit {
       compra_nit2: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_cartera3: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
       entidad_cartera3: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
-      obligacion_cartera3: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
-      compra_nit3: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      obligacion_cartera3: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      compra_nit3: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_cartera4: ['', [Validators.required, Validators.pattern("^[0-9,.]+[^.]*$"), Validators.maxLength(10), Validators.minLength(1)]],
-      entidad_cartera4: ['',[Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
+      entidad_cartera4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       obligacion_cartera4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       compra_nit4: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(120)]],
       comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
@@ -220,8 +221,8 @@ export class Step3Component implements OnInit {
       this.step = data as DTOWfSteps;
       this.capacidad = this.step.financial.capacidadEndeudamiento;
       this.valorCuotaEstimada = this.step.financial.valorCuotaEstimada;
-      this.disponible= this.step.financial.disponible;
-      this.valorDesembolso= this.step.financial.valorDesembolso;
+      this.disponible = this.step.financial.disponible;
+      this.valorDesembolso = this.step.financial.valorDesembolso;
 
       if (Number(this.step.financial.capacidadEndeudamiento) >= 0) {
         this.color = "#E8F5E9";
@@ -300,7 +301,7 @@ export class Step3Component implements OnInit {
     var compra_cartera2 = this.step.financial.compra_cartera2 == undefined ? 0 : Number(this.step.financial.compra_cartera2);
     var compra_cartera3 = this.step.financial.compra_cartera3 == undefined ? 0 : Number(this.step.financial.compra_cartera3);
     var compra_cartera4 = this.step.financial.compra_cartera4 == undefined ? 0 : Number(this.step.financial.compra_cartera4);
-    this.totalDescuentos = salud + pension + libranza + cuota_sindical + cuota_interna + otros_decuentos1 + otros_decuentos2 + otros_decuentos3  ;
+    this.totalDescuentos = salud + pension + libranza + cuota_sindical + cuota_interna + otros_decuentos1 + otros_decuentos2 + otros_decuentos3;
   }
 
   onChangeEventSum(event: any) {

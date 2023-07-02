@@ -17,7 +17,7 @@
 
 <div class="example-container mat-elevation-z8">
 
-  <mat-table [dataSource]="dataSource" matSort matTableExporter  #exporter="matTableExporter" [hiddenColumns]="[3]">
+  <mat-table [dataSource]="dataSource" matSort matTableExporter #exporter="matTableExporter" [hiddenColumns]="[3]">
 
     <ng-container matColumnDef="idPaso">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -54,10 +54,14 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   <div class="btn-group" role="group" aria-label="Basic example">
-  <button mat-raised-button color="primary" (click)="exporter.exportTable('xlsx', {fileName:'wfparameter-step'})">Export to xlsx</button>
-  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('csv', {fileName:'wfparameter-step'})">Export To csv</button>
-  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('json', {fileName:'wfparameter-step'})">Export To json</button>
-  <button id="export" mat-raised-button color="primary" (click)="exporter.exportTable('txt', {fileName:'wfparameter-step'})">Export To txt</button>
+    <button mat-raised-button color="primary"
+      (click)="exporter.exportTable('xlsx', {fileName:'wfparameter-step'})">Export to xlsx</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('csv', {fileName:'wfparameter-step'})">Export To csv</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('json', {fileName:'wfparameter-step'})">Export To json</button>
+    <button id="export" mat-raised-button color="primary"
+      (click)="exporter.exportTable('txt', {fileName:'wfparameter-step'})">Export To txt</button>
   </div>
 </div>
 
@@ -78,9 +82,6 @@
 
           <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operar()" class="form-horizontal" #regForm="ngForm">
 
-
-
-
             <mat-form-field>
               <input matInput placeholder="Nombre" [(ngModel)]="step.nomPaso" formControlName="nomPaso"
                 [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
@@ -97,8 +98,6 @@
               <mat-error *ngIf="hasError('ordPaso', 'required')">ordPaso es requerido.</mat-error>
               <mat-error *ngIf="hasError('ordPaso', 'pattern')">Longitud máxima 1 número.</mat-error>
             </mat-form-field>
-
-
 
             <br>
             <mat-checkbox class="example-margin" [(ngModel)]="step.envCorreoPaso" formControlName="envCorreoPaso"
@@ -189,7 +188,8 @@
 
             <div class="example-container mat-elevation-z8" *ngIf="step.solDocumentos">
 
-              <button mat-button (click)="showWindowAddAuts()"  type='button' mat-flat-button color="primary" *ngIf="step.idPaso!=undefined">
+              <button mat-button (click)="showWindowAddAuts()" type='button' mat-flat-button color="primary"
+                *ngIf="step.idPaso!=undefined">
                 <mat-icon>supervisor_account</mat-icon>Usuarios
               </button>
               <br>
@@ -197,7 +197,7 @@
                 <mat-icon>file_copy</mat-icon>Agregar Documento
               </button>
 
-             
+
 
               <mat-table [dataSource]="dataSourceDocs" matSort>
 

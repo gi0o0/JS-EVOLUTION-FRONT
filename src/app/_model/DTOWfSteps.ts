@@ -1,5 +1,6 @@
 
 import { DTOWfDocs } from './DTOWfDocs';
+import { DTOWfStepParameterDoc } from './DTOWfStepParameterDoc';
 import { DTOWfStepsCodeudor } from './DTOWfStepsCodeudor';
 import { DTOWfStepsFinancialInfo } from './DTOWfStepsFinancialInfo';
 export class DTOWfSteps {
@@ -12,7 +13,7 @@ export class DTOWfSteps {
     idStepNow: string;
     nextStep: string;
     idSubStep: string;
-    estado : string;
+    estado: string;
     entitie: string;
     tipSolCredito: string;
     valorPress: string;
@@ -25,9 +26,9 @@ export class DTOWfSteps {
     priApellido: string;
     segApellido: string;
     lugarDoc: string;
-    feExp:string;
-    sexo:string;
-    indSolCredito:string;
+    feExp: string;
+    sexo: string;
+    indSolCredito: string;
     mailTer: string;
     dirTerpal: string
     telTer: number;
@@ -36,9 +37,9 @@ export class DTOWfSteps {
     paisCodigo: number;
     codiDept: number;
     codiCiud: number;
-    dirPaisTer:number;
-    dirDepTer:number;
-    dirCiuTer :number;
+    dirPaisTer: number;
+    dirDepTer: number;
+    dirCiuTer: number;
     barrio: string;
     fecIngEmpresa: string;
     antiEmpresa: number;
@@ -90,10 +91,12 @@ export class DTOWfSteps {
     token: string;
     isRequiredFiles: boolean;
     files: DTOWfDocs[];
+    filesParam: DTOWfStepParameterDoc[];
     prefixFile: string;
-    financial : DTOWfStepsFinancialInfo;
+    financial: DTOWfStepsFinancialInfo;
     cargoWf: string;
-    
+    checked: string;
+
 
     constructor() { }
 

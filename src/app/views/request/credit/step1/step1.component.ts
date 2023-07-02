@@ -364,7 +364,6 @@ export class Step1Component implements OnInit {
         this.step.comments = '';
         this.showMessage("Paso Ingresado.");
         this.wfService.wf_step_event.next(this.step);
-        console.log("Paso 1" + this.step);
       }, error => {
         this.loading = false;
         console.log(error);

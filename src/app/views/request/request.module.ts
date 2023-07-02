@@ -49,14 +49,22 @@ import { Step5Component } from './credit/step5/step5.component';
 import { Step6Component } from './credit/step6/step6.component';
 import { Step7Component } from './credit/step7/step7.component';
 import { Step8Component } from './credit/step8/step8.component';
-import { CreditCancelComponent } from './credit/credit-cancel/credit-cancel.component';
-import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
+
 
 
 import { SharedModule } from '../sharedModule/shared.module';
 import { CreditSearchComponent } from './creditsearch/creditsearch.component';
 import { CreditStateComponent } from './creditstate/creditstate.component';
 import { CreditChangeStateComponent } from './creditstate/credit-change_state/credit-change_state.component';
+import { PqrComponent } from './pqr/pqr.component';
+import { Step1PqrComponent } from './pqr/step1/step1.component';
+import { PqrWfComponent } from './pqr/pqr-wf/pqr-wf.component';
+import { Step2PqrComponent } from './pqr/step2/step2.component';
+import { Step3PqrComponent } from './pqr/step3/step3.component';
+import { Step4PqrComponent } from './pqr/step4/step4.component';
+import { Step5PqrComponent } from './pqr/step5/step5.component';
+import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
+import { PqrEditComponent } from './pqr/credit-edit/credit-edit.component';
 
 
 @NgModule({
@@ -105,7 +113,13 @@ import { CreditChangeStateComponent } from './creditstate/credit-change_state/cr
     CreditComponent,
     CreditSearchComponent,
     CreditStateComponent,
+    PqrComponent,
     Step1Component,
+    Step1PqrComponent,
+    Step2PqrComponent,
+    Step3PqrComponent,
+    Step4PqrComponent,
+    Step5PqrComponent,
     Step2Component,
     Step3Component,
     Step4Component,
@@ -113,9 +127,10 @@ import { CreditChangeStateComponent } from './creditstate/credit-change_state/cr
     Step6Component,
     Step7Component,
     Step8Component,
-    CreditCancelComponent,
     CreditChangeStateComponent,
-    CreditEditComponent
+    CreditEditComponent,
+    PqrEditComponent,
+    PqrWfComponent
   ]
   
 })

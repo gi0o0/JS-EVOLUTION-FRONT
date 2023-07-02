@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreditComponent } from './credit/credit.component';
 import { CreditSearchComponent } from './creditsearch/creditsearch.component';
 import { CreditStateComponent } from './creditstate/creditstate.component';
+import { PqrComponent } from './pqr/pqr.component';
 
 
 
@@ -37,6 +38,13 @@ const routes: Routes = [
         component: CreditStateComponent,
         data: {
           title: 'creditstate'
+        }
+      },
+      {
+        path: 'pqr',
+        component: PqrComponent,
+        data: {
+          title: 'pqr'
         }
       },
       

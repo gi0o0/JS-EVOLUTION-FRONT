@@ -40,7 +40,7 @@ export class Step8Component implements OnInit {
 
     this.crearFormulario();
     this.wfService.wf_step_event_docs.subscribe(data => {
-      if ("8" == data.nextStep) {
+      if ("8" == data.nextStep && this.step.idWf == '4') {
         this.isLoadFiles = true;
       }
     });

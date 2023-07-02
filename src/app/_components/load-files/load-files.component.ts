@@ -78,7 +78,7 @@ export class LoadFilesComponent implements OnInit {
   send() {
 
     if (this.documentos.length > 0) {
-      this.documentosObligatorios= [];
+      this.documentosObligatorios = [];
       this.docs.forEach(o => {
         this.indObligatorio = true;
         if (o.indObligatorio == "S") {
@@ -90,11 +90,11 @@ export class LoadFilesComponent implements OnInit {
           });
         }
         if (!this.indObligatorio && !this.step.isUpdate) {
-          this.documentosObligatorios.push(o.nomDocumento)         
+          this.documentosObligatorios.push(o.nomDocumento)
         }
       });
-      if (this.documentosObligatorios.length>0) {
-        this.showMessage("Debe ingresar los documentos que son Obligatorios."+ this.documentosObligatorios);
+      if (this.documentosObligatorios.length > 0) {
+        this.showMessage("Debe ingresar los documentos que son Obligatorios." + this.documentosObligatorios);
         return
       }
 
@@ -134,12 +134,16 @@ export class LoadFilesComponent implements OnInit {
   }
 
   getDocs() {
-    this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
-      this.docs = res;
-    }, error => {
-      console.log(error);
-      this.loading = false;
-    });
+    if (undefined == this.step.filesParam || this.step.filesParam.length == 0) {
+      this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
+        this.docs = res;
+      }, error => {
+        console.log(error);
+        this.loading = false;
+      });
+    } else {
+      this.docs = this.step.filesParam;
+    }
   }
 
   showMessage(message: string) {
