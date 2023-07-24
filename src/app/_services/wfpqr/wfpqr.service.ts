@@ -18,7 +18,7 @@ export class WfPqrService {
   mensajeCambio = new Subject<string>();
   wf_step_event = new Subject<DTOWfPqrSteps>();
   wf_step_event_docs = new Subject<DTOWfPqrSteps>();
-  getMoveToEdit = new Subject<string>();
+  eventMoveToEdit = new Subject<string>();
   getWfToEdit = new Subject<string>();
 
   private url: string;

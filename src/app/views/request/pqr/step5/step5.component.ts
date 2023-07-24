@@ -66,8 +66,6 @@ export class Step5PqrComponent implements OnInit {
         data.files.forEach(r => {
           this.step.files.push(r);
         });
-
-        this.showMessage("Archivos Cargados Correctamente.");
       }
     });
 
@@ -168,6 +166,7 @@ export class Step5PqrComponent implements OnInit {
           this.wfService.updateState(this.step).subscribe(data => {
             this.loading = false;
             this.showMessage("Solicitud Actualizada.");
+            this.step.nextStep = '0'
           }, error => {
             this.loading = false;
             this.showMessage("ERROR:" + error);

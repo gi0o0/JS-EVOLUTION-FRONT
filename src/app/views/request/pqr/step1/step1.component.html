@@ -2,7 +2,7 @@
   <app-progress-spinner></app-progress-spinner>
 </div>
 
-<h1>Paso 1 PQR</h1>
+<h1>Paso 1 PQR </h1>
 <form autocomplete="off" [formGroup]="forma" (ngSubmit)="operarStep1()" class="form-horizontal" #regForm="ngForm">
 
   <mat-form-field>
@@ -45,7 +45,7 @@
 
   <mat-form-field>
     <input matInput type="text" placeholder="Pagaduria | Empresa" [(ngModel)]="step.company" readonly formControlName="company">
-    <mat-error *ngIf="hasError('company', 'required')">Pagaduria | Empresa es requerido.</mat-error>
+    <mat-error *ngIf="hasError('company', 'required')">Pagaduría | Empresa es requerido.</mat-error>
   </mat-form-field>
 
   <mat-form-field>

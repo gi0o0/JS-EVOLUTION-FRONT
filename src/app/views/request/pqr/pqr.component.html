@@ -24,12 +24,12 @@
 
     <ng-container matColumnDef="idWf">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Work Flow </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.idWf}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.nameWf}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="idStepNow">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Paso Actual </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nextStep}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{  row.nextStep}} : {{ row.nameStep}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="estado">
@@ -71,7 +71,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-edit"></i>Estado Work Flow PQR
+          <i class="fa fa-edit"></i>Estado Work Flow PQR : {{nameStep}} : {{usuario}} : {{fecUltMod}}
           <div class="card-header-actions">
             <button type="button" class="card-header-action btn btn-link btn-close" (click)="hideForm()"><i
                 class="icon-close"></i></button>

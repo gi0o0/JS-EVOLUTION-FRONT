@@ -4,6 +4,8 @@ import { DTOWfDocs } from './DTOWfDocs';
 export class DTOWfPqrSteps {
 
     idWf: string;
+    nameWf: string;
+    nameStep: string;
     isUpdate: boolean;
     readonly: boolean;
     numeroRadicacion: number
@@ -31,7 +33,7 @@ export class DTOWfPqrSteps {
     files: DTOWfDocs[];
     isRequiredEmail: boolean;
     state: string;
-    movs :DTOWWfMov[];
+    movs: DTOWWfMov[];
 
     estadoCuenta: boolean;
     certificadoDeuda: boolean;
@@ -41,7 +43,8 @@ export class DTOWfPqrSteps {
     credtis: string[];
     walletType: string;
     stateType: string;
-
+    usuComercial: string;
+    fecUltMod: string;
 
     constructor() { }
 

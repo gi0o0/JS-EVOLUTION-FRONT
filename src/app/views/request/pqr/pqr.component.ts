@@ -36,6 +36,10 @@ export class PqrComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  nameStep: string;
+  usuario: string;
+  fecUltMod: string;
+
 
   constructor(private wfService: WfPqrService, public dialog: MatDialog, private wfParamService: WfParameterService,) {
     this.o = new DTOWfParameter();
@@ -47,8 +51,9 @@ export class PqrComponent implements OnInit {
       this.validUserByStep(data, data.isUpdate);
     });
 
-    this.wfService.getMoveToEdit.subscribe(move => {
-      this.getMov(move);
+    this.wfService.eventMoveToEdit.subscribe(move => { 
+      this.step.nextStep=move; 
+      this.getMov();
     });
 
     this.wfService.getWfToEdit.subscribe(data => {
@@ -101,14 +106,16 @@ export class PqrComponent implements OnInit {
   }
 
 
-  getMov(move: string) {
+  getMov() {
+
     this.loading = true;
-    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move, this.step.idWf).subscribe(async (res: DTOWfPqrSteps) => {
+    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, this.step.nextStep, this.step.idWf).subscribe(async (res: DTOWfPqrSteps) => {
 
       if (res.nextStep != undefined) {
         this.validUserByStep(res, true);
         this.step.isUpdate = true;
         this.step.isRequiredEmail = false;
+      
       } else {
         this.step.isRequiredEmail = false;
         this.step.isUpdate = false;
@@ -145,10 +152,15 @@ export class PqrComponent implements OnInit {
     this.step.isUpdate = false;
     this.step.isRequiredEmail = false;
     this.step.idWf = idWf;
+    this.step.nameWf= idWf=="1"?"Estados - PQR - DP":"Llamadas";
   }
 
   openDialogEdit(o: DTOWfPqrSteps) {
     this.step = o;
+    this.nameStep= o.nameStep;
+    this.usuario= o.usuComercial;
+    this.fecUltMod= o.fecUltMod;
+
     this.dialog.open(PqrEditComponent, {
       width: '400px',
       data: this.step.numeroRadicacion,
@@ -156,7 +168,7 @@ export class PqrComponent implements OnInit {
   }
 
   getCreditFromChild() {
-    this.getMov(this.step.nextStep);
+    this.getMov();
   }
 
 }

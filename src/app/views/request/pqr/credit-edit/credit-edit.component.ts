@@ -29,7 +29,7 @@ export class PqrEditComponent implements OnInit {
   }
 
   operar() {
-    this.wfService.getMoveToEdit.next(this.nextStep);
+    this.wfService.eventMoveToEdit.next(this.nextStep);
     this.dialogRef.close();
   }
 

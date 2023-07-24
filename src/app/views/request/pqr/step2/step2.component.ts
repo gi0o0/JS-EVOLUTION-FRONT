@@ -26,14 +26,11 @@ export class Step2PqrComponent implements OnInit {
 
   ngOnInit() {
     this.crearFormulario();
-
-
+    
     if (this.step.isUpdate) {
       this.isLoadEmail = true;
       setTimeout(() => { this.parentFun.emit(); }, 10);
-
     }
-
   }
 
 

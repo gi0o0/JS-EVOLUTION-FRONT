@@ -42,14 +42,7 @@ export class Step1PqrComponent implements OnInit {
     if (this.step.isUpdate) {
       this.getUser(this.step.nitter);
     }
-  }
 
-  callStepOld() {
-    if (this.step.isUpdate) {
-      setTimeout(() => {
-        this.parentFun.emit();
-      }, 1000);
-    }
 
   }
 
@@ -150,11 +143,13 @@ export class Step1PqrComponent implements OnInit {
       this.foclaasoService.foclaasoByCodTer(res.codTer).subscribe(async (res: DTOFoclaaso) => {
         this.step.company = res.name;
       }, error => {
+        this.step.company= '';
         this.loading = false;
-        this.showMessage(error.error.mensaje);
+        this.showMessage('No se encontró Pagaduría | Empresa.');
       });
 
     }, error => {
+      this.initStep();
       this.loading = false;
       this.showMessage(error.error.mensaje);
     });
@@ -170,6 +165,7 @@ export class Step1PqrComponent implements OnInit {
       this.step.nextStep = '1';
       this.step.numeroRadicacion = 0;
       this.step.idWf = '0';
+      this.step.company= '';
     }
   }
 

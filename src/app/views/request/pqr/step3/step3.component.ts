@@ -9,7 +9,7 @@ import { DTOWallet } from '../../../../_model/DTOWallet';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { WfService } from '../../../../_services/wf/wf.service';
+
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FoclaasoService } from '../../../../_services/foclaaso/foclaaso.service';
 import { DTOFoclaaso } from '../../../../_model/DTOFoclaaso';
@@ -45,18 +45,16 @@ export class Step3PqrComponent implements OnInit {
   ngOnInit() {
     this.crearFormulario();
 
-    if (this.step.idWf == '1') {
-      this.getWallet();
-    }
-
-  }
-
-  callStepOld() {
     if (this.step.isUpdate) {
-      setTimeout(() => {
-        this.parentFun.emit();
-      }, 1000);
+      setTimeout(() => { this.parentFun.emit(); }, 100);
     }
+
+    setTimeout(() => {  if (this.step.idWf == '1' && this.step.codTer!=null) {
+      this.getWallet();
+    } }, 1000);
+   
+   
+
   }
 
   crearFormulario = () => {

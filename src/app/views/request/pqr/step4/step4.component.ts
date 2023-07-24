@@ -51,7 +51,7 @@ export class Step4PqrComponent implements OnInit {
         data.files.forEach(r => {
           this.step.files.push(r);
         });
-        this.showMessage("Archivos Cargados Correctamente.");
+       
       }
     });
     this.crearFormulario();
