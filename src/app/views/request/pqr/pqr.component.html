@@ -14,6 +14,9 @@
 </div>
 
 <div class="example-container mat-elevation-z8">
+  <button mat-button color="primary" (click)="getRequest()" type='button'>
+    <mat-icon>update</mat-icon>Refrescar.
+  </button>
 
   <mat-table [dataSource]="dataSource" matSort matTableExporter #exporter="matTableExporter" [hiddenColumns]="[3]">
 
