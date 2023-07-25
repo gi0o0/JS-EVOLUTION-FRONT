@@ -28,7 +28,6 @@ export class Step7Component implements OnInit {
   errorServicio: boolean;
   loading: boolean = false;
   showFormAdd: boolean = false;
-  isApprove: boolean = false;
   isLoadFiles: boolean = false;
 
   listaDocs: DTODoc[];
@@ -75,8 +74,6 @@ export class Step7Component implements OnInit {
   operarStep7() {
 
     if (!this.validarErroresCampos()) {
-
-      if (this.isApprove) {
         if (this.isLoadFiles) {
           this.loading = true;
           this.step.nextStep = '7'
@@ -95,11 +92,7 @@ export class Step7Component implements OnInit {
           });
         } else {
           this.showMessage("No se han adjuntado archivos");
-        }
-
-      } else {
-        this.showMessage("No se aprobado o cancelado la solicitud");
-      }
+        } 
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }
@@ -142,8 +135,6 @@ export class Step7Component implements OnInit {
     link.remove()
   }
 
-
-
   callLoadFile() {
     this.step.prefixFile = "";
     this.dialog.open(LoadFilesComponent, {
@@ -153,16 +144,9 @@ export class Step7Component implements OnInit {
     });
   }
 
-  Approve(state: string) {
-    this.isApprove = true;
-    this.step.estado = state;
-    this.showMessage("Proceso realizado");
-  }
-
   resetForm() {
     this.forma.reset;
     this.myForm.resetForm();
-    this.isApprove = false;
   }
 
   validarErroresCampos = () => {

@@ -71,6 +71,10 @@ export class Step3Component implements OnInit {
       this.getDocs();
       this.isLoadFiles = true;
     }
+    if (this.step.readonly){
+      this.calculateCapacity();
+    }
+    
 
   }
 

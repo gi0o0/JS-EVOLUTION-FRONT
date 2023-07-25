@@ -429,11 +429,11 @@
   <br><br>
   <h1>TOTAL DESCUENTOS: $&nbsp; {{totalDescuentos | number:'.2'}}</h1>
 
-  <div *ngIf="!step.readonly">
-    <button mat-button (click)="calculateCapacity()" type='button' mat-flat-button class="btn btn-warning">
-      <mat-icon>settings_applications</mat-icon>Calcular Capacidad de Endeudamiento
-    </button>
-  </div>
+
+  <button mat-button (click)="calculateCapacity()" type='button' mat-flat-button class="btn btn-warning">
+    <mat-icon>settings_applications</mat-icon>Calcular Capacidad de Endeudamiento
+  </button>
+
 
   <br><br>
   <h1>INGRESOS MENOS EGRESOS : $&nbsp; {{totalIngresos - totalDescuentos | number:'.2'}}</h1>
