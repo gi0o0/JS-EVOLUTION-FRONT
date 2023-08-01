@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
 import { CreditEditComponent } from './credit-edit/credit-edit.component';
 import { WfParameterService } from '../../../_services/wfparameter/wfparameter.service';
-import { DTOWfStepParameterAut } from '../../../_model/DTOWfStepParameterAut';
+import { StepStateComponent } from '../../../_components/step-state/step-state.component';
 
 
 @Component({
@@ -151,6 +151,15 @@ export class CreditComponent implements OnInit {
       data: this.step.numeroRadicacion,
     });
 
+  }
+
+
+  openDialogVisorSteps(o: DTOWfSteps) {
+    this.dialog.open(StepStateComponent, {
+      width: '1000px',
+      height: '400px',
+      data: o,
+    });
   }
 
   showMessage(message: string) {

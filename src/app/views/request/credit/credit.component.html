@@ -15,6 +15,9 @@
 
 <div class="example-container mat-elevation-z8">
 
+  <button mat-button color="primary" (click)="getRequest()" type='button'>
+    <mat-icon>update</mat-icon>Refrescar.
+  </button>
   <mat-table [dataSource]="dataSource" matSort matTableExporter #exporter="matTableExporter" [hiddenColumns]="[3]">
 
     <ng-container matColumnDef="numeroRadicacion">
@@ -37,8 +40,6 @@
       <mat-cell *matCellDef="let row"> {{row.idStepNow}} </mat-cell>
     </ng-container>
 
-    
-
     <ng-container matColumnDef="estado">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Estado</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.estado}} </mat-cell>
@@ -52,6 +53,9 @@
         </button>
         <button mat-button color="warn"  (click)="showDialogCancel(row)">
           <mat-icon>restore_from_trash</mat-icon>
+        </button>
+        <button mat-button color="primary" (click)="openDialogVisorSteps(row)">
+          <mat-icon>remove_red_eye</mat-icon>
         </button>
       </td>
     </ng-container>

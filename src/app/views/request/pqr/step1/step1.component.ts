@@ -48,7 +48,7 @@ export class Step1PqrComponent implements OnInit {
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
-      company: ['', []],
+      company: ['', [Validators.required]],
       nitter: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       nomTer: ['', [Validators.required,] ],
       lugarDoc: ['', [Validators.required, ]],

@@ -1,0 +1,70 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort matSortActive="posteddate" matSortDirection="asc">
+
+    <ng-container matColumnDef="codTer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CodTer</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.codTer}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numeroRadicacion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Numero Radicación</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numeroRadicacion}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="usuario">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.usuario}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="usuarioC">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>UsuarioC</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.usuarioC}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fecha}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="idPaso">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>IdPaso</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.idPaso}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="comentarios">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Comentarios</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.comentarios}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estPaso">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>EstPaso</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.estPaso}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numCredito">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Numero Crédito</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numCredito}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numDoc">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NumDoc</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numDoc}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoDocu">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>TipoDocu</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.tipoDocu}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

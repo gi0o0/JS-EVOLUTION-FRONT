@@ -41,6 +41,7 @@ import { DialogConfirmationComponent } from '../../_components/dialog-confirmati
 import { DialogMessageComponent } from '../../_components/dialog-message/dialog-message.component';
 import { ProgressSpinnerComponent } from '../../_components/progress-spinner/progress-spinner.component';
 import { LoadFilesComponent } from '../../_components/load-files/load-files.component';
+import { StepStateComponent } from '../../_components/step-state/step-state.component';
 
 @NgModule({
   imports: [
@@ -84,6 +85,7 @@ import { LoadFilesComponent } from '../../_components/load-files/load-files.comp
   declarations: [
     AddressComponent,
     WalletComponent,
+    StepStateComponent,
     DialogConfirmationComponent,
     DialogMessageComponent,
     ProgressSpinnerComponent,
@@ -92,6 +94,7 @@ import { LoadFilesComponent } from '../../_components/load-files/load-files.comp
   ], exports: [
     AddressComponent,
     WalletComponent,
+    StepStateComponent,
     DialogConfirmationComponent,
     DialogMessageComponent,
     ProgressSpinnerComponent,

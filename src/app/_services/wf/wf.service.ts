@@ -66,4 +66,8 @@ export class WfService {
     return this.http.get<DTOWallet[]>(`${this.url}/${user}/portafolio`, { withCredentials: true });
   }
 
+  listStepStatesByUserWkRad(user: string,wk: string,numRad: string) {
+    return this.http.get<DTOWallet[]>(`${this.url}/steps/wf/${wk}/user/${user}/rad/${numRad}/stepstate`, { withCredentials: true });
+  }
+
 }

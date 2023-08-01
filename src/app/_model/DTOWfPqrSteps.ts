@@ -1,4 +1,5 @@
 
+import { DTODoc } from './DTODoc';
 import { DTOWWfMov } from './DTOWWfMov';
 import { DTOWfDocs } from './DTOWfDocs';
 export class DTOWfPqrSteps {
@@ -34,6 +35,7 @@ export class DTOWfPqrSteps {
     isRequiredEmail: boolean;
     state: string;
     movs: DTOWWfMov[];
+    filesEmail: DTODoc[];
 
     estadoCuenta: boolean;
     certificadoDeuda: boolean;

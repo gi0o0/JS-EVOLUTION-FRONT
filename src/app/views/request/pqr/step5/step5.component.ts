@@ -18,6 +18,7 @@ import { LoadFilesComponent } from '../../../../_components/load-files/load-file
 import { DTOWfStepParameterDoc } from '../../../../_model/DTOWfStepParameterDoc';
 import { DTOWWfMov } from '../../../../_model/DTOWWfMov';
 import { DialogConfirmationComponent } from '../../../../_components/dialog-confirmation/dialog-confirmation.component';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'step-5-pqr',
@@ -39,6 +40,7 @@ export class Step5PqrComponent implements OnInit {
   isLoadFiles: boolean = false;
 
   tipSolCredito: DTOParameter[];
+  filesEmail: DTODoc[] = [];
   listaDocs: DTODoc[];
 
   displayedColumns = ['NombreDocumento', 'action'];
@@ -249,17 +251,38 @@ export class Step5PqrComponent implements OnInit {
 
   sendEmailWithFiles() {
 
+    if (this.filesEmail == undefined || this.filesEmail.length == 0) {
+      this.showMessage("Debe seleccionar 1 o varios archivos a remitir");
+      return;
+    }
+
     this.loading = true;
     this.step.idSubStep = "1";
+    this.step.filesEmail = this.filesEmail;
     this.wfService.createStep(this.step).subscribe(data => {
       this.loading = false;
       this.showMessage("Archivos Enviados.");
+      this.step.filesEmail = [];
     }, error => {
       this.loading = false;
       console.log(error);
       this.showMessage("ERROR:" + error.error.mensaje);
     });
 
+  }
+
+  addDocForSendEmail(event: MatCheckboxChange, doc: DTODoc): void {
+
+    if (event.checked) {
+      doc.encode = '';
+      this.filesEmail.push(doc);
+    } else {
+      this.filesEmail.forEach((value, index) => {
+        if (value.idDoc == doc.idDoc) {
+          this.filesEmail.splice(index, 1);
+        }
+      });
+    }
   }
 
 
