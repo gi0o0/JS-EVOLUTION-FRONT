@@ -16,8 +16,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
 import { CreditEditComponent } from './credit-edit/credit-edit.component';
 import { WfParameterService } from '../../../_services/wfparameter/wfparameter.service';
-import { StepStateComponent } from '../../../_components/step-state/step-state.component';
-
 
 @Component({
   selector: 'app-dialogo',
@@ -51,7 +49,7 @@ export class CreditComponent implements OnInit {
   ngOnInit() {
 
     this.wfService.wf_step_event.subscribe(data => {
-      this.validUserByStep(data,data.isUpdate);
+      this.validUserByStep(data, data.isUpdate);
     });
 
     this.wfService.getMoveToEdit.subscribe(move => {
@@ -70,7 +68,7 @@ export class CreditComponent implements OnInit {
     }, error => {
       this.showMessage("Usuario no cuenta con permiso para editar o crear este Paso.");
       this.loading = false;
-      this.hideForm() ;
+      this.hideForm();
     });
   }
   showForm() {
@@ -109,9 +107,9 @@ export class CreditComponent implements OnInit {
     this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move).subscribe(async (res: DTOWfSteps) => {
 
       if (res.nextStep != undefined) {
-        this.validUserByStep(res,true);
+        this.validUserByStep(res, true);
         this.step.isUpdate = true;
-      } else {   
+      } else {
         this.step.isUpdate = false;
       }
 
@@ -151,15 +149,6 @@ export class CreditComponent implements OnInit {
       data: this.step.numeroRadicacion,
     });
 
-  }
-
-
-  openDialogVisorSteps(o: DTOWfSteps) {
-    this.dialog.open(StepStateComponent, {
-      width: '1000px',
-      height: '400px',
-      data: o,
-    });
   }
 
   showMessage(message: string) {

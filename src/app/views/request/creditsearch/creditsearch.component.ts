@@ -24,6 +24,7 @@ import { UserWebService } from '../../../_services/userweb/userweb.service';
 import { DTOTercero } from '../../../_model/DTOTercero';
 import { DTOParameter } from '../../../_model/DTOParameter';
 import { ParameterService } from '../../../_services/parameter/parameter.service';
+import { StepStateComponent } from '../../../_components/step-state/step-state.component';
 
 
 @Component({
@@ -184,6 +185,14 @@ export class CreditSearchComponent implements OnInit {
   showCreateStep() {
     this.initStep(false, 0, '1');
 
+  }
+
+  openDialogVisorSteps(o: DTOWfSteps) {
+    this.dialog.open(StepStateComponent, {
+      width: '1000px',
+      height: '400px',
+      data: o,
+    });
   }
 
   initStep(isUpdate: boolean, numRad: number, nextStep: string) {
