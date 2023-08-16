@@ -37,7 +37,7 @@ export class Step4Component implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private formBuilder: FormBuilder,public dialog: MatDialog, private wfService: WfService, private serviceDocs: DocsService) { 
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfService, private serviceDocs: DocsService) {
 
   }
 
@@ -45,10 +45,10 @@ export class Step4Component implements OnInit {
 
     if (this.step.tipSolCredito == "3") {
       this.isLoadFiles = false;
-    } 
+    }
 
     this.crearFormulario();
-     
+
     this.wfService.wf_step_event_docs.subscribe(data => {
       if ("4" == data.nextStep && this.step.idWf == '4') {
         this.isLoadFiles = true;
@@ -72,16 +72,16 @@ export class Step4Component implements OnInit {
   }
 
 
-  callStepOld(){
-    if(this.step.isUpdate){
+  callStepOld() {
+    if (this.step.isUpdate) {
       setTimeout(() => {
-       this.parentFun.emit();
+        this.parentFun.emit();
       }, 10);
     }
   }
 
   callLoadFile(prefixFile: string) {
-    this.step.prefixFile=prefixFile;
+    this.step.prefixFile = prefixFile;
     this.dialog.open(LoadFilesComponent, {
       width: '700px',
       height: '500px',
@@ -90,7 +90,7 @@ export class Step4Component implements OnInit {
   }
 
   getDocs() {
-    this.serviceDocs.listDocsByIdAndStep(this.step.numeroRadicacion + "", this.step.nextStep).subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listDocsByIdAndStep(this.step.idWf + this.step.numeroRadicacion, this.step.nextStep).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;
@@ -103,7 +103,7 @@ export class Step4Component implements OnInit {
     });;
   }
 
-  
+
   openView(o?: DTODoc) {
     const src = `data:text/csv;base64,${o.encode}`;
     const link = document.createElement("a")

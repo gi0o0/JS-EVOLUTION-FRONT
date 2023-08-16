@@ -27,8 +27,8 @@ export class WfPqrService {
     this.url = environment.url_host + '/wfpqr';
   }
 
-  listStepById = (id: number) => {
-    return this.http.get<DTOWfStepParameter[]>(`${this.url}/${id}/steps`, { withCredentials: true });
+  listStepById = (idWf: string, numRad: number) => {
+    return this.http.get<DTOWfStepParameter[]>(`${this.url}/${idWf}/rad/${numRad}/steps`, { withCredentials: true });
   }
 
   listByUser = () => {

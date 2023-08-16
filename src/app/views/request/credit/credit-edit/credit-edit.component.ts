@@ -7,6 +7,7 @@ import { WfParameterService } from '../../../../_services/wfparameter/wfparamete
 import { WK_4 } from '../../../../_shared/constantes';
 import { DTOWfStepParameter } from '../../../../_model/DTOWfStepParameter';
 import { WfService } from '../../../../_services/wf/wf.service';
+import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 
 
 @Component({
@@ -22,14 +23,11 @@ export class CreditEditComponent implements OnInit {
   nextStep: string = "";
   steps: DTOWfStepParameter[];
 
-  constructor(private dialogRef: MatDialogRef<CreditEditComponent>,private wfService: WfService, @Inject(MAT_DIALOG_DATA) public id: number) { 
-
-  }
-
+  constructor(private dialogRef: MatDialogRef<CreditEditComponent>, private wfService: WfService, @Inject(MAT_DIALOG_DATA) public step: DTOWfSteps) { }
 
   ngOnInit() {
-    this.getStepsByWf(this.id);
-   }
+    this.getStepsByWf(this.step);
+  }
 
   cancelar() {
     this.dialogRef.close();
@@ -40,9 +38,9 @@ export class CreditEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getStepsByWf(wf: number) {
+  getStepsByWf(step: DTOWfSteps) {
     this.loading = true;
-    this.wfService.listStepById(wf).subscribe(async (res: DTOWfStepParameter[]) => {
+    this.wfService.listStepById(this.step.idWf,this.step.numeroRadicacion).subscribe(async (res: DTOWfStepParameter[]) => {
       this.steps = res;
       this.loading = false;
     }, error => {

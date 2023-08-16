@@ -109,7 +109,7 @@ export class Step5Component implements OnInit {
   }
 
   getDocs() {
-    this.serviceDocs.listDocsByIdAndStep(this.step.numeroRadicacion + "", this.step.nextStep).subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listDocsByIdAndStep(this.step.idWf + this.step.numeroRadicacion, this.step.nextStep).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;

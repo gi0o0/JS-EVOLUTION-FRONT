@@ -126,7 +126,7 @@ export class Step6Component implements OnInit {
   }
 
   getDocs() {
-    this.serviceDocs.listDocsByIdAndStep(this.step.numeroRadicacion + "", this.step.nextStep).subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listDocsByIdAndStep(this.step.idWf + this.step.numeroRadicacion, this.step.nextStep).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;
@@ -149,7 +149,7 @@ export class Step6Component implements OnInit {
   }
 
   callLoadFile(prefixFile: string) {
-    this.step.prefixFile=prefixFile;
+    this.step.prefixFile = prefixFile;
     this.dialog.open(LoadFilesComponent, {
       width: '700px',
       height: '500px',

@@ -38,6 +38,7 @@ export class PqrComponent implements OnInit {
 
   nameStep: string;
   usuario: string;
+  idDeudor: string;
   fecUltMod: string;
 
 
@@ -160,10 +161,10 @@ export class PqrComponent implements OnInit {
     this.nameStep= o.nameStep;
     this.usuario= o.usuComercial;
     this.fecUltMod= o.fecUltMod;
-
+    this.idDeudor=o.nitter;
     this.dialog.open(PqrEditComponent, {
       width: '400px',
-      data: this.step.numeroRadicacion,
+      data: this.step
     });
   }
 

@@ -4,7 +4,7 @@ export class DTOWWfMov {
     estPaso: string;
     estPasoMov: string;
     comentarios: string;
-    fecEnvio: string;
+    fecEnvio: Date;
 
 
 

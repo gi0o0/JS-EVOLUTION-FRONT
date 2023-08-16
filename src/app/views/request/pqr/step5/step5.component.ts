@@ -196,7 +196,7 @@ export class Step5PqrComponent implements OnInit {
   }
 
   getDocs() {
-    this.serviceDocs.listFilesByIdRad(this.step.numeroRadicacion + "").subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listFilesByIdRad(this.step.idWf + this.step.numeroRadicacion).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;

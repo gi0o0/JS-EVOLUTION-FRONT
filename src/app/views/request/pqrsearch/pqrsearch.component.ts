@@ -1,79 +1,66 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DTOWfParameter } from '../../../_model/DTOWfParameter';
-import { WfService } from '../../../_services/wf/wf.service';
-
-import { DTOWfSteps } from '../../../_model/DTOWfSteps';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-
-import { DTOWfStepsCodeudor } from '../../../_model/DTOWfStepsCodeudor';
-import { DTOWfStepsFinancialInfo } from '../../../_model/DTOWfStepsFinancialInfo';
-
 import { MatDialog } from '@angular/material/dialog';
+
 import { DialogMessageComponent } from '../../../_components/dialog-message/dialog-message.component';
 import { EXP_REGULAR_ALFANUMERICO } from '../../../_shared/constantes';
 import { DTOWFFilter } from '../../../_model/DTOWFFilter';
 import { CreditEditComponent } from '../credit/credit-edit/credit-edit.component';
-import { FoclaasoService } from '../../../_services/foclaaso/foclaaso.service';
-import { DTOFoclaaso } from '../../../_model/DTOFoclaaso';
 import { UserWebService } from '../../../_services/userweb/userweb.service';
 import { DTOTercero } from '../../../_model/DTOTercero';
-import { DTOParameter } from '../../../_model/DTOParameter';
-import { ParameterService } from '../../../_services/parameter/parameter.service';
-import { StepStateComponent } from '../../../_components/step-state/step-state.component';
-
+import { WfPqrService } from '../../../_services/wfpqr/wfpqr.service';
+import { DTOWfPqrSteps } from '../../../_model/DTOWfPqrSteps';
+import { PqrEditComponent } from '../pqr/credit-edit/credit-edit.component';
 
 @Component({
   selector: 'app-dialogo',
-  templateUrl: './creditsearch.component.html',
-  styleUrls: ['./creditsearch.component.css']
+  templateUrl: './pqrsearch.component.html',
+  styleUrls: ['./pqrsearch.component.css']
 })
-export class CreditSearchComponent implements OnInit {
+
+export class PqrSearchComponent implements OnInit {
 
   o: DTOWfParameter;
-  step: DTOWfSteps;
+  step: DTOWfPqrSteps;
   filter: DTOWFFilter;
-  listFoclaaso: DTOFoclaaso[];
   listAdvisers: DTOTercero[];
-  listSector: DTOParameter[];
-
-  codeu: DTOWfStepsCodeudor;
   public forma: FormGroup;
 
   @ViewChild('regForm', { static: false }) myForm: NgForm;
   errorServicio: boolean;
-  listRequest: DTOWfSteps[];
+  listRequest: DTOWfPqrSteps[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion', 'nitter', 'nomTer', 'idStepNow', 'estado', 'action'];
+  displayedColumns = ['numeroRadicacion', 'idWf', 'idStepNow', 'estado', 'action'];
+  nameStep: string;
+  usuario: string;
+  idDeudor: string;
+  fecUltMod: string;
 
-
-  dataSource: MatTableDataSource<DTOWfSteps>;
+  dataSource: MatTableDataSource<DTOWfPqrSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private wfService: WfService, public dialog: MatDialog, private parameterService: ParameterService, private foclaasoService: FoclaasoService, private userWebService: UserWebService, private formBuilder: FormBuilder) {
+  constructor(private wfService: WfPqrService, public dialog: MatDialog, private userWebService: UserWebService, private formBuilder: FormBuilder) {
     this.o = new DTOWfParameter();
     this.filter = new DTOWFFilter();
     this.crearFormulario();
-
   }
 
   ngOnInit() {
 
-    this.wfService.getMoveToEdit.subscribe(move => {
-      this.getCredit(move);
+    this.wfService.eventMoveToEdit.subscribe(move => {
+      this.getPqr(move);
     });
 
     this.initStep(false, 0, "1");
-    this.getEntities();
     this.getAdvisers();
-    this.getSector();
   }
 
   crearFormulario = () => {
@@ -110,34 +97,13 @@ export class CreditSearchComponent implements OnInit {
     });
   }
 
-  getEntities() {
-    this.loading = true;
-    this.foclaasoService.listAllWithoutFilter().subscribe(async (res: DTOFoclaaso[]) => {
-      this.listFoclaaso = res;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-    });
-  }
-
-  getSector() {
-    this.parameterService.listParametersByParamId('SECTOR').subscribe(async (res: DTOParameter[]) => {
-      this.listSector = res;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-    });
-  }
-
-
-
   getCreditFromChild() {
-    this.getCredit(this.step.nextStep);
+    this.getPqr(this.step.nextStep);
   }
 
-  getCredit(move: string) {
+  getPqr(move: string) {
     this.loading = true;
-    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move).subscribe(async (res: DTOWfSteps) => {
+    this.wfService.listByNumRadAndMov(this.step.numeroRadicacion, move, this.step.idWf).subscribe(async (res: DTOWfPqrSteps) => {
       this.step = res;
       this.step.readonly = true;
       this.step.isUpdate = true;
@@ -157,12 +123,16 @@ export class CreditSearchComponent implements OnInit {
     });
   }
 
-  openDialogEdit(o: DTOWfSteps) {
-    this.showFormAdd = false;
+  openDialogEdit(o: DTOWfPqrSteps) {
     this.step = o;
-    this.dialog.open(CreditEditComponent, {
+    this.nameStep= o.nameStep;
+    this.usuario= o.usuComercial;
+    this.fecUltMod= o.fecUltMod;
+    this.idDeudor=o.nitter;
+    this.showFormAdd = false;
+    this.dialog.open(PqrEditComponent, {
       width: '400px',
-      data: this.step,
+      data: this.step
     });
 
   }
@@ -170,7 +140,7 @@ export class CreditSearchComponent implements OnInit {
   consultarSolicitudes() {
     this.showFormAdd = false;
     this.loading = true;
-    this.wfService.listWithFilter(this.filter).subscribe(async (res: DTOWfSteps[]) => {
+    this.wfService.listWithFilter(this.filter).subscribe(async (res: DTOWfPqrSteps[]) => {
       this.listRequest = res;
       this.dataSource = new MatTableDataSource(this.listRequest);
       this.dataSource.paginator = this.paginator;
@@ -187,39 +157,15 @@ export class CreditSearchComponent implements OnInit {
 
   }
 
-  openDialogVisorSteps(o: DTOWfSteps) {
-    this.dialog.open(StepStateComponent, {
-      width: '1000px',
-      height: '400px',
-      data: o,
-    });
-  }
-
   initStep(isUpdate: boolean, numRad: number, nextStep: string) {
-    this.step = new DTOWfSteps();
+    this.step = new DTOWfPqrSteps();
     this.step.idStep = '1';
     this.step.idSubStep = '1';
     this.step.nextStep = nextStep;
     this.step.numeroRadicacion = numRad;
-    this.step.nitter = "0";
-    this.codeu = new DTOWfStepsCodeudor();
-    this.step.codeu = this.codeu;
-    this.step.tipVivienda = '0';
-    this.step.bienAfecta = '0';
-    this.step.bienHipoteca = '0';
-    this.step.vehPignorado = '0';
-    this.step.codeu.tipVivienda = '0';
-    this.step.codeu.bienAfecta = '0';
-    this.step.codeu.bienHipoteca = '0';
-    this.step.codeu.vehPignorado = '0';
-    this.step.idWf = '4';
-    this.step.entitie = '0';
-    this.step.valorPress = '0';
-    this.step.perCuota = '0';
-    this.step.nroCuotas = 0;
-    var financial = new DTOWfStepsFinancialInfo();
-    this.step.financial = financial;
+    this.step.nitter = "";
     this.step.isUpdate = isUpdate;
+    this.step.isRequiredEmail = false;
   }
 
 }

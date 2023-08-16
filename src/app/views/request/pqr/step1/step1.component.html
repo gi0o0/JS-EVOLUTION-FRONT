@@ -55,7 +55,7 @@
   </mat-form-field>
 
   <section>
-    <mat-checkbox  [(ngModel)]="step.isRequiredEmail" formControlName="isRequiredEmail">Enviar correo de confirmación</mat-checkbox>
+    <mat-checkbox  [(ngModel)]="step.isRequiredEmail" formControlName="isRequiredEmail" [disabled]="step.readonly">Enviar correo de confirmación</mat-checkbox>
   </section>
 
   <br><br>

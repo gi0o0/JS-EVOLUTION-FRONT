@@ -57,9 +57,19 @@ export class Step2Component implements OnInit {
           this.loading = false;
           if (data.estado != "4") {
             this.showMessage("Solicitar al usuario " + this.step.nitter + " que ingrese a la bandeja del correo " + this.step.mailTer + " y seleccione el enlace remitido para culminar el proceso de verificación");
-          } else {
-            this.showMessage("Se ha realizado la verificación del correo " + this.step.mailTer + " de forma Correcta.");
-            this.step.nextStep = "3";
+          } else {            
+            this.step.idSubStep = '3'
+            this.wfService.createStep(this.step).subscribe(data => {
+              this.resetForm();
+              this.loading = false;
+              this.step = data as DTOWfSteps;
+              this.step.comments = '';
+              this.showMessage("Se ha realizado la verificación del correo " + this.step.mailTer + " de forma Correcta.");
+              this.wfService.wf_step_event.next(this.step);
+            }, error => {
+              this.loading = false;
+              this.showMessage("ERROR:" + error);
+            });            
             this.resetForm();
             this.wfService.wf_step_event.next(this.step);
           }

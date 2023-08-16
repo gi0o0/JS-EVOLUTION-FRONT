@@ -74,32 +74,32 @@ export class Step7Component implements OnInit {
   operarStep7() {
 
     if (!this.validarErroresCampos()) {
-        if (this.isLoadFiles) {
-          this.loading = true;
-          this.step.nextStep = '7'
-          this.step.idSubStep = '0'
-          this.step.idStep = '7'
-          this.wfService.createStep(this.step).subscribe(data => {
-            this.resetForm();
-            this.loading = false;
-            this.step = data as DTOWfSteps;
-            this.step.comments = '';
-            this.showMessage("Paso Ingresado.");
-            this.wfService.wf_step_event.next(this.step);
-          }, error => {
-            this.loading = false;
-            this.showMessage("ERROR:" + error);
-          });
-        } else {
-          this.showMessage("No se han adjuntado archivos");
-        } 
+      if (this.isLoadFiles) {
+        this.loading = true;
+        this.step.nextStep = '7'
+        this.step.idSubStep = '0'
+        this.step.idStep = '7'
+        this.wfService.createStep(this.step).subscribe(data => {
+          this.resetForm();
+          this.loading = false;
+          this.step = data as DTOWfSteps;
+          this.step.comments = '';
+          this.showMessage("Paso Ingresado.");
+          this.wfService.wf_step_event.next(this.step);
+        }, error => {
+          this.loading = false;
+          this.showMessage("ERROR:" + error);
+        });
+      } else {
+        this.showMessage("No se han adjuntado archivos");
+      }
     } else {
       this.showMessage("Algunos campos no cumplen las validaciones");
     }
   }
 
   getDocs() {
-    this.serviceDocs.listDocsByIdAndStep(this.step.numeroRadicacion + "", this.step.nextStep).subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listDocsByIdAndStep(this.step.idWf + this.step.numeroRadicacion, this.step.nextStep).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;

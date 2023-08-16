@@ -6,11 +6,6 @@
 
   <mat-table [dataSource]="dataSource" matSort matSortActive="posteddate" matSortDirection="asc">
 
-    <ng-container matColumnDef="codTer">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>CodTer</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.codTer}} </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="numeroRadicacion">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Numero Radicación</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.numeroRadicacion}}</mat-cell>

@@ -7,6 +7,7 @@ export class DTOWFFilter {
     asesor: string;
     estado: string;
     sector: string;
+    idWf: string;
 
     constructor() { }
 

@@ -26,8 +26,9 @@ export class WfService {
     this.url = environment.url_host + '/wf';
   }
 
-  listStepById = (id: number) => {
-    return this.http.get<DTOWfStepParameter[]>(`${this.url}/${id}/steps`, { withCredentials: true });
+  listStepById = (idWf: string, numRad: number) => {
+
+    return this.http.get<DTOWfStepParameter[]>(`${this.url}/${idWf}/rad/${numRad}/steps`, { withCredentials: true });
   }
 
   listByUser = () => {
@@ -66,7 +67,7 @@ export class WfService {
     return this.http.get<DTOWallet[]>(`${this.url}/${user}/portafolio`, { withCredentials: true });
   }
 
-  listStepStatesByUserWkRad(user: string,wk: string,numRad: string) {
+  listStepStatesByUserWkRad(user: string, wk: string, numRad: string) {
     return this.http.get<DTOWallet[]>(`${this.url}/steps/wf/${wk}/user/${user}/rad/${numRad}/stepstate`, { withCredentials: true });
   }
 

@@ -71,15 +71,15 @@ export class Step3Component implements OnInit {
       this.getDocs();
       this.isLoadFiles = true;
     }
-    if (this.step.readonly){
+    if (this.step.readonly) {
       this.calculateCapacity();
     }
-    
+
 
   }
 
   getDocs() {
-    this.serviceDocs.listDocsByIdAndStep(this.step.numeroRadicacion + "", this.step.nextStep).subscribe(async (res: DTODoc[]) => {
+    this.serviceDocs.listDocsByIdAndStep(this.step.idWf + this.step.numeroRadicacion, this.step.nextStep).subscribe(async (res: DTODoc[]) => {
       this.listaDocs = res;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;

@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DTOWfStepParameter } from '../../../../_model/DTOWfStepParameter';
 import { WfPqrService } from '../../../../_services/wfpqr/wfpqr.service';
+import { DTOWfPqrSteps } from '../../../../_model/DTOWfPqrSteps';
 
 @Component({
   selector: 'app-dialogo',
@@ -18,10 +19,10 @@ export class PqrEditComponent implements OnInit {
   nextStep: string = "";
   steps: DTOWfStepParameter[];
 
-  constructor(private dialogRef: MatDialogRef<PqrEditComponent>, private wfService: WfPqrService, @Inject(MAT_DIALOG_DATA) public id: number) { }
+  constructor(private dialogRef: MatDialogRef<PqrEditComponent>, private wfService: WfPqrService, @Inject(MAT_DIALOG_DATA) public step: DTOWfPqrSteps) { }
 
   ngOnInit() {
-    this.getStepsByWf(this.id);
+    this.getStepsByWf(this.step);
   }
 
   cancelar() {
@@ -33,9 +34,9 @@ export class PqrEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getStepsByWf(wf: number) {
+  getStepsByWf(step: DTOWfPqrSteps) {
     this.loading = true;
-    this.wfService.listStepById(wf).subscribe(async (res: DTOWfStepParameter[]) => {
+    this.wfService.listStepById(step.idWf, step.numeroRadicacion).subscribe(async (res: DTOWfStepParameter[]) => {
       this.steps = res;
       this.loading = false;
     }, error => {

@@ -146,7 +146,7 @@ export class CreditComponent implements OnInit {
     this.step = o;
     this.dialog.open(CreditEditComponent, {
       width: '400px',
-      data: this.step.numeroRadicacion,
+      data: this.step,
     });
 
   }
