@@ -36,11 +36,7 @@ export class PqrSearchComponent implements OnInit {
   listRequest: DTOWfPqrSteps[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion', 'idWf', 'idStepNow', 'estado', 'action'];
-  nameStep: string;
-  usuario: string;
-  idDeudor: string;
-  fecUltMod: string;
+  displayedColumns = ['numeroRadicacion','nitter','nomTer', 'idWf', 'idStepNow', 'estado', 'action'];
 
   dataSource: MatTableDataSource<DTOWfPqrSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -125,10 +121,6 @@ export class PqrSearchComponent implements OnInit {
 
   openDialogEdit(o: DTOWfPqrSteps) {
     this.step = o;
-    this.nameStep= o.nameStep;
-    this.usuario= o.usuComercial;
-    this.fecUltMod= o.fecUltMod;
-    this.idDeudor=o.nitter;
     this.showFormAdd = false;
     this.dialog.open(PqrEditComponent, {
       width: '400px',

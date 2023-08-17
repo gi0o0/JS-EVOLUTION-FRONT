@@ -113,7 +113,6 @@ export class DocsComponent implements OnInit {
   }
 
   download() {
-    console.log(this.o);
     const source = `data:application/pdf;base64,${this.o.encode}`;
     const link = document.createElement("a");
     link.href = source;

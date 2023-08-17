@@ -78,7 +78,6 @@ export class EconomicsectorComponent implements OnInit {
   }
 
   openDialog(o?: DTOEconomicsector) {
-    //console.log(o);
     let med = o != null ? o : new DTOEconomicsector();
     this.dialog.open(EconomicsectorEditionComponent, {
       width: '300px',
@@ -87,8 +86,6 @@ export class EconomicsectorComponent implements OnInit {
   }
   mostrarDialogo(o: DTOEconomicsector): void {
     let messageDelete = new String("Seguro de Eliminar el Sector: ".concat(o.codSec,"-",o.nomSec));
-    console.log(messageDelete);
-
     this.dialog
       .open(DialogConfirmationComponent, {
         width: '300px',

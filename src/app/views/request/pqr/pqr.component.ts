@@ -29,18 +29,12 @@ export class PqrComponent implements OnInit {
   listRequest: DTOWfPqrSteps[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion', 'idWf', 'idStepNow', 'estado', 'action'];
+  displayedColumns = ['numeroRadicacion','nitter','nomTer', 'idWf', 'idStepNow', 'estado', 'action'];
 
   approvalMessage: string = "Se requiere VoBo para el siguiente paso.";
   dataSource: MatTableDataSource<DTOWfPqrSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  nameStep: string;
-  usuario: string;
-  idDeudor: string;
-  fecUltMod: string;
-
 
   constructor(private wfService: WfPqrService, public dialog: MatDialog, private wfParamService: WfParameterService,) {
     this.o = new DTOWfParameter();
@@ -158,10 +152,7 @@ export class PqrComponent implements OnInit {
 
   openDialogEdit(o: DTOWfPqrSteps) {
     this.step = o;
-    this.nameStep= o.nameStep;
-    this.usuario= o.usuComercial;
-    this.fecUltMod= o.fecUltMod;
-    this.idDeudor=o.nitter;
+ 
     this.dialog.open(PqrEditComponent, {
       width: '400px',
       data: this.step

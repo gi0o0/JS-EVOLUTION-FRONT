@@ -25,6 +25,16 @@
       <mat-cell *matCellDef="let row"> {{row.numeroRadicacion}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="nitter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cédula Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nitter}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomTer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Dedudor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomTer}}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="idWf">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Work Flow </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.nameWf}} </mat-cell>
@@ -74,7 +84,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-edit"></i>Estado Work Flow PQR : {{nameStep}} - Usuario : {{usuario}} - fecUltMod: {{fecUltMod | date: 'yyyy-MM-dd'}} - Cliente : {{idDeudor}} 
+          <i class="fa fa-edit"></i>Estado Work Flow PQR numRad: <b>{{step.numeroRadicacion}}</b>: {{step.nameStep}} - Usuario : {{step.usuComercial}} - fecUltMod: {{step.fecUltMod | date: 'yyyy-MM-dd'}} - Cliente : {{step.nitter}} 
           <div class="card-header-actions">
             <button type="button" class="card-header-action btn btn-link btn-close" (click)="hideForm()"><i
                 class="icon-close"></i></button>
