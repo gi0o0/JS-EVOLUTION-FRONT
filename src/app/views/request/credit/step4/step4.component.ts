@@ -113,7 +113,7 @@ export class Step4Component implements OnInit {
     link.remove()
   }
 
-  operarStep3() {
+  operarStep() {
 
     if (!this.validarErroresCampos()) {
 

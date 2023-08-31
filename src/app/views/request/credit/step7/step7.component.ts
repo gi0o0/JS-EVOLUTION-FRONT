@@ -84,6 +84,7 @@ export class Step7Component implements OnInit {
           this.loading = false;
           this.step = data as DTOWfSteps;
           this.step.comments = '';
+          this.step.files = [];
           this.showMessage("Paso Ingresado.");
           this.wfService.wf_step_event.next(this.step);
         }, error => {

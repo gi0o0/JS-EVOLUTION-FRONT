@@ -77,8 +77,8 @@ export class DocsComponent implements OnInit {
 
     if (this.o.request == undefined)
       this.o.request = "0";
-    if (this.o.idDoc == undefined)
-      this.o.idDoc = "0";
+
+    this.o.idDoc = "0";
     this.service.listDocsByIds(this.o.user, this.o.request, this.o.idDoc).subscribe(async (response: DTODoc[]) => {
       this.listaDocs = response;
       this.dataSource = new MatTableDataSource(this.listaDocs);
