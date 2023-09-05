@@ -172,6 +172,7 @@ export class CreditComponent implements OnInit {
     this.step.nextStep = nextStep;
     this.step.numeroRadicacion = numRad;
     this.step.nitter = "0";
+    this.step.antiEmpresa = 0;
     this.codeu = new DTOWfStepsCodeudor();
     this.step.codeu = this.codeu;
     this.step.tipVivienda = '0';

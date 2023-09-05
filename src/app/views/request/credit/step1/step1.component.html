@@ -399,13 +399,13 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Número de Cuenta" [(ngModel)]="step.numCta" formControlName="numCta" min="6" max="20"
+    <input matInput placeholder="Número de Cuenta" [(ngModel)]="step.numCta" formControlName="numCta" min="6" max="16"
       [readonly]="step.readonly">
     <span matSuffix>Número de Cuenta</span>
-    <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
+    <mat-hint align="end">Longitud máxima 16 número.</mat-hint>
     <mat-error *ngIf="hasError('numCta', 'required')">Número de Cuenta es requerido.</mat-error>
     <mat-error *ngIf="hasError('numCta', 'pattern')">Error Formato Número de Cuenta</mat-error>
-    <mat-error *ngIf="hasError('numCta', 'maxlength')">Longitud máxima 11 número.</mat-error>
+    <mat-error *ngIf="hasError('numCta', 'maxlength')">Longitud máxima 16 número.</mat-error>
     <mat-error *ngIf="hasError('numCta', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
   </mat-form-field>
 

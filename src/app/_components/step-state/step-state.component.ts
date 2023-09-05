@@ -17,7 +17,7 @@ export class StepStateComponent implements OnInit {
 
   loading: boolean = false;
 
-  displayedColumns = [ 'numeroRadicacion', 'usuario', 'usuarioC', 'fecha', 'idPaso', 'comentarios', 'estPaso', 'numCredito', 'numDoc', 'tipoDocu'];
+  displayedColumns = [ 'numeroRadicacion', 'usuario', 'usuarioC', 'fechaCrea','fechaUltMod', 'idPaso', 'comentarios', 'estPaso', 'numCredito', 'numDoc', 'tipoDocu'];
   dataSource: MatTableDataSource<DTOWallet>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -21,8 +21,13 @@
       <mat-cell *matCellDef="let row"> {{row.usuarioC}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="fecha">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+    <ng-container matColumnDef="fechaCrea">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>fechaCrea</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fechaCrea}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaUltMod">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>fechaUltMod</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.fecha}} </mat-cell>
     </ng-container>
 
