@@ -86,11 +86,13 @@ export class Step2Component implements OnInit {
   }
 
   sendEmail() {
+    this.loading = true;
     this.step.idStep = "2";
     this.step.idSubStep = "1";
     this.wfService.createStep(this.step).subscribe(data => {
       this.showMessage("Correo de  verificación remitido.");
       this.isLoadEmail = true;
+      this.loading = false;
     }, error => {
       this.isLoadEmail = false;
       this.loading = false;
