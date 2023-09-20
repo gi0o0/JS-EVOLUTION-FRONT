@@ -67,6 +67,7 @@ export class PqrSearchComponent implements OnInit {
       estado: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
       entitie: ['',],
       sector: ['',],
+      nitter: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
     });
   }
 

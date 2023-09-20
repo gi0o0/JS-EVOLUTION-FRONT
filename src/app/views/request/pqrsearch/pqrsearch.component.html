@@ -42,6 +42,17 @@
               </mat-select>
             </mat-form-field>
 
+            <mat-form-field>
+              <input matInput placeholder="Documento de Identidad" [(ngModel)]="filter.nitTer"
+                formControlName="nitter">
+              <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
+              <mat-error *ngIf="hasError('nitter', 'required')">Documento de Identidad es requerido.</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'pattern')">Error Formato Documento de Identidad</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'maxlength')">Longitud máxima 11 número.</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
+            </mat-form-field>
+
+
             <br> <br>
 
             <div class="form-actions">

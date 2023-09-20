@@ -7,15 +7,51 @@
 
 
   <br><br>
-  <button mat-button (click)="Approve('11')" type='button' mat-flat-button class="btn btn-warning mat-ok">
+  <button mat-button (click)="Approve('11')" type='button' mat-flat-button class="btn btn-warning mat-ok" [disabled]="step.readonly">
     <mat-icon>check</mat-icon>Aceptar Solicitud
   </button>
 
-  <button mat-button (click)="Approve('10')" type='button' mat-flat-button class="btn btn-info mat-accent">
+  <button mat-button (click)="Approve('10')" type='button' mat-flat-button class="btn btn-info mat-accent" [disabled]="step.readonly">
     <mat-icon>close</mat-icon>Cancelar Solicitud
   </button>
 
   <br><br>
+
+
+  <button mat-button (click)="callLoadFile()" type='button' mat-flat-button class="btn btn-info" [disabled]="step.readonly">
+    <mat-icon>account_balance</mat-icon>{{ !step.isUpdate ? 'Cargar Archivos' : 'Actualizar Archivos' }}
+  </button>
+  
+  <div *ngIf="step.isUpdate">
+    <br><br>
+    <div class="example-container mat-elevation-z8">
+  
+      <mat-table [dataSource]="dataSource" matSort>
+  
+        <ng-container matColumnDef="NombreDocumento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Documentos </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row" class="action-link">
+            <button mat-button color="primary" (click)="openView(row)"
+              type='button'><mat-icon>file_copy</mat-icon></button>
+          </td>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    <br><br>
+  </div>
+
+
   <mat-form-field>
     <input matInput placeholder="Comentarios" [(ngModel)]="step.comments" formControlName="comments"
       [readonly]="step.readonly">

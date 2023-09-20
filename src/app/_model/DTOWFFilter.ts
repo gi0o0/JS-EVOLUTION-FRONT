@@ -8,6 +8,7 @@ export class DTOWFFilter {
     estado: string;
     sector: string;
     idWf: string;
+    nitTer: string;
 
     constructor() { }
 
