@@ -16,6 +16,8 @@ import { DTOTercero } from '../../../_model/DTOTercero';
 import { WfPqrService } from '../../../_services/wfpqr/wfpqr.service';
 import { DTOWfPqrSteps } from '../../../_model/DTOWfPqrSteps';
 import { PqrEditComponent } from '../pqr/credit-edit/credit-edit.component';
+import { ParameterService } from '../../../_services/parameter/parameter.service';
+import { DTOParameter } from '../../../_model/DTOParameter';
 
 @Component({
   selector: 'app-dialogo',
@@ -29,21 +31,23 @@ export class PqrSearchComponent implements OnInit {
   step: DTOWfPqrSteps;
   filter: DTOWFFilter;
   listAdvisers: DTOTercero[];
+  listArea: DTOParameter[];
   public forma: FormGroup;
 
   @ViewChild('regForm', { static: false }) myForm: NgForm;
   errorServicio: boolean;
   listRequest: DTOWfPqrSteps[];
+  tipSolCredito: DTOParameter[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion','nitter','nomTer', 'idWf', 'idStepNow', 'estado', 'action'];
+  displayedColumns = ['numeroRadicacion', 'nitter', 'nomTer', 'idWf', 'idStepNow', 'estado', 'stateType', 'action'];
 
   dataSource: MatTableDataSource<DTOWfPqrSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private wfService: WfPqrService, public dialog: MatDialog, private userWebService: UserWebService, private formBuilder: FormBuilder) {
+  constructor(private wfService: WfPqrService, public dialog: MatDialog, private userWebService: UserWebService, private formBuilder: FormBuilder, private parameterService: ParameterService) {
     this.o = new DTOWfParameter();
     this.filter = new DTOWFFilter();
     this.crearFormulario();
@@ -57,6 +61,7 @@ export class PqrSearchComponent implements OnInit {
 
     this.initStep(false, 0, "1");
     this.getAdvisers();
+    this.getArea();
   }
 
   crearFormulario = () => {
@@ -67,6 +72,8 @@ export class PqrSearchComponent implements OnInit {
       estado: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(10)]],
       entitie: ['',],
       sector: ['',],
+      area: ['',],
+      state: ['',],
       nitter: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
     });
   }
@@ -88,6 +95,36 @@ export class PqrSearchComponent implements OnInit {
     this.loading = true;
     this.userWebService.listAdvisers().subscribe(async (res: DTOTercero[]) => {
       this.listAdvisers = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
+  getArea() {
+    this.parameterService.listParametersByParamId('AREA').subscribe(async (res: DTOParameter[]) => {
+      this.listArea = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
+  getStates(event: any) {
+
+    this.loading = true;
+    let stateType: string = "ESTADO_EST";
+
+    if (this.filter.idWf == "2") {
+      stateType = 'ESTADO_LLAMADAS';
+    }
+
+    if (this.filter.idWf == "1") {
+      stateType = 'ESTADO_DP';
+    }
+
+    this.parameterService.listParametersByParamId(stateType).subscribe(async (res: DTOParameter[]) => {
+      this.tipSolCredito = res;
       this.loading = false;
     }, error => {
       this.loading = false;

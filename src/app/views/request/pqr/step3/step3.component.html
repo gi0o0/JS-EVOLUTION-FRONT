@@ -7,24 +7,25 @@
 
   <div *ngIf="step.idWf=='1'">
     <section>
-      <mat-checkbox [(ngModel)]="step.estadoCuenta" formControlName="estadoCuenta">Estado de Cuenta</mat-checkbox>
+      <mat-checkbox [(ngModel)]="step.estadoCuenta" formControlName="estadoCuenta" [disabled]="step.readonly">Estado de Cuenta</mat-checkbox>
     </section>
 
     <section>
-      <mat-checkbox [(ngModel)]="step.certificadoDeuda" formControlName="certificadoDeuda">Certificado de
+      <mat-checkbox [(ngModel)]="step.certificadoDeuda" formControlName="certificadoDeuda" [disabled]="step.readonly">Certificado de
         deuda</mat-checkbox>
     </section>
 
     <section>
-      <mat-checkbox [(ngModel)]="step.pazSalvo" formControlName="pazSalvo" (change)="getWalletPS($event)">Paz y salvo</mat-checkbox>
+      <mat-checkbox [(ngModel)]="step.pazSalvo" formControlName="pazSalvo" (change)="getWalletPS($event)" [disabled]="step.readonly">Paz y
+        salvo</mat-checkbox>
     </section>
 
     <section>
-      <mat-checkbox [(ngModel)]="step.certificado" formControlName="certificado">Certificado</mat-checkbox>
+      <mat-checkbox [(ngModel)]="step.certificado" formControlName="certificado" [disabled]="step.readonly">Certificado</mat-checkbox>
     </section>
 
     <section>
-      <mat-checkbox [(ngModel)]="step.derechoPeticion" formControlName="derechoPeticion"
+      <mat-checkbox [(ngModel)]="step.derechoPeticion" formControlName="derechoPeticion" [disabled]="step.readonly" 
         (change)="getPagaduria($event)">Derecho de
         Petición</mat-checkbox>
     </section>
@@ -38,6 +39,16 @@
         <mat-error *ngIf="hasError('entitie', 'required')">Entidad es requerido.</mat-error>
       </mat-form-field>
     </div>
+
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Área</mat-label>
+      <mat-select name="entitie" [(ngModel)]="step.idArea" formControlName="idArea" [disabled]="step.readonly">
+        <mat-option *ngFor="let s of listArea" [value]="s.text">{{ s.value }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="hasError('entitie', 'required')">Área es requerido.</mat-error>
+    </mat-form-field>
+
 
     <br><br>
     <h1>Créditos</h1>

@@ -181,12 +181,13 @@ export class Step5PqrComponent implements OnInit {
   getStates() {
     this.loading = true;
     let stateType: string = "ESTADO_EST";
+   
     if (this.step.idWf == "2") {
       stateType = 'ESTADO_LLAMADAS';
     } else if (this.step.stateType == '2' && this.step.idWf == "1") {
       stateType = 'ESTADO_DP';
     }
-
+  
     this.parameterService.listParametersByParamId(stateType).subscribe(async (res: DTOParameter[]) => {
       this.tipSolCredito = res;
       this.loading = false;

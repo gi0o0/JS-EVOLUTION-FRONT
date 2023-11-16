@@ -21,22 +21,22 @@ export class ParameterService {
   }
 
   listAll = () => {
-    return this.http.get<DTOParameter[]>(`${this.url}`,{ withCredentials: true });
+    return this.http.get<DTOParameter[]>(`${this.url}`, { withCredentials: true });
   }
 
   create(o: DTOParameter) {
-    return this.http.post(this.url, o,{ withCredentials: true });
+    return this.http.post(this.url, o, { withCredentials: true });
   }
 
   update(o: DTOParameter) {
-    return this.http.put(this.url, o,{ withCredentials: true });
+    return this.http.put(this.url, o, { withCredentials: true });
   }
 
   delete(o: DTOParameter) {
-    return this.http.request('delete', this.url, { body: o , withCredentials: true });
+    return this.http.request('delete', this.url, { body: o, withCredentials: true });
   }
 
   listParametersByParamId = (id: string) => {
-    return this.http.get<DTOParameter[]>(`${this.url}/${id}`,{ withCredentials: true });
+    return this.http.get<DTOParameter[]>(`${this.url}/${id}`, { withCredentials: true });
   }
 }

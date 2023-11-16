@@ -47,6 +47,7 @@ export class DTOWfPqrSteps {
     stateType: string;
     usuComercial: string;
     fecUltMod: string;
+    idArea: string;
 
     constructor() { }
 

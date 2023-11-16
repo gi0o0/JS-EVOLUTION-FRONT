@@ -13,6 +13,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FoclaasoService } from '../../../../_services/foclaaso/foclaaso.service';
 import { DTOFoclaaso } from '../../../../_model/DTOFoclaaso';
+import { ParameterService } from '../../../../_services/parameter/parameter.service';
+import { DTOParameter } from '../../../../_model/DTOParameter';
 
 @Component({
   selector: 'step-3-pqr',
@@ -29,6 +31,7 @@ export class Step3PqrComponent implements OnInit {
   showFormAdd: boolean = false;
   credits: string[] = [];
   listFoclaaso: DTOFoclaaso[];
+  listArea: DTOParameter[];
 
   showPagaduria: boolean = false;
 
@@ -40,7 +43,7 @@ export class Step3PqrComponent implements OnInit {
 
   @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfPqrService, private foclaasoService: FoclaasoService) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private wfService: WfPqrService, private foclaasoService: FoclaasoService, private parameterService: ParameterService) { }
 
   ngOnInit() {
     this.crearFormulario();
@@ -49,11 +52,13 @@ export class Step3PqrComponent implements OnInit {
       setTimeout(() => { this.parentFun.emit(); }, 100);
     }
 
-    setTimeout(() => {  if (this.step.idWf == '1' && this.step.codTer!=null) {
-      this.getWallet();
-    } }, 1000);
-   
-   
+    setTimeout(() => {
+      if (this.step.idWf == '1' && this.step.codTer != null) {
+        this.getWallet();
+      }
+    }, 1000);
+
+    this.getArea();
 
   }
 
@@ -65,6 +70,7 @@ export class Step3PqrComponent implements OnInit {
       certificado: ['', []],
       derechoPeticion: ['', []],
       entitie: ['', []],
+      idArea: ['', []],
       comments: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(1000)]],
     });
 
@@ -158,6 +164,15 @@ export class Step3PqrComponent implements OnInit {
     this.loading = true;
     this.foclaasoService.listAllWithoutFilter().subscribe(async (res: DTOFoclaaso[]) => {
       this.listFoclaaso = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
+  }
+
+  getArea() {
+    this.parameterService.listParametersByParamId('AREA').subscribe(async (res: DTOParameter[]) => {
+      this.listArea = res;
       this.loading = false;
     }, error => {
       this.loading = false;

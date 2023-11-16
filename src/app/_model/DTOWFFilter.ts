@@ -9,6 +9,8 @@ export class DTOWFFilter {
     sector: string;
     idWf: string;
     nitTer: string;
+    area: string;
+    state: string;
 
     constructor() { }
 

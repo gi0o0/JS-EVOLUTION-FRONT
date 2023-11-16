@@ -13,6 +13,8 @@ import { PqrWfComponent } from './pqr-wf/pqr-wf.component';
 import { DTOWfPqrSteps } from '../../../_model/DTOWfPqrSteps';
 import { WfPqrService } from '../../../_services/wfpqr/wfpqr.service';
 import { PqrEditComponent } from './credit-edit/credit-edit.component';
+import { ParameterService } from '../../../_services/parameter/parameter.service';
+import { DTOParameter } from '../../../_model/DTOParameter';
 
 @Component({
   selector: 'app-dialogo',
@@ -29,14 +31,14 @@ export class PqrComponent implements OnInit {
   listRequest: DTOWfPqrSteps[];
   loading: boolean = false;
   showFormAdd: boolean = false;
-  displayedColumns = ['numeroRadicacion','nitter','nomTer', 'idWf', 'idStepNow', 'estado', 'action'];
-
+  displayedColumns = ['numeroRadicacion', 'nitter', 'nomTer', 'idWf', 'idStepNow', 'estado', 'fecUltMod', 'estadoCuenta', 'action'];
+  dayMax: number = 0;
   approvalMessage: string = "Se requiere VoBo para el siguiente paso.";
   dataSource: MatTableDataSource<DTOWfPqrSteps>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private wfService: WfPqrService, public dialog: MatDialog, private wfParamService: WfParameterService,) {
+  constructor(private wfService: WfPqrService, public dialog: MatDialog, private wfParamService: WfParameterService, private parameterService: ParameterService) {
     this.o = new DTOWfParameter();
   }
 
@@ -46,8 +48,8 @@ export class PqrComponent implements OnInit {
       this.validUserByStep(data, data.isUpdate);
     });
 
-    this.wfService.eventMoveToEdit.subscribe(move => { 
-      this.step.nextStep=move; 
+    this.wfService.eventMoveToEdit.subscribe(move => {
+      this.step.nextStep = move;
       this.getMov();
     });
 
@@ -58,6 +60,16 @@ export class PqrComponent implements OnInit {
 
     this.getRequest();
     this.initStep(0, "1", "1");
+    this.getDayMax();
+  }
+
+  getDayMax() {
+    this.parameterService.listParametersByParamId('DIAS_ALERTA').subscribe(async (res: DTOParameter[]) => {
+      this.dayMax = Number(res[0].value);
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
   }
 
   validUserByStep(data: DTOWfPqrSteps, isUpdate: boolean) {
@@ -110,7 +122,7 @@ export class PqrComponent implements OnInit {
         this.validUserByStep(res, true);
         this.step.isUpdate = true;
         this.step.isRequiredEmail = false;
-      
+
       } else {
         this.step.isRequiredEmail = false;
         this.step.isUpdate = false;
@@ -147,12 +159,12 @@ export class PqrComponent implements OnInit {
     this.step.isUpdate = false;
     this.step.isRequiredEmail = false;
     this.step.idWf = idWf;
-    this.step.nameWf= idWf=="1"?"Estados - PQR - DP":"Llamadas";
+    this.step.nameWf = idWf == "1" ? "Estados - PQR - DP" : "Llamadas";
   }
 
   openDialogEdit(o: DTOWfPqrSteps) {
     this.step = o;
- 
+
     this.dialog.open(PqrEditComponent, {
       width: '400px',
       data: this.step
@@ -162,5 +174,23 @@ export class PqrComponent implements OnInit {
   getCreditFromChild() {
     this.getMov();
   }
+
+  getRowColorByDateMax(o: DTOWfPqrSteps): string {
+
+    let startDate = new Date(o.fecUltMod);
+    let endDate = new Date();
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    const differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+    let dias = Math.floor(differenceInMilliseconds / millisecondsPerDay);
+
+    if (dias >= this.dayMax) {
+      return '#ff7673';
+    }
+    return '';
+  }
+
+
+
 
 }
