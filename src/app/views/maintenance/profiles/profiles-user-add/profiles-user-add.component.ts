@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_NUMERO, EXP_REGULAR_NUMERO_MIN_8_MAX_11 } from '../../../../_shared/constantes';
+import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_NUMERO, EXP_REGULAR_NUMERO_MIN_7_MAX_11 } from '../../../../_shared/constantes';
 import { DialogConfirmationComponent } from "../../../../_components/dialog-confirmation/dialog-confirmation.component";
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { MatDialog } from '@angular/material/dialog';
@@ -50,7 +50,7 @@ export class ProfilesUserAddComponent implements OnInit {
 
   crearFormulario = () => {
     this.forma = this.formBuilder.group({
-      id: ['', [Validators.required, Validators.pattern(EXP_REGULAR_NUMERO), Validators.pattern(EXP_REGULAR_NUMERO_MIN_8_MAX_11)]],
+      id: ['', [Validators.required, Validators.pattern(EXP_REGULAR_NUMERO), Validators.pattern(EXP_REGULAR_NUMERO_MIN_7_MAX_11)]],
       name: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(100)]],
       perfil: ['', [Validators.required]],
       estado: ['', [Validators.required]],
@@ -102,7 +102,7 @@ export class ProfilesUserAddComponent implements OnInit {
   }
 
   onSearchUser(user: number): void {
-    const isValidUser = EXP_REGULAR_NUMERO_MIN_8_MAX_11.test(user + "");
+    const isValidUser = EXP_REGULAR_NUMERO_MIN_7_MAX_11.test(user + "");
     if (isValidUser) {
       this.loading = true;
 
