@@ -66,7 +66,7 @@ import { Step5PqrComponent } from './pqr/step5/step5.component';
 import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
 import { PqrEditComponent } from './pqr/credit-edit/credit-edit.component';
 import { PqrSearchComponent } from './pqrsearch/pqrsearch.component';
-
+import { PortfolioSearchComponent } from './portfoliosearch/portfoliosearch.component';
 
 @NgModule({
   imports: [
@@ -114,6 +114,7 @@ import { PqrSearchComponent } from './pqrsearch/pqrsearch.component';
     CreditComponent,
     CreditSearchComponent,
     PqrSearchComponent,
+    PortfolioSearchComponent,
     CreditStateComponent,
     PqrComponent,
     Step1Component,

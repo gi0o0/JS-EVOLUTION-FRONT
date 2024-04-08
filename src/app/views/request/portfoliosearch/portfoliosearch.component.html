@@ -1,0 +1,105 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <form autocomplete="off" [formGroup]="forma" (ngSubmit)="getWallet()" class="form-horizontal"
+            #regForm="ngForm">
+
+            <mat-form-field>
+              <input matInput placeholder="Documento de Identidad" [(ngModel)]="nitter" formControlName="nitter">
+              <mat-hint align="end">Longitud máxima 11 número.</mat-hint>
+              <mat-error *ngIf="hasError('nitter', 'required')">Documento de Identidad es requerido.</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'pattern')">Error Formato Documento de Identidad</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'maxlength')">Longitud máxima 11 número.</mat-error>
+              <mat-error *ngIf="hasError('nitter', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
+            </mat-form-field>
+            
+            <br> <br>
+
+            <div class="form-actions">
+              <button type="submit" name="ingresar" class="btn btn-primary px-4">
+                <i class="fa fa-sync fa-spin"></i>&nbsp;
+                <span>Buscar</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  
+  <mat-table [dataSource]="dataSource" matSort matSortActive="posteddate" matSortDirection="asc">
+
+    <ng-container matColumnDef="numeroCredito">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Número Crédito</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numeroCredito}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="saldoCapital">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Saldo Libranza</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.saldoCapital | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="saldoK">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>saldoK</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.saldoK | number:'.2' }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="indicador">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Indicador</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.indicador}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomClaaso">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NomClaaso</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomClaaso}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomClaasoCod">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NomClaasoCod</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomClaasoCod}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="marcacionn">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Marcación</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.marcacionn}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estPersonaDeu">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estado Persona Deudor</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.estPersonaDeu}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estPersonaCoDeu">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>estado Persona CoDeudor</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.estPersonaCoDeu}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<br>
+
+<div class="animated fadeIn" *ngIf="showFormAdd">

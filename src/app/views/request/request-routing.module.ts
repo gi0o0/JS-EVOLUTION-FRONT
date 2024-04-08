@@ -6,7 +6,7 @@ import { CreditSearchComponent } from './creditsearch/creditsearch.component';
 import { CreditStateComponent } from './creditstate/creditstate.component';
 import { PqrComponent } from './pqr/pqr.component';
 import { PqrSearchComponent } from './pqrsearch/pqrsearch.component';
-
+import { PortfolioSearchComponent } from './portfoliosearch/portfoliosearch.component';
 
 
 const routes: Routes = [
@@ -39,6 +39,13 @@ const routes: Routes = [
         component: PqrSearchComponent,
         data: {
           title: 'creditsearch'
+        }
+      },
+      {
+        path: 'portfoliosearch',
+        component: PortfolioSearchComponent,
+        data: {
+          title: 'portfoliosearch'
         }
       },
       {
