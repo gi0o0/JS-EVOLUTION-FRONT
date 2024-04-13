@@ -47,6 +47,16 @@
   
   <mat-table [dataSource]="dataSource" matSort matSortActive="posteddate" matSortDirection="asc">
 
+    <ng-container matColumnDef="baseDatos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Base de Datos</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.scheme}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomTer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nomTer}} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="numeroCredito">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Número Crédito</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.numeroCredito}} </mat-cell>

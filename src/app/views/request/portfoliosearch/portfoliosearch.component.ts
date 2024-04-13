@@ -17,7 +17,7 @@ import { DialogMessageComponent } from '../../../_components/dialog-message/dial
 
 export class PortfolioSearchComponent implements OnInit {
 
-  displayedColumns = ['numeroCredito', 'saldoCapital', 'saldoK', 'indicador', 'nomClaaso', 'nomClaasoCod', 'marcacionn', 'estPersonaDeu', 'estPersonaCoDeu'];
+  displayedColumns = ['baseDatos','nomTer','numeroCredito', 'saldoCapital', 'saldoK', 'indicador', 'nomClaaso', 'nomClaasoCod', 'marcacionn', 'estPersonaDeu', 'estPersonaCoDeu'];
   dataSource: MatTableDataSource<DTOWallet>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
