@@ -19,7 +19,7 @@
               <mat-error *ngIf="hasError('nitter', 'maxlength')">Longitud máxima 11 número.</mat-error>
               <mat-error *ngIf="hasError('nitter', 'minlength')">Longitud Minima 6 caracteres.</mat-error>
             </mat-form-field>
-            
+
             <br> <br>
 
             <div class="form-actions">
@@ -44,7 +44,7 @@
 
 <div class="example-container mat-elevation-z8">
 
-  
+
   <mat-table [dataSource]="dataSource" matSort matSortActive="posteddate" matSortDirection="asc">
 
     <ng-container matColumnDef="baseDatos">
@@ -62,9 +62,34 @@
       <mat-cell *matCellDef="let row"> {{row.numeroCredito}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="saldoCapital">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Saldo Libranza</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.saldoCapital | number:'.2'}}</mat-cell>
+    <ng-container matColumnDef="vSolicita">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Préstamo</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.vSolicita | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="valorCuot">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Cuota</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.valorCuot | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nroCuotas">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nro Cuotas</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nroCuotas | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cuoCau">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Cuotas Causadas</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cuoCau | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cuoPag">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Cuotas Pagadas</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cuoPag | number:'.2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cuoMora">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Cuotas Mora</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cuoMora | number:'.2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="saldoK">

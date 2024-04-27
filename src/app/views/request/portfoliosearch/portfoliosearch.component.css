@@ -1,3 +1,13 @@
 ::ng-deep .mat-snack-bar-container {
   margin-top: 120% !important;
 }
+
+/* Estilo para todas las celdas de encabezado y datos */
+.mat-header-cell, .mat-cell {
+  border-right: 1px solid #c8ced3; /* Agrega un borde derecho de 1px sólido */
+}
+
+/* Elimina el borde derecho de la última columna */
+.mat-header-cell:last-child, .mat-cell:last-child {
+  border-right: none; /* Elimina el borde derecho de la última columna */
+}
