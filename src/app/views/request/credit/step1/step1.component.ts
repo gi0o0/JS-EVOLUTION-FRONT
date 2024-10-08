@@ -196,7 +196,7 @@ export class Step1Component implements OnInit {
       nomCony: ['', [Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       emailConyuge: ['', [Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       celConyuge: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      nroCuotas: ['', [Validators.required, Validators.pattern("^[1-9]*$"), Validators.maxLength(4), Validators.minLength(1)]],
+      nroCuotas: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(4), Validators.minLength(1)]],
       refNombre1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       refParen1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
       refMail1: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
