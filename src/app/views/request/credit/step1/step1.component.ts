@@ -14,7 +14,7 @@ import { DTOWfSteps } from '../../../../_model/DTOWfSteps';
 import { DTOWfStepParameterDoc } from '../../../../_model/DTOWfStepParameterDoc';
 import { DTOWfStepParameterAut } from '../../../../_model/DTOWfStepParameterAut';
 import { FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
-import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_CORREO, EXP_REGULAR_FECHA_YYYMMDD } from '../../../../_shared/constantes';
+import { EXP_REGULAR_ALFANUMERICO, EXP_REGULAR_CORREO, EXP_REGULAR_FECHA_YYYMMDD, EXP_REGULAR_MAYUSCULAS_NOMBRE } from '../../../../_shared/constantes';
 import { DialogMessageComponent } from "../../../../_components/dialog-message/dialog-message.component";
 import { AddressComponent } from '../../../../_components/address/address.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -157,9 +157,9 @@ export class Step1Component implements OnInit {
       perCuota: ['', [Validators.required]],
       doctip: ['', [Validators.required]],
       nitter: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
-      nomTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      priApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      segApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
+      nomTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
+      priApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
+      segApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
       lugarDoc: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
       indSolCredito: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
@@ -230,10 +230,10 @@ export class Step1Component implements OnInit {
 
     this.forma.addControl('doctip_codeu', new FormControl('', [Validators.required]))
     this.forma.addControl('nitter_codeu', new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]))
-    this.forma.addControl('nomTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('nomTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
     this.forma.addControl('empresa_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(90)]))
-    this.forma.addControl('priApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
-    this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]))
+    this.forma.addControl('priApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
+    this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
     this.forma.addControl('lugarDoc_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]))
     this.forma.addControl('mailTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
     this.forma.addControl('dirTerpal_codeu', new FormControl('', [Validators.required]))
