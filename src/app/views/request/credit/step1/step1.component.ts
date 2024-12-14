@@ -159,7 +159,7 @@ export class Step1Component implements OnInit {
       nitter: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
       nomTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
       priApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
-      segApellido: ['', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
+      segApellido: ['', [Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]],
       lugarDoc: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
       indSolCredito: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
@@ -233,7 +233,7 @@ export class Step1Component implements OnInit {
     this.forma.addControl('nomTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
     this.forma.addControl('empresa_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(90)]))
     this.forma.addControl('priApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
-    this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
+    this.forma.addControl('segApellido_codeu', new FormControl('', [Validators.pattern(EXP_REGULAR_MAYUSCULAS_NOMBRE), Validators.maxLength(60)]))
     this.forma.addControl('lugarDoc_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]))
     this.forma.addControl('mailTer_codeu', new FormControl('', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]))
     this.forma.addControl('dirTerpal_codeu', new FormControl('', [Validators.required]))
@@ -693,6 +693,7 @@ export class Step1Component implements OnInit {
         }
       }
     }
+
   }
 
   isCodeo() {

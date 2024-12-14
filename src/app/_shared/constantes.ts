@@ -23,7 +23,7 @@ export const EXP_REGULAR_NUMERO_CAMPO = /^([0-9])*$/;
 export const EXP_ESPACIOS = /\s+/g;
 export const EXP_ESPACIOS_TEXTO_INI_FIN = /^\s+|\s+$/g;
 export const EXP_REGULAR_ALFANUMERICO = '^[a-zA-ZÀ-ÿ-Z0-9_ ,.]*$';
-export const EXP_REGULAR_MAYUSCULAS_NOMBRE = '^[A-ZÀ-Ÿ]+$';
+export const EXP_REGULAR_MAYUSCULAS_NOMBRE = '^[A-ZÀ-Ÿ ]+$';
 export const EXP_REGULAR_FECHA_YYYMMDD = '([0-9]{4,})([-])([0-9]{2,})([-])([0-9]{2,})';
 export const EXP_REGULAR_CARACTERES_ESPECIALES = '/[.*+\-?^${}()|[\]\\]/g';
 
