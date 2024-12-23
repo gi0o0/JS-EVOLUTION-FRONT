@@ -82,6 +82,7 @@ export class Step1Component implements OnInit {
   idPaisJob: number;
   maxDate: Date;
   isCodeudor: boolean;
+  editMail: boolean = false;
 
   constructor(private parameterService: ParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,
     private foclaasoService: FoclaasoService, private fotipcreService: FotipcreService, private cladocService: CladocService
@@ -135,6 +136,9 @@ export class Step1Component implements OnInit {
       this.clientDepoUpdate(Number(this.step.paisDirTrabajo), 'paisDirTrabajo', Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
       this.clientDepoUpdate(Number(this.step.dirPaisTer), 'dirPaisNac', Number(this.step.dirDepTer), 'dirDepNac');
 
+      if (Number(this.step.idStepNow) > 2) {
+        this.editMail = true;  
+      }
     }
 
   }
@@ -163,7 +167,7 @@ export class Step1Component implements OnInit {
       lugarDoc: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(20)]],
       indSolCredito: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
-      feExp_deu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),Validators.maxLength(10)]],
+      feExp_deu: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD), Validators.maxLength(10)]],
       mailTer: ['', [Validators.required, Validators.pattern(EXP_REGULAR_CORREO), Validators.maxLength(60)]],
       dirTerpal: ['', [Validators.required]],
       telTer: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11), Validators.minLength(6)]],
@@ -176,9 +180,9 @@ export class Step1Component implements OnInit {
       dirDepTer: ['', [Validators.required]],
       dirCiuTer: ['', [Validators.required]],
       barrio: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
-      fecIngEmpresa: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),Validators.maxLength(10)]],
-      antiEmpresa: ['', [ Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]],
-      fecCump: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD),,Validators.maxLength(10)]],
+      fecIngEmpresa: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD), Validators.maxLength(10)]],
+      antiEmpresa: ['', [Validators.pattern("^[0-9]*$"), Validators.maxLength(2), Validators.minLength(1)]],
+      fecCump: ['', [Validators.required, Validators.pattern(EXP_REGULAR_FECHA_YYYMMDD), , Validators.maxLength(10)]],
       tipVivienda: ['', [Validators.required]],
       dirTeralt: ['', [Validators.required]],
       barrioTra: ['', [Validators.required, Validators.pattern(EXP_REGULAR_ALFANUMERICO), Validators.maxLength(60)]],
@@ -584,7 +588,7 @@ export class Step1Component implements OnInit {
       } else if ("paisDirTrabajo_codeu" == namePais) {
         this.listDeptosDeuJob = res;
         this.listCitiesDeuJob = [];
-      }else if ("dirPaisNac" == namePais) {
+      } else if ("dirPaisNac" == namePais) {
         this.listDeptosNac = res;
         this.listCitiesNac = [];
       }

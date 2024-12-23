@@ -115,8 +115,10 @@ export class Step5Component implements OnInit {
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.loading = false;
-      this.isLoadFiles = true;
+      this.loading = false;   
+      if(this.listaDocs.length>0){
+        this.isLoadFiles = true;
+      }
     }, error => {
       console.log(error);
       this.loading = false;
