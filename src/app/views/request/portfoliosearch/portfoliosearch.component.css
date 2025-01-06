@@ -11,3 +11,7 @@
 .mat-header-cell:last-child, .mat-cell:last-child {
   border-right: none; /* Elimina el borde derecho de la última columna */
 }
+
+.mat-header-cell, .mat-cell {
+  font-size: 10px;
+}
