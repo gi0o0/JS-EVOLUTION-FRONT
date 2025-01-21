@@ -185,11 +185,11 @@ export class Step3Component implements OnInit {
     this.showForm();
   }
 
-  operarStep4() {
+  operarStep3() {
 
     if (!this.validarErroresCampos()) {
 
-      if (this.isLoadFiles && this.capacidad != "") {
+      if (this.isLoadFiles && this.capacidad != ""  && this.step.numeroRadicacion!=0) {
         this.loading = true;
         this.step.idSubStep = '2'
         this.wfService.createStep(this.step).subscribe(data => {
