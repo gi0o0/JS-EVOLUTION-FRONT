@@ -79,7 +79,7 @@ export class DocsComponent implements OnInit {
       this.o.request = "0";
 
     this.o.idDoc = "0";
-    this.service.listDocsByIds(this.o.user, this.o.request, this.o.idDoc).subscribe(async (response: DTODoc[]) => {
+    this.service.listDocsByIds(this.o.user, this.o.request, this.o.idDoc,"0").subscribe(async (response: DTODoc[]) => {
       this.listaDocs = response;
       this.dataSource = new MatTableDataSource(this.listaDocs);
       this.dataSource.paginator = this.paginator;
@@ -101,7 +101,7 @@ export class DocsComponent implements OnInit {
     this.loading = true;
     this.showFile = false;
 
-    this.service.listDocsByIds(o.user, o.request,o.idDoc).subscribe(async (response: DTODoc[]) => {
+    this.service.listDocsByIds(o.user, o.request,o.idDoc,o.name).subscribe(async (response: DTODoc[]) => {
       this.loading = false;
       this.pdfSrc = this._base64ToArrayBuffer(response[0].encode);
       this.showFile = true;

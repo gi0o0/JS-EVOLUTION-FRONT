@@ -14,8 +14,8 @@ export class DocsService {
     this.url = environment.url_host + '/filesusers';
   }
 
-  listDocsByIds = (user: string, idRequest: string, idDoc: string) => {
-    return this.http.get<DTODoc[]>(`${this.url}/${user}/application/${idRequest}/doc/${idDoc}`, { withCredentials: true });
+  listDocsByIds = (user: string, idRequest: string, idDoc: string, name: string) => {
+    return this.http.get<DTODoc[]>(`${this.url}/${user}/application/${idRequest}/doc/${idDoc}/name/${name}`, { withCredentials: true });
   }
 
   listDocsByIdAndStep = (idRad: string, step: string) => {
