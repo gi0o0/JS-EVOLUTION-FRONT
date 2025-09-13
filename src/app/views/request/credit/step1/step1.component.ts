@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DTOWfParameter } from '../../../../_model/DTOWfParameter';
 import { DTOParameter } from '../../../../_model/DTOParameter';
-
+import { BuscarSolicitudDialogComponent } from
+  '../../../../_components/dialog-search-request/dialog-search-request.component';
 import { ParameterService } from '../../../../_services/parameter/parameter.service';
 import { FoclaasoService } from '../../../../_services/foclaaso/foclaaso.service';
 import { FotipcreService } from '../../../../_services/fotipcre/fotipcre.service';
@@ -137,7 +138,7 @@ export class Step1Component implements OnInit {
       this.clientDepoUpdate(Number(this.step.dirPaisTer), 'dirPaisNac', Number(this.step.dirDepTer), 'dirDepNac');
 
       if (Number(this.step.idStepNow) > 2) {
-        this.editMail = true;  
+        this.editMail = true;
       }
     }
 
@@ -506,8 +507,68 @@ export class Step1Component implements OnInit {
       this.loading = false;
       this.showMessage(error.error.mensaje);
     });
+  }
 
+  getUserModal(nitter: string, tipoUser: String) {
 
+    /*  if (!nitter || nitter.trim() === '' || nitter.trim() === '0') {
+        this.showMessage("Se debe diligenciar el campo Documento de Identidad");
+        return;
+      }*/
+
+    const dialogRef = this.dialog.open(BuscarSolicitudDialogComponent, {
+      width: '400px',
+      height: 'auto',
+      maxHeight: '250px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((idSolicitud: string | undefined) => {
+      if (idSolicitud) {
+
+        const idNum = Number(idSolicitud);
+        this.wfService.listByNumRadAndMov(idNum, '1').subscribe(async (res: DTOWfSteps) => {
+
+          /*  if (nitter != res.nitter) {
+              this.showMessage("El documento no corresponde al deudor de la solicitud");
+              return;
+            }*/
+
+          if (null == res.numeroRadicacion ) {
+            this.showMessage("No se encontró solicitud");
+            return;
+          }
+
+          if (tipoUser == "CODEO") {
+            this.step.codeu = res.codeu;
+            this.clientDepoUpdate(this.step.codeu.paisCodigo, 'paisCodigo_codeu', this.step.codeu.codiDept, 'codiDept_codeu');
+            this.clientDepoUpdate(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu', Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
+          } else {
+            const personalFields = [
+              'doctip', 'codTer', 'nitter', 'nomTer', 'priApellido', 'segApellido', 'lugarDoc', 'feExp',
+              'mailTer', 'dirTerpal', 'telTer', 'telTer1', 'telTer2', 'paisCodigo', 'codiDept', 'codiCiud',
+              'dirPaisTer', 'dirDepTer', 'dirCiuTer', 'barrio', 'fecIngEmpresa', 'antiEmpresa', 'fecCump',
+              'sexo', 'tipVivienda', 'dirTeralt', 'barrioTra', 'paisDirTrabajo', 'deptDirTrabajo', 'ciuDirTrabajo',
+              'faxTer', 'codProfe', 'indContrato', 'paramText', 'idConyuge', 'nomCony', 'emailConyuge', 'celConyuge',
+              'refNombre1', 'refParen1', 'refMail1', 'refCel1', 'refNombre2', 'refParen2', 'refMail2', 'refCel2',
+              'refNombre3', 'refParen3', 'refMail3', 'refCel3', 'cargoWf', 'entBan', 'tipCta', 'numCta',
+              'bienNombre', 'bienValor', 'bienAfecta', 'bienHipoteca', 'bienHipAFavor',
+              'vehMarca', 'vehClase', 'vehModelo', 'vehPlaca', 'vehPignorado', 'vehPigAFavor', 'vehValVomercial'
+            ];
+
+            personalFields.forEach(field => {
+              (this.step as any)[field] = (res as any)[field];
+            });
+            this.clientDepoUpdate(this.step.paisCodigo, 'paisCodigo', this.step.codiDept, 'codiDept');
+            this.clientDepoUpdate(Number(this.step.paisDirTrabajo), 'paisDirTrabajo', Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
+            this.clientDepoUpdate(Number(this.step.dirPaisTer), 'dirPaisNac', Number(this.step.dirDepTer), 'dirDepNac');
+          }
+        }, error => {
+          this.loading = false;
+          this.showMessage(error.error.mensaje);
+        });
+      }
+    });
   }
 
   onCountriesChange(event, name: string) {
@@ -696,8 +757,9 @@ export class Step1Component implements OnInit {
           this.removeFormularioWithCodeo();
         }
       }
+      console.log("llegoooooooooooooooooo");//QUITARRRRRR
+      this.isCodeo();
     }
-
   }
 
   isCodeo() {

@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DTOParameter } from '../../_model/DTOParameter';
 import { DTOWfDocs } from '../../_model/DTOWfDocs';
@@ -7,9 +6,9 @@ import { DTOWfStepParameterDoc } from '../../_model/DTOWfStepParameterDoc';
 import { DTOWfSteps } from '../../_model/DTOWfSteps';
 import { ParameterService } from '../../_services/parameter/parameter.service';
 import { WfService } from '../../_services/wf/wf.service';
-
 import { WfParameterService } from '../../_services/wfparameter/wfparameter.service';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,9 +31,19 @@ export class LoadFilesComponent implements OnInit {
   docs: DTOWfStepParameterDoc[] = [];
   indObligatorio: boolean;
   documentosObligatorios: String[] = [];
+  currentPreviewName: string | null = null;
 
-  constructor(private dialogRef: MatDialogRef<LoadFilesComponent>, @Inject(MAT_DIALOG_DATA) public data: DTOWfSteps,
-    public dialog: MatDialog, private wfParamService: WfParameterService, private parameterService: ParameterService, private wfService: WfService) {
+  previewSrc: SafeResourceUrl | null = null;
+
+  constructor(
+    private dialogRef: MatDialogRef<LoadFilesComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DTOWfSteps,
+    public dialog: MatDialog,
+    private wfParamService: WfParameterService,
+    private parameterService: ParameterService,
+    private wfService: WfService,
+    private sanitizer: DomSanitizer
+  ) {
     this.step = data;
   }
 
@@ -44,31 +53,56 @@ export class LoadFilesComponent implements OnInit {
   }
 
   onFileChanged(event: any, doc: DTOWfStepParameterDoc) {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
 
-    if (event.target.files.length > this.maxFiles) {
+    if (files.length > this.maxFiles) {
       this.showMessage("El máximo de archivos permitidos es " + this.maxFiles);
-    } else {
-      for (var i = 0; i <= event.target.files.length - 1; i++) {
-        var selectedFile = event.target.files[i];
-        let name = doc.nomDocumento.replaceAll(" ", "_")
-
-        if (selectedFile.size > this.sizeFiles) {
-          this.showMessage("El tamaño máximo por archivo permitido es " + this.sizeFiles);
-          this.init();
-          break;
-        }
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onload = () => {
-          const d = new DTOWfDocs();
-          d.idDocumento = doc.idDocumento
-          d.value = reader.result + ""
-          d.nomDocumento = name
-          this.documentos.push(d);
-        };
-
-      }
+      return;
     }
+
+    const selectedFile = files[0];
+    if (selectedFile.size > this.sizeFiles) {
+      this.showMessage("El tamaño máximo por archivo permitido es " + this.sizeFiles);
+      this.init();
+      return;
+    }
+
+    const name = doc.nomDocumento.replaceAll(" ", "_");
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = () => {
+      const d = new DTOWfDocs();
+      d.idDocumento = doc.idDocumento;
+      d.value = reader.result + "";
+      d.nomDocumento = name;
+      this.documentos.push(d);
+    };
+  }
+
+  hasDocumento(doc: DTOWfStepParameterDoc): boolean {
+    return this.documentos && this.documentos.some(d => d.idDocumento == doc.idDocumento);
+  }
+
+  previewFile(doc: DTOWfStepParameterDoc) {
+    const matches = this.documentos.filter(d => d.idDocumento == doc.idDocumento);
+    if (!matches || matches.length === 0) {
+      this.showMessage("No hay archivo para previsualizar");
+      return;
+    }
+
+    const latest = matches[matches.length - 1];
+    this.currentPreviewName = latest.nomDocumento;
+    const base64 = latest.value.split(',')[1];
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    this.previewSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   removeSelectedFile(index) {
@@ -76,7 +110,6 @@ export class LoadFilesComponent implements OnInit {
   }
 
   send() {
-
     if (this.documentos.length > 0) {
       this.documentosObligatorios = [];
       this.docs.forEach(o => {
@@ -128,7 +161,6 @@ export class LoadFilesComponent implements OnInit {
       });
       this.loading = false;
     }, error => {
-      console.log(error);
       this.loading = false;
     });
   }
@@ -138,7 +170,6 @@ export class LoadFilesComponent implements OnInit {
       this.wfParamService.listStepDocsByIds(Number(this.step.idWf), Number(this.step.nextStep)).subscribe(async (res: DTOWfStepParameterDoc[]) => {
         this.docs = res;
       }, error => {
-        console.log(error);
         this.loading = false;
       });
     } else {

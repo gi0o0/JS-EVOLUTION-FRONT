@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { AddressComponent } from '../../_components/address/address.component';
 import { WalletComponent } from '../../_components/wallet/wallet.component';
+import { BuscarSolicitudDialogComponent } from '../../_components/dialog-search-request/dialog-search-request.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -90,6 +91,7 @@ import { StepStateComponent } from '../../_components/step-state/step-state.comp
     DialogMessageComponent,
     ProgressSpinnerComponent,
     LoadFilesComponent,
+    BuscarSolicitudDialogComponent,
 
   ], exports: [
     AddressComponent,
@@ -99,6 +101,7 @@ import { StepStateComponent } from '../../_components/step-state/step-state.comp
     DialogMessageComponent,
     ProgressSpinnerComponent,
     LoadFilesComponent,
+    BuscarSolicitudDialogComponent,
   ]
 
 })

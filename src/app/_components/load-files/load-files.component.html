@@ -2,14 +2,31 @@
   <app-progress-spinner></app-progress-spinner>
 </div>
 
-<div *ngFor="let doc of docs; let index = index" class="item" >
-  <h3>{{ doc.nomDocumento }} : {{doc.indObligatorio == 'S' ? 'OBLIGATORIO' : '' }}</h3>
-  <input class="btn btn-primary px-4" #attachments type="file" (change)="onFileChanged($event,doc)" #fileInput accept="{{ acceptFiles }}" required="true"/>
-<br><br>
+<div *ngFor="let doc of docs; let index = index" class="item">
+  <h3>
+    {{ doc.nomDocumento }} :
+    {{ doc.indObligatorio == 'S' ? 'OBLIGATORIO' : '' }}
+  </h3>
+
+  <input class="btn btn-primary px-4" type="file" (change)="onFileChanged($event, doc)" accept="{{ acceptFiles }}" />
+
+  <button type="button" class="btn btn-secondary px-2" style="margin-left: 10px" (click)="previewFile(doc)"
+    [disabled]="!hasDocumento(doc)">
+    <mat-icon>visibility</mat-icon>
+  </button>
+
+  <br /><br />
 </div>
 
-<br><br>
-<button type="button" name="ingresar" class="btn btn-primary px-4"  (click)="send()">
-  <i class="fa fa-sync fa-spin" ></i>&nbsp;
+<br /><br />
+<button type="button" name="ingresar" class="btn btn-primary px-4" (click)="send()">
+  <i class="fa fa-sync fa-spin"></i>&nbsp;
   <span>Enviar Archivos</span>
 </button>
+
+<div *ngIf="previewSrc" style="margin-top: 20px">
+  <h3 style="font-weight: bold; font-size: 18px; color: #333;">
+    Vista previa: {{ currentPreviewName }}
+  </h3>
+  <iframe [src]="previewSrc" type="application/pdf" style="width:100%; height:500px;"></iframe>
+</div>

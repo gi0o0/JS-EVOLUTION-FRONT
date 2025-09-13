@@ -1,0 +1,12 @@
+::ng-deep .mat-snack-bar-container {
+    margin-top: 120% !important;
+}
+
+:host {
+  display: block;
+  max-height: none;
+}
+
+.mat-dialog-container {
+  overflow: hidden !important;
+}

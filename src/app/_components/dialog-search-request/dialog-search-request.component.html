@@ -1,0 +1,35 @@
+<div *ngIf="loading">
+  <app-progress-spinner></app-progress-spinner>
+</div>
+
+<div class="card">
+  <div class="card-body">
+
+    <h2>Buscar Solicitud</h2>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>ID de Solicitud</mat-label>
+      <input 
+        matInput 
+        [(ngModel)]="idSolicitud" 
+        placeholder="Ingrese el ID" 
+        type="number" 
+        min="1"
+        (keydown)="preventInvalidKeys($event)">
+      <mat-error *ngIf="errorMsg">{{ errorMsg }}</mat-error>
+    </mat-form-field>
+
+    <div class="mt-3 d-flex justify-content-end">
+      <button mat-stroked-button color="warn" class="me-2" (click)="onCancelar()">Cancelar</button>
+      <button 
+        mat-flat-button 
+        color="primary" 
+        class="px-4" 
+        (click)="onBuscar()">
+        <mat-icon>search</mat-icon>
+        Buscar
+      </button>
+    </div>
+
+  </div>
+</div>

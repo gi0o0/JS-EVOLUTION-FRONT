@@ -13,11 +13,12 @@
     <mat-radio-button value="S">Si</mat-radio-button>
     <mat-radio-button value="N">No</mat-radio-button>
   </mat-radio-group>
-  <br>  <br>
+  <br> <br>
 
   <mat-form-field appearance="fill">
     <mat-label>Entidad</mat-label>
-    <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly"   (selectionChange)="onEntitieChange($event)">
+    <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly"
+      (selectionChange)="onEntitieChange($event)">
       <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
     </mat-select>
     <mat-error *ngIf="hasError('entitie', 'required')">Entidad es requerido.</mat-error>
@@ -96,6 +97,10 @@
       <button mat-button (click)="getUser(step.nitter,'DEUDOR')" type='button' mat-flat-button class="btn btn-info">
         <mat-icon>search</mat-icon>Buscar
       </button>
+      <button mat-button (click)="getUserModal(step.nitter,'DEUDOR')" type='button' mat-flat-button
+        class="btn btn-info">
+        <mat-icon>search</mat-icon>Buscar por # Solicitud
+      </button>
     </div>
   </mat-form-field>
 
@@ -132,7 +137,8 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput placeholder="Fecha expedición del documento" [(ngModel)]="step.feExp" formControlName="feExp_deu" [readonly]="step.readonly">
+    <input matInput placeholder="Fecha expedición del documento" [(ngModel)]="step.feExp" formControlName="feExp_deu"
+      [readonly]="step.readonly">
     <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('feExp_deu', 'required')">Fecha expedición del documento es requerido.</mat-error>
     <mat-error *ngIf="hasError('feExp_deu', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
@@ -163,16 +169,15 @@
     </mat-select>
     <mat-error *ngIf="hasError('dirCiuTer', 'required')">Ciudade Nacimiento es requerido.</mat-error>
   </mat-form-field>
-  
+
   <br> <br>
   <mat-label> Sexo</mat-label>
-  <mat-radio-group aria-label="sexo" [(ngModel)]="step.sexo" formControlName="sexo"
-    [disabled]="step.readonly">
+  <mat-radio-group aria-label="sexo" [(ngModel)]="step.sexo" formControlName="sexo" [disabled]="step.readonly">
     <mat-radio-button value="1">Másculino</mat-radio-button>
     <mat-radio-button value="2">Femenino</mat-radio-button>
     <mat-radio-button value="3">Otro</mat-radio-button>
   </mat-radio-group>
-  <br>  <br>
+  <br> <br>
 
   <mat-form-field>
     <input matInput type="email" placeholder="Email" [(ngModel)]="step.mailTer" formControlName="mailTer"
@@ -264,7 +269,8 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa" formControlName="fecIngEmpresa" [readonly]="step.readonly">
+    <input matInput placeholder="Fecha Ingreso Empresa" [(ngModel)]="step.fecIngEmpresa" formControlName="fecIngEmpresa"
+      [readonly]="step.readonly">
     <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('fecIngEmpresa', 'required')">Fecha Ingreso Empresa es requerido.</mat-error>
     <mat-error *ngIf="hasError('fecIngEmpresa', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
@@ -283,8 +289,9 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <input matInput [max]="maxDate" placeholder="Fecha de Nacimiento" [(ngModel)]="step.fecCump" formControlName="fecCump" [readonly]="step.readonly">
-      <mat-hint>YYYY-MM-DD</mat-hint>
+    <input matInput [max]="maxDate" placeholder="Fecha de Nacimiento" [(ngModel)]="step.fecCump"
+      formControlName="fecCump" [readonly]="step.readonly">
+    <mat-hint>YYYY-MM-DD</mat-hint>
     <mat-error *ngIf="hasError('fecCump', 'required')">Fecha de Nacimiento es requerido.</mat-error>
     <mat-error *ngIf="hasError('fecCump', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
   </mat-form-field>
@@ -705,6 +712,10 @@
           class="btn btn-info">
           <mat-icon>search</mat-icon>Buscar
         </button>
+        <button mat-button (click)="getUserModal(step.nitter,'CODEO')" type='button' mat-flat-button
+          class="btn btn-info">
+          <mat-icon>search</mat-icon>Buscar por # Solicitud
+        </button>
       </div>
     </mat-form-field>
 
@@ -775,12 +786,13 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <input matInput placeholder="Fecha expedición del documento"[(ngModel)]="step.codeu.feExp" formControlName="feExp" [readonly]="step.readonly">
-        <mat-hint>YYYY-MM-DD</mat-hint>
+      <input matInput placeholder="Fecha expedición del documento" [(ngModel)]="step.codeu.feExp"
+        formControlName="feExp" [readonly]="step.readonly">
+      <mat-hint>YYYY-MM-DD</mat-hint>
       <mat-error *ngIf="hasError('feExp', 'required')">Fecha expedición del documento es requerido.</mat-error>
       <mat-error *ngIf="hasError('feExp', 'pattern')">Error Formato YYYY-MM-DD</mat-error>
     </mat-form-field>
-    
+
 
 
     <mat-form-field appearance="fill">
