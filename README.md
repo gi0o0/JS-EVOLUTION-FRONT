@@ -6,6 +6,8 @@
 [![NPM downloads][npm-coreui-download]][npm-coreui]  
 ![angular](https://img.shields.io/badge/angular-^11.0.9-lightgrey.svg?style=flat-square&logo=angular)  
 
+npm start
+
 [npm-coreui-angular]: https://www.npmjs.com/package/@coreui/angular  
 [npm-coreui-angular-badge]: https://img.shields.io/npm/v/@coreui/angular.png?style=flat-square  
 [npm-coreui-angular-download]: https://img.shields.io/npm/dm/@coreui/angular.svg?style=flat-square  
@@ -67,11 +69,11 @@ CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
 
 ## CoreUI Pro
 
-* í ½í²ª  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
-* í ½í²ª  [CoreUI Pro Bootstrap Admin Template (Ajax)](https://coreui.io/pro/)
-* í ½í²ª  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
-* í ½í²ª  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
-* í ½í²ª  [CoreUI Pro Vue Admin Template](https://coreui.io/pro/vue)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [CoreUI Pro Bootstrap Admin Template](https://coreui.io/pro/)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [CoreUI Pro Bootstrap Admin Template (Ajax)](https://coreui.io/pro/)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [CoreUI Pro Angular Admin Template](https://coreui.io/pro/angular)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [CoreUI Pro React Admin Template](https://coreui.io/pro/react)
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [CoreUI Pro Vue Admin Template](https://coreui.io/pro/vue)
 
 ## Admin Templates built on top of CoreUI Pro
 

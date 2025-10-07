@@ -511,11 +511,6 @@ export class Step1Component implements OnInit {
 
   getUserModal(nitter: string, tipoUser: String) {
 
-    /*  if (!nitter || nitter.trim() === '' || nitter.trim() === '0') {
-        this.showMessage("Se debe diligenciar el campo Documento de Identidad");
-        return;
-      }*/
-
     const dialogRef = this.dialog.open(BuscarSolicitudDialogComponent, {
       width: '400px',
       height: 'auto',
@@ -529,39 +524,63 @@ export class Step1Component implements OnInit {
         const idNum = Number(idSolicitud);
         this.wfService.listByNumRadAndMov(idNum, '1').subscribe(async (res: DTOWfSteps) => {
 
-          /*  if (nitter != res.nitter) {
-              this.showMessage("El documento no corresponde al deudor de la solicitud");
-              return;
-            }*/
-
           if (null == res.numeroRadicacion ) {
             this.showMessage("No se encontró solicitud");
             return;
           }
 
-          if (tipoUser == "CODEO") {
-            this.step.codeu = res.codeu;
-            this.clientDepoUpdate(this.step.codeu.paisCodigo, 'paisCodigo_codeu', this.step.codeu.codiDept, 'codiDept_codeu');
-            this.clientDepoUpdate(Number(this.step.codeu.paisDirTrabajo), 'paisDirTrabajo_codeu', Number(this.step.codeu.deptDirTrabajo), 'deptDirTrabajo_codeu');
-          } else {
-            const personalFields = [
-              'doctip', 'codTer', 'nitter', 'nomTer', 'priApellido', 'segApellido', 'lugarDoc', 'feExp',
-              'mailTer', 'dirTerpal', 'telTer', 'telTer1', 'telTer2', 'paisCodigo', 'codiDept', 'codiCiud',
-              'dirPaisTer', 'dirDepTer', 'dirCiuTer', 'barrio', 'fecIngEmpresa', 'antiEmpresa', 'fecCump',
-              'sexo', 'tipVivienda', 'dirTeralt', 'barrioTra', 'paisDirTrabajo', 'deptDirTrabajo', 'ciuDirTrabajo',
-              'faxTer', 'codProfe', 'indContrato', 'paramText', 'idConyuge', 'nomCony', 'emailConyuge', 'celConyuge',
-              'refNombre1', 'refParen1', 'refMail1', 'refCel1', 'refNombre2', 'refParen2', 'refMail2', 'refCel2',
-              'refNombre3', 'refParen3', 'refMail3', 'refCel3', 'cargoWf', 'entBan', 'tipCta', 'numCta',
-              'bienNombre', 'bienValor', 'bienAfecta', 'bienHipoteca', 'bienHipAFavor',
-              'vehMarca', 'vehClase', 'vehModelo', 'vehPlaca', 'vehPignorado', 'vehPigAFavor', 'vehValVomercial'
+           if (tipoUser === 'CODEO') {
+
+            if (!res.codeu || !res.codeu.codTer) {
+              this.showMessage("No se encontró codeudor en la solicitud");
+              return;
+            }
+
+            const codeudorToDeudorMap = [
+              'doctip', 'codTer', 'nitter', 'nomTer', 'priApellido', 'segApellido',
+              'lugarDoc', 'feExp', 'mailTer', 'dirTerpal', 'telTer', 'telTer1', 'telTer2',
+              'paisCodigo', 'codiDept', 'codiCiud', 'dirPaisTer', 'dirDepTer', 'dirCiuTer',
+              'barrio', 'fecIngEmpresa', 'antiEmpresa', 'fecCump', 'sexo', 'tipVivienda',
+              'dirTeralt', 'barrioTra', 'paisDirTrabajo', 'deptDirTrabajo', 'ciuDirTrabajo',
+              'faxTer', 'codProfe', 'indContrato', 'paramText', 'idConyuge', 'nomCony',
+              'emailConyuge', 'celConyuge', 'refNombre1', 'refParen1', 'refMail1', 'refCel1',
+              'refNombre2', 'refParen2', 'refMail2', 'refCel2', 'refNombre3', 'refParen3',
+              'refMail3', 'refCel3', 'cargoWf', 'entBan', 'tipCta', 'numCta', 'bienNombre',
+              'bienValor', 'bienAfecta', 'bienHipoteca', 'bienHipAFavor', 'vehMarca',
+              'vehClase', 'vehModelo', 'vehPlaca', 'vehPignorado', 'vehPigAFavor', 'vehValVomercial'
             ];
 
-            personalFields.forEach(field => {
-              (this.step as any)[field] = (res as any)[field];
+            codeudorToDeudorMap.forEach(field => {
+              if ((res.codeu as any)[field] != null && (res.codeu as any)[field] !== '') {
+                (this.step as any)[field] = (res.codeu as any)[field];
+              }
             });
-            this.clientDepoUpdate(this.step.paisCodigo, 'paisCodigo', this.step.codiDept, 'codiDept');
-            this.clientDepoUpdate(Number(this.step.paisDirTrabajo), 'paisDirTrabajo', Number(this.step.deptDirTrabajo), 'deptDirTrabajo');
-            this.clientDepoUpdate(Number(this.step.dirPaisTer), 'dirPaisNac', Number(this.step.dirDepTer), 'dirDepNac');
+
+            this.clientDepoUpdate(res.codeu.paisCodigo, 'paisCodigo', res.codeu.codiDept, 'codiDept');
+            this.clientDepoUpdate(Number(res.codeu.paisDirTrabajo), 'paisDirTrabajo', Number(res.codeu.deptDirTrabajo), 'deptDirTrabajo');
+          } else {
+             const deudorToCodeudorMap = [
+              'doctip', 'codTer', 'nitter', 'nomTer', 'priApellido', 'segApellido',
+              'lugarDoc', 'feExp', 'mailTer', 'dirTerpal', 'telTer', 'telTer1', 'telTer2',
+              'paisCodigo', 'codiDept', 'codiCiud', 'dirPaisTer', 'dirDepTer', 'dirCiuTer',
+              'barrio', 'fecIngEmpresa', 'antiEmpresa', 'fecCump', 'sexo', 'tipVivienda',
+              'dirTeralt', 'barrioTra', 'paisDirTrabajo', 'deptDirTrabajo', 'ciuDirTrabajo',
+              'faxTer', 'codProfe', 'indContrato', 'paramText', 'idConyuge', 'nomCony',
+              'emailConyuge', 'celConyuge', 'refNombre1', 'refParen1', 'refMail1', 'refCel1',
+              'refNombre2', 'refParen2', 'refMail2', 'refCel2', 'refNombre3', 'refParen3',
+              'refMail3', 'refCel3', 'cargoWf', 'entBan', 'tipCta', 'numCta', 'bienNombre',
+              'bienValor', 'bienAfecta', 'bienHipoteca', 'bienHipAFavor', 'vehMarca',
+              'vehClase', 'vehModelo', 'vehPlaca', 'vehPignorado', 'vehPigAFavor', 'vehValVomercial'
+            ];
+             deudorToCodeudorMap.forEach(field => {
+                if ((res as any)[field] != null && (res as any)[field] !== '') {
+                  (this.step.codeu as any)[field] = (res as any)[field];
+                }
+              });
+
+              this.clientDepoUpdate(res.paisCodigo, 'paisCodigo_codeu', res.codiDept, 'codiDept_codeu');
+              this.clientDepoUpdate(Number(res.paisDirTrabajo), 'paisDirTrabajo_codeu', Number(res.deptDirTrabajo), 'deptDirTrabajo_codeu');            
+           
           }
         }, error => {
           this.loading = false;
@@ -637,7 +656,7 @@ export class Step1Component implements OnInit {
     this.loading = true;
     this.deptosService.listAll(idPais).subscribe(async (res: DTODeptos[]) => {
       this.loading = false;
-      if ("paisCodigo" == namePais) {
+      if ("paisCodigo" == namePais) {        
         this.listDeptos = res;
         this.listCities = [];
       } else if ("paisDirTrabajo" == namePais) {
@@ -757,8 +776,6 @@ export class Step1Component implements OnInit {
           this.removeFormularioWithCodeo();
         }
       }
-      console.log("llegoooooooooooooooooo");//QUITARRRRRR
-      this.isCodeo();
     }
   }
 
