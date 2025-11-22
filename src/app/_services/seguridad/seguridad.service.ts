@@ -28,7 +28,7 @@ export class SeguridadService {
   login(login: Login) {
     const requestToken = {
       login: login.numeroDocumento,
-      password: login.claveVirtual
+      password: btoa(login.claveVirtual)
     };
 
     return this.http.post(`${this.baseUrl}/auth/signin`, requestToken, { withCredentials: true });
