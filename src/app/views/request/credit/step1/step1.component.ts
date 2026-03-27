@@ -84,13 +84,13 @@ export class Step1Component implements OnInit {
   maxDate: Date;
   isCodeudor: boolean;
   editMail: boolean = false;
+  nitBusqueda: string = '';
 
   constructor(private parameterService: ParameterService, private formBuilder: FormBuilder, public dialog: MatDialog,
     private foclaasoService: FoclaasoService, private fotipcreService: FotipcreService, private cladocService: CladocService
     , private countriesService: CountriesService, private deptosService: DeptosService, private citiesService: CitiesService
     , private baentidadService: BaentidadService, private basTTipCtaService: BasTTipCtaService, private wfService: WfService, private userService: UserService) {
     this.o = new DTOWfParameter();
-
   }
 
   ngOnInit() {
@@ -426,6 +426,30 @@ export class Step1Component implements OnInit {
       this.loading = false;
     });
   }
+
+getEntitiesByNit() {
+  if (!this.nitBusqueda || this.nitBusqueda.trim() === '') {
+    this.showMessage('Ingrese un NIT');
+    return;
+  }
+  const nit = Number(this.nitBusqueda.trim());
+  if (isNaN(nit)) {
+    this.showMessage('El NIT debe ser numérico');
+    return;
+  }
+  this.loading = true;
+  this.foclaasoService.foclaasoByNit(nit).subscribe((data: any) => {
+    this.loading = false;
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      this.showMessage('No se encontraron entidades con el NIT ingresado');
+      return;
+    }
+    this.listFoclaaso = Array.isArray(data) ? data : [data];
+  }, error => {
+    this.loading = false;
+    this.showMessage('Error buscando entidad: ' + (error.error?.mensaje || 'Error desconocido'));
+  });
+}
 
   getFotipcre() {
     this.fotipcreService.listAll().subscribe(async (res: DTOFotipcre[]) => {

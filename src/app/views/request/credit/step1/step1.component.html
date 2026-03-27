@@ -15,14 +15,31 @@
   </mat-radio-group>
   <br> <br>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Entidad</mat-label>
-    <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly"
-      (selectionChange)="onEntitieChange($event)">
-      <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="hasError('entitie', 'required')">Entidad es requerido.</mat-error>
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Entidad</mat-label>
+  <mat-select name="entitie" [(ngModel)]="step.entitie" formControlName="entitie" [disabled]="step.readonly"
+    (selectionChange)="onEntitieChange($event)">
+    <mat-option *ngFor="let s of listFoclaaso" [value]="s.id">{{ s.name }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="hasError('entitie', 'required')">Entidad es requerido.</mat-error>
+</mat-form-field>
+
+
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+  <mat-form-field>
+    <input matInput placeholder="NIT Entidad" [(ngModel)]="nitBusqueda" [ngModelOptions]="{standalone: true}"
+      [readonly]="step.readonly">
+    <mat-hint align="end">Ingrese NIT para filtrar</mat-hint>
   </mat-form-field>
+  <button mat-button (click)="getEntitiesByNit()" type="button" mat-flat-button class="btn btn-info"
+    [disabled]="step.readonly || !nitBusqueda">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+
+
 
   <mat-form-field appearance="fill">
     <mat-label>Tipo de Solicitud de Crédito</mat-label>

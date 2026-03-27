@@ -31,6 +31,7 @@ export class FoclaasoService {
     return this.http.get<DTOFoclaaso>(`${this.url}/${codTer}/tercero`, { withCredentials: true });
   }
 
-
-
+  foclaasoByNit = (nit: number) => {
+    return this.http.get<DTOFoclaaso>(`${this.url}/${nit}/nit`, { withCredentials: true });
+  }
 }
